@@ -1,0 +1,271 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600;700&display=swap');
+* {
+    font-family: 'Raleway', sans-serif;
+    text-align: center;
+}
+
+body {
+    background-color: #FFF9ED;
+}
+
+.header {
+    background: linear-gradient(180deg, #FFBFC3 15%, #FFCDD0 45%, #AEE3E2 65%, #afdbf5d2 90%, #FFF9ED 100%);
+}
+
+.logo {
+    height: 100px;
+    padding: 10px;
+    width: auto;
+    margin-left: 15px;
+}
+
+header {
+    width: 100%;
+    height: 15%;
+}
+
+.navegacion {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.cs {
+    background-color: #E96161;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin: 10px;
+    border: 1px solid #E96161;
+    font-size: 1.35rem;
+    transition: all .15s linear
+}
+
+.cs:hover {
+    background-color: #e98888;
+    border: 1px solid #e98888;
+}
+
+.menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+}
+
+article {
+    font-size: 50px;
+}
+
+.chart {
+    width: 90%;
+    margin: auto;
+}
+
+.flex {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    text-align: center;
+}
+
+.bar {
+    width: 100%;
+    margin: auto;
+    min-width: 300px;
+    max-width: 600px;
+}
+
+.pie {
+    width: 100%;
+    min-width: 300px;
+    max-width: 600px;
+    margin: auto;
+}
+
+@media (max-width: 619px) {
+    .navegacion {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        text-align: center;
+        gap: 20px;
+    }
+    article {
+        font-size: 30px;
+        font-weight: 700;
+    }
+    .logo {
+        width: 250px;
+        height: auto;
+        margin: auto;
+        padding: 15px;
+    }
+    .menu_content {
+        font-size: 1rem;
+    }
+    .cs {
+        margin: 10px auto;
+        border: 1px solid #E96161;
+        font-size: 1.35rem;
+        transition: all .15s linear
+    }
+}
+
+.texto {
+    background: white;
+    width: 75%;
+    border: 1px solid #6666669f;
+    padding: 15px 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    outline: none;
+    transition: border .15s linear;
+}
+
+.texto:focus {
+    border: 3px solid rgb(170, 170, 170);
+}
+
+.submit {
+    background-color: #AAFACE;
+    width: 60%;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #AAFACE;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.submit {
+    margin-bottom: 20px;
+}
+
+button {
+    align-self: center;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.card {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 1px 2px 8px #0000008a;
+    padding: 1%;
+    width: 95%;
+    max-width: 600px;
+    margin: 30px auto;
+    text-align: center;
+    cursor: default;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.input {
+    background-color: white;
+    padding: 10px;
+    width: 90%;
+    max-width: 400px;
+    margin: 15px auto;
+    border-radius: 5px;
+    border: 1px solid #BCBCBC;
+}
+
+.article {
+    background-color: white;
+    font-size: 16px;
+}
+
+.select {
+    width: 40%;
+    min-width: 250px;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #BCBCBC;
+    border-radius: 5px;
+}
+
+select:hover {
+    cursor: pointer;
+}
+
+.title {
+    margin: 15px;
+}
+
+h1 {
+    text-align: left;
+    padding: 0 15px;
+}
+
+.a {
+    color: #0066FF;
+    text-decoration: none;
+}
+
+.a:visited {
+    color: #0066FF;
+    text-decoration: none;
+}
+
+p {
+    font-size: 20px;
+}
+
+
+/*Estilos del modal*/
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: var(--black);
+    cursor: pointer;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.35s ease-in;
+    background-color: #bebabac9;
+}
+
+.modal {
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.35s ease-in;
+}
+
+.modal.is-visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+hr {
+    width: 40%;
+    margin: 0;
+}
+
+a {
+    display: flex;
+    text-decoration: none;
+    color: black;
+    margin-right: 5%;
+    margin-left: 5%;
+    font-size: 2rem;
+    border-bottom: 5px solid #ffffff00;
+    transition: all .15s linear;
+}
+
+a:hover {
+    border-bottom: 5px solid #1C6EA4;
+}
+
+button {
+    cursor: pointer;
+}

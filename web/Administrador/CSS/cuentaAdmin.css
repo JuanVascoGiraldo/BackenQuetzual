@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600;700&display=swap');
+* {
+    font-family: 'Raleway', sans-serif;
+    text-align: center;
+}
+
+body {
+    background-color: #FFF9ED;
+}
+
+aside {
+    width: 100%;
+    max-width: 320px;
+    background: linear-gradient(180deg, #FFBFC3 0%, #FFCDD0 28.13%, #AEE3E2 64.06%, #AFDBF5 87.5%);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    float: right;
+}
+
+img {
+    width: 90%;
+}
+
+h1 {
+    margin: 0;
+    padding: 50px 0;
+}
+
+.bar {
+    padding: 15px;
+    display: inline-block;
+    width: 90%;
+}
+
+button {
+    background-color: #968DF8;
+    padding: 15px 20px;
+    border-radius: 5px;
+    border: 1px solid #968DF8;
+    cursor: pointer;
+    font-size: 1.35rem;
+    width: 90%;
+    max-width: 300px;
+    margin: 10px;
+    color: white;
+}
+
+.submit {
+    background-color: #AAFACE;
+    padding: 15px 20px;
+    border-radius: 5px;
+    border: 1px solid #AAFACE;
+    cursor: pointer;
+    font-size: 1.35rem;
+    width: 90%;
+    max-width: 300px;
+    margin: 10px;
+    color: rgb(0, 0, 0);
+    height: auto;
+}
+
+.cs {
+    background-color: #E96161;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin: 10px;
+    border: 1px solid #E96161;
+    cursor: default;
+    font-size: 1.35rem;
+    width: 90%;
+    max-width: 300px;
+    transition: all .15s linear;
+}
+
+.cs:hover {
+    background-color: #e98888;
+    border: 1px solid #e98888;
+}
+
+@media (max-width: 1050px) {
+    aside {
+        float: none;
+        width: 100%;
+        min-height: auto;
+        max-width: 100%;
+    }
+    img {
+        width: 50%;
+    }
+}
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.card {
+    display: inline-block;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 1px 2px 8px #0000008a;
+    padding: 1%;
+    width: 95%;
+    max-width: 500px;
+    margin: 30px auto;
+    text-align: center;
+    cursor: default;
+    height: auto;
+    vertical-align: middle;
+}
+
+.input {
+    height: auto;
+    background-color: white;
+    padding: 10px;
+    width: 90%;
+    max-width: 400px;
+    margin: 15px auto;
+    border-radius: 5px;
+    border: 1px solid #BCBCBC;
+}
+
+.select {
+    height: auto;
+    width: 90%;
+    min-width: 250px;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #BCBCBC;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    cursor: pointer;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.35s ease-in;
+    background-color: #bebabac9;
+}
+
+.modal {
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.35s ease-in;
+}
+
+.modal.is-visible {
+    visibility: visible;
+    opacity: 1;
+}

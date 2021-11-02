@@ -1,0 +1,21 @@
+* {
+    font-size: 25px;
+    text-align: center;
+}
+
+button {
+    background-color: rgb(43, 113, 226);
+    border: 1px solid rgb(43, 113, 226);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: rgb(51, 129, 255);
+}
+
+button {
+    cursor: pointer;
+}

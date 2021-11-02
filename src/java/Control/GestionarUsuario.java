@@ -1,0 +1,484 @@
+
+package Control;
+
+import Modelo.MUsuario;
+import Modelo.CCategoria;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+public class GestionarUsuario {
+    private static final String claveusu = "As7cnuLSSGkw85A8SdrDJmqLHsSJAfqd";
+    private static final String clavedoc = "S:sVw>SN?j75zcA#-q{YdZ_5#W{E=X2q";
+    private static final String claveadmin = "72eV)'xL9}:NQ999X(MUFa$MTw]$zz;w";
+    
+    public static boolean CrearUsuario(MUsuario usu){
+        boolean funciono = true;
+        try{
+            JSONObject jo = new JSONObject();
+            jo.put("Nombre", Cifrado.encrypt(usu.getNom_usu()));
+            jo.put("correo", Cifrado.encrypt(usu.getEmail()));
+            jo.put("contra", Cifrado.encrypt(usu.getContra()));
+            jo.put("fecha", usu.getFecha_nac());
+            jo.put("genero",usu.getId_gen());
+            jo.put("Clave", "As7cnuLSSGkw85A8SdrDJmqLHsSJAfqd");
+            String url = "/quetzual/usuario/Registrar/Usuario/Estudiante";
+            JSONObject js = ConexionAPI.peticionPostJSONObject(url, jo);
+            String estatus = js.getString("status");
+            if(estatus.equals("Se ha guardado el Usuario")){
+                funciono = true;
+            }else{
+                funciono = false;
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            funciono = false;
+        }
+        return funciono;
+    }
+    
+    public static boolean CrearDoctor(MUsuario usu,String clave){
+        boolean funciono = true;
+        try{
+            JSONObject jo = new JSONObject();
+            jo.put("Nombre", Cifrado.encrypt(usu.getNom_usu()));
+            jo.put("correo", Cifrado.encrypt(usu.getEmail()));
+            jo.put("contra", Cifrado.encrypt(usu.getContra()));
+            jo.put("fecha", usu.getFecha_nac());
+            jo.put("genero",usu.getId_gen());
+            jo.put("Clave", clave);
+            String url = "/quetzual/usuario/Registrar/Usuario/Doctor";
+            JSONObject js = ConexionAPI.peticionPostJSONObject(url, jo);
+            String estatus = js.getString("status");
+            if(estatus.equals("Se ha guardado el Usuario")){
+                funciono = true;
+            }else{
+                funciono = false;
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            funciono = false;
+        }
+        return funciono;
+    }
+    
+    public static MUsuario iniciarSesion(String email, String pass){
+        MUsuario usu = new MUsuario();
+        try{
+            JSONObject jo = new JSONObject();
+            jo.put("correo", Cifrado.encrypt(email));
+            jo.put("contra", Cifrado.encrypt(pass));
+            String url = "/quetzual/usuario/Iniciar/Sesion/Validar";
+            JSONObject js = ConexionAPI.peticionPostJSONObject(url, jo);
+            String estatus = js.getString("status");
+            if(estatus.equals("Se ha iniciado Sesion")){
+                JSONArray ja = js.getJSONArray("usuario");
+                JSONObject usuario = ja.getJSONObject(0);
+                usu.setId_rol(usuario.getInt("id_rol"));
+                usu.setContra(Cifrado.decrypt(usuario.getString("contra_usu")));
+                usu.setEmail(Cifrado.decrypt(usuario.getString("email_usu")));
+                usu.setFecha_nac(usuario.getString("fecha_nac"));
+                usu.setId_usu(usuario.getInt("id_usu"));
+                usu.setNom_usu(Cifrado.decrypt(usuario.getString("nom_usu")));
+                usu.setId_gen(usuario.getInt("id_gen"));
+            }else{
+                usu.setNom_usu("No se ha encontrado ningun usuario");
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            usu.setNom_usu("No se ha encontrado ningun usuario");
+        }
+        return usu;
+    }
+    
+    public static boolean ModificarUsuario(MUsuario usu){
+        boolean cambio = false;
+        try{
+            JSONObject jo = new JSONObject();
+            jo.put("id", usu.getId_usu());
+            jo.put("correo", Cifrado.encrypt(usu.getEmail()));
+            jo.put("fecha",usu.getFecha_nac() );
+            jo.put("nombre",Cifrado.encrypt(usu.getNom_usu()));
+            jo.put("id_gen", usu.getId_gen());
+            jo.put("rol",usu.getId_rol() );
+            jo.put("clave", usu.getClave());
+            String url = "/quetzual/usuario/Modificar/Usuario";
+            JSONObject js = ConexionAPI.peticionPostJSONObject(url, jo);
+            String estatus = js.getString("status");
+            if(estatus.equals("Cambio Guardado")){
+                cambio = true;
+            }else{
+                cambio = false;
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            cambio = false;
+        }
+        return cambio;
+    }
+    
+    public static boolean ModificarContra(String contra, int id, int rol, String clave){
+        boolean cambio = false;
+        try{
+            JSONObject jo = new JSONObject();
+            jo.put("id",id);
+            jo.put("pass",Cifrado.encrypt(contra));
+            jo.put("rol",rol);
+            jo.put("clave", clave);
+            String url = "/quetzual/usuario/Modificar/Password";
+            JSONObject js = ConexionAPI.peticionPostJSONObject(url, jo);
+            String estatus = js.getString("status");
+            if(estatus.equals("Cambio Realizado")){
+                cambio = true;
+            }else{
+                cambio = false;
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            cambio = false;
+        }
+        return cambio;
+    }
+    
+    public static List<MUsuario> BuscarDoctores(String clave){
+       List<MUsuario> docs = new ArrayList<MUsuario>();
+       try{
+           JSONObject jo = new JSONObject();
+           jo.put("clave", clave);
+           String url = "/quetzual/usuario/Obtener/Doctores";
+           JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
+           String status = jr.getString("status");
+           if(status.equals("Encontrados")){
+               JSONArray ja  = jr.getJSONArray("datos");
+               for(int i=0; i<ja.length(); i++){
+                   JSONObject doc = ja.getJSONObject(i);
+                   MUsuario usu = new MUsuario();
+                   usu.setEmail(Cifrado.decrypt(doc.getString("email_usu")));
+                   usu.setFecha_nac(doc.getString("fecha_nac"));
+                   usu.setId_gen(doc.getInt("id_gen"));
+                   usu.setNom_usu(Cifrado.decrypt(doc.getString("nom_usu")));
+                   usu.setId_usu(doc.getInt("id_usu"));
+                   docs.add(usu);
+               }
+           }
+       }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+       return docs;
+    }
+    
+    public static List<MUsuario> ObtenerRankingMensual(String mes, String clave){
+        List<MUsuario> docs = new ArrayList<MUsuario>();
+        try{
+            JSONObject jo = new JSONObject();
+            jo.put("me", mes);
+            jo.put("clave", clave);
+            String url = "/quetzual/usuario/Ranking/Mensual";
+            JSONObject js = ConexionAPI.peticionPostJSONObject(url, jo);
+            String status = js.getString("status");
+            if(status.equals("Encontradas")){
+                JSONArray ja = js.getJSONArray("datos");
+                for(int i=0; i<ja.length(); i++){
+                    JSONObject doc = ja.getJSONObject(i);
+                    MUsuario usu = new MUsuario();
+                    usu.setNom_usu(Cifrado.decrypt(doc.getString("nom_usu")));
+                    usu.setPuntos(doc.getInt("cant_punt"));
+                    docs.add(usu);
+                }
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return docs;
+    }
+    
+    public static ArrayList<MUsuario> ObtenerRankingHistorico(String Clave){
+        ArrayList<MUsuario> docs = new ArrayList<MUsuario>();
+        try{
+            List<MUsuario> usua = BuscarDoctores(Clave);
+            String url = "/quetzual/usuario/Ranking/Historico";
+            for(MUsuario u:usua){
+                JSONObject jo = new JSONObject();
+                jo.put("clave", Clave);
+                jo.put("id", u.getId_usu());
+                JSONObject ja = ConexionAPI.peticionPostJSONObject(url, jo);
+                String status = ja.getString("status");
+                MUsuario usu = new MUsuario();
+                if(status.equals("Dato")){
+                  usu.setPuntos(ja.getInt("total"));
+                  usu.setNom_usu(u.getNom_usu());
+                  docs.add(usu);
+                }
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        Collections.sort(docs,  new Comparator<MUsuario>() {
+                        @Override
+                        public int compare(MUsuario d1, MUsuario d2) {
+                                return new Integer(d2.getPuntos()).compareTo(new Integer(d1.getPuntos()));
+                        }
+                });
+        return docs;
+    }
+    
+    public static boolean EliminarUsuario(int id, int rol, String clave){
+        boolean cambio = false;
+        try{
+            JSONObject jo = new JSONObject();
+            jo.put("clave", clave);
+            jo.put("id", id);
+            jo.put("rol", rol);
+            String url = "/quetzual/usuario/Eliminar/Estudiante";
+            JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
+            String status = jr.getString("status");
+            if(status.equals("Cuenta Eliminada")){
+                cambio = true;
+            }
+        }catch(Exception e){
+            cambio = false;
+            System.out.println(e.getMessage());
+        }
+        return cambio;
+    }
+    
+    public static boolean DeshabilitarDoctor(int id, String clave){
+        boolean cambio = false;
+        try{
+            JSONObject jo = new JSONObject();
+            jo.put("clave", clave);
+            jo.put("id", id);
+            String url = "/quetzual/usuario/Deshabilitar/Doctor";
+            JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
+            String status = jr.getString("status");
+            if(status.equals("Cuenta Deshabilitada")){
+                cambio = true;
+            }
+        }catch(Exception e){
+            cambio = false;
+            System.out.println(e.getMessage());
+        }
+        return cambio;
+    }
+    public static List<CCategoria> ProgresoGenerar(String clave){
+        List<CCategoria> categorias = new ArrayList<CCategoria>();
+        try{
+            JSONObject jo = new JSONObject();
+            jo.put("clave", clave);
+            String url = "/quetzual/usuario/Progreso/General";
+            JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
+            String status = jr.getString("status");
+            if(status.equals("Encontrados")){
+                JSONArray ja = jr.getJSONArray("datos");
+                List<Integer> listcat1 = new ArrayList<Integer>();
+                List<Integer> listcat2 = new ArrayList<Integer>();
+                List<Integer> listcat3 = new ArrayList<Integer>();
+                List<Integer> listcat4 = new ArrayList<Integer>();
+                List<Integer> listcat5 = new ArrayList<Integer>();
+                for(int i =0 ; i<ja.length(); i++){
+                    JSONObject cat = ja.getJSONObject(i);
+                    if(cat.getInt("id_cat") == 1){
+                        listcat1.add(cat.getInt("cal"));
+                    }else if(cat.getInt("id_cat") == 2){
+                        listcat2.add(cat.getInt("cal"));
+                    }else if(cat.getInt("id_cat") == 3){
+                        listcat3.add(cat.getInt("cal"));
+                    }else if(cat.getInt("id_cat") == 4){
+                        listcat4.add(cat.getInt("cal"));
+                    }else if(cat.getInt("id_cat") == 5){
+                        listcat5.add(cat.getInt("cal"));
+                    }
+                }
+                CCategoria cat1 = new CCategoria();
+                cat1.setId_cat(1);
+                int puntos1= 0;
+                for(int i = 0; i<listcat1.size(); i++){
+                    puntos1 += listcat1.get(i);
+                }
+                cat1.setPuntos(Double.valueOf(puntos1/listcat1.size()));
+                
+                CCategoria cat2 = new CCategoria();
+                cat2.setId_cat(2);
+                int puntos2= 0;
+                for(int i = 0; i<listcat2.size(); i++){
+                    puntos2 += listcat2.get(i);
+                }
+                cat2.setPuntos(Double.valueOf(puntos2/listcat2.size()));
+                
+                CCategoria cat3 = new CCategoria();
+                cat3.setId_cat(3);
+                int puntos3= 0;
+                for(int i = 0; i<listcat3.size(); i++){
+                    puntos3 += listcat3.get(i);
+                }
+                cat3.setPuntos(Double.valueOf(puntos3/listcat3.size()));
+                
+                CCategoria cat4 = new CCategoria();
+                cat4.setId_cat(4);
+                int puntos4= 0;
+                for(int i = 0; i<listcat4.size(); i++){
+                    puntos4 += listcat4.get(i);
+                }
+                cat4.setPuntos(Double.valueOf(puntos4/listcat4.size()));
+                
+                CCategoria cat5 = new CCategoria();
+                cat5.setId_cat(5);
+                int puntos5= 0;
+                for(int i = 0; i<listcat5.size(); i++){
+                    puntos5 += listcat5.get(i);
+                }
+                cat5.setPuntos(Double.valueOf(puntos5/listcat5.size()));
+                
+                categorias.add(cat1);
+                categorias.add(cat2);
+                categorias.add(cat3);
+                categorias.add(cat4);
+                categorias.add(cat5);
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return categorias;
+    }
+    
+    public static List<CCategoria> ProgresoUSuario(int id, String clave){
+        List<CCategoria> categorias = new ArrayList<CCategoria>();
+        try{
+            JSONObject jo = new JSONObject();
+            jo.put("clave", clave);
+            jo.put("id", id);
+            String url = "/quetzual/usuario/Progreso/General";
+            JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
+            String status = jr.getString("status");
+            if(status.equals("Encontrados")){
+                JSONArray ja = jr.getJSONArray("datos");
+                List<Integer> listcat1 = new ArrayList<Integer>();
+                List<Integer> listcat2 = new ArrayList<Integer>();
+                List<Integer> listcat3 = new ArrayList<Integer>();
+                List<Integer> listcat4 = new ArrayList<Integer>();
+                List<Integer> listcat5 = new ArrayList<Integer>();
+                for(int i =0 ; i<ja.length(); i++){
+                    JSONObject cat = ja.getJSONObject(i);
+                    if(cat.getInt("id_cat") == 1){
+                        listcat1.add(cat.getInt("cal"));
+                    }else if(cat.getInt("id_cat") == 2){
+                        listcat2.add(cat.getInt("cal"));
+                    }else if(cat.getInt("id_cat") == 3){
+                        listcat3.add(cat.getInt("cal"));
+                    }else if(cat.getInt("id_cat") == 4){
+                        listcat4.add(cat.getInt("cal"));
+                    }else if(cat.getInt("id_cat") == 5){
+                        listcat5.add(cat.getInt("cal"));
+                    }
+                }
+                CCategoria cat1 = new CCategoria();
+                cat1.setId_cat(1);
+                int puntos1= 0;
+                for(int i = 0; i<listcat1.size(); i++){
+                    puntos1 += listcat1.get(i);
+                }
+                cat1.setPuntos(Double.valueOf(puntos1/listcat1.size()));
+                
+                CCategoria cat2 = new CCategoria();
+                cat2.setId_cat(2);
+                int puntos2= 0;
+                for(int i = 0; i<listcat2.size(); i++){
+                    puntos2 += listcat2.get(i);
+                }
+                cat2.setPuntos(Double.valueOf(puntos2/listcat2.size()));
+                
+                CCategoria cat3 = new CCategoria();
+                cat3.setId_cat(3);
+                int puntos3= 0;
+                for(int i = 0; i<listcat3.size(); i++){
+                    puntos3 += listcat3.get(i);
+                }
+                cat3.setPuntos(Double.valueOf(puntos3/listcat3.size()));
+                
+                CCategoria cat4 = new CCategoria();
+                cat4.setId_cat(4);
+                int puntos4= 0;
+                for(int i = 0; i<listcat4.size(); i++){
+                    puntos4 += listcat4.get(i);
+                }
+                cat4.setPuntos(Double.valueOf(puntos4/listcat4.size()));
+                
+                CCategoria cat5 = new CCategoria();
+                cat5.setId_cat(5);
+                int puntos5= 0;
+                for(int i = 0; i<listcat5.size(); i++){
+                    puntos5 += listcat5.get(i);
+                }
+                cat5.setPuntos(Double.valueOf(puntos5/listcat5.size()));
+                
+                cat1.setDes_cat("Enfermedades de transmisión sexual");
+                cat2.setDes_cat("Embarazo");
+                cat3.setDes_cat("Salud sexual femenina");
+                cat4.setDes_cat("Salud sexual masculina");
+                cat5.setDes_cat("Anticonceptivos");
+                
+                categorias.add(cat1);
+                categorias.add(cat2);
+                categorias.add(cat3);
+                categorias.add(cat4);
+                categorias.add(cat5);
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return categorias;
+    }
+    
+    public static List<Double> ProgresoPreguntas(int id, String clave){
+        List<Double> preguntas = new ArrayList<Double>();
+        try{
+            JSONObject jo = new JSONObject();
+            jo.put("clave", clave);
+            jo.put("id", id);
+            String url = "/quetzual/usuario/Progreso/Estudiante/Preguntas";
+            JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
+            String status = jr.getString("status");
+            if(status.equals("Preguntas encontradas")){
+                int respondidas = jr.getInt("respondidas");
+                int rechazadas = jr.getInt("rechazadas");
+                int total = respondidas + rechazadas;
+                double porcentajeres= Double.valueOf((respondidas*100)/total);
+                double porcentajerec= Double.valueOf((rechazadas*100)/total);
+                preguntas.add(porcentajeres);
+                preguntas.add(porcentajerec);
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return preguntas;
+    }
+    
+    public static MUsuario consultarDoctor(int id, String clave){
+        MUsuario usu = new MUsuario();
+        try{
+            JSONObject jo = new JSONObject();
+            jo.put("clave", clave);
+            jo.put("id", id);
+            String url = "/quetzual/usuario/Consultar/Doctor";
+            JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
+            String status = jr.getString("status");
+            if(status.equals("Encontradas")){
+                JSONArray ja = jr.getJSONArray("datos");
+                if(ja.length()>0){
+                    JSONObject json = ja.getJSONObject(0);
+                    usu.setId_gen(json.getInt("id_gen"));
+                    usu.setNom_usu(Cifrado.decrypt(json.getString("nom_usu")));
+                    usu.setFecha_nac(json.getString("fecha_nac"));
+                    usu.setEmail(Cifrado.decrypt(json.getString("email_usu")));
+                }
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return usu;
+    }
+}
