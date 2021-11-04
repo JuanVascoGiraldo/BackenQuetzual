@@ -19,8 +19,10 @@
     }catch(Exception e){
         response.sendRedirect("./preguntasPendientes.jsp");
     }
-    MPregunta pre = GestionarPregunta.ConsultarPre(id, usu.getClave());
-
+    MPregunta pre = GestionarPregunta.ConsultarPres(id, usu.getClave());
+    if(pre.getDes_pre().equals("no encontrada")){
+         response.sendRedirect("./preguntasPendientes.jsp");
+    }
 %>
 
 <!DOCTYPE html>
@@ -61,19 +63,20 @@
             <h1>Volver a gestionar preguntas</h1>
         </div>
     </a>
-
+    <form name="Rpregunta" action="../ResponderPregunta">
     <div class="main_container">
         <div class="mini_header2">
             <h2><%=pre.getFecha_pre()%></h2>
+            <input type="hidden" value="<%=pre.getFecha_pre() %>" name="fecha_pre">
         </div>
         <div class="pregunta2">
             <h1>Pregunta</h1>
         </div>
         <div class="pregunta">
             <input type="hidden" value="<%=pre.getId_pre() %>" name="id_pre">
-            <textarea name="pre" id="pregunta" class="area" placeholder="Escribe aquí tu pregunta"><%=pre.getDes_pre() %></textarea>
+            <textarea name="des_pre" id="pregunta" class="area" placeholder="Escribe aquí tu pregunta"><%=pre.getDes_pre() %></textarea>
         </div>
-        <select name="categoria" id="filtro">
+        <select name="id_cat" id="filtro">
             <option selected disabled hidden>Elige la clasificación</option>
             <option value="1">Enfermedades de transmisión sexual</option>
             <option value="5">Anticonceptivos</option>
@@ -85,17 +88,18 @@
             <h1>Respuesta</h1>
         </div>
         <div class="pregunta">
-            <textarea name="" id="respuesta" class="area" placeholder="Escribe aquí tu respuesta"></textarea>
+            <textarea name="des_res" id="respuesta" class="area" placeholder="Escribe aquí tu respuesta"></textarea>
         </div>
         <div class="flex">
             <button id="responder" class="question" onclick="ResPregunta()">Responder</button>
             <a href="./preguntasPendientes.html" class="enlace"><button class="cs">Cancelar</button></a>
         </div>
     </div>
+    </form>
     <div class="modal" id="modalR">
         <div class="card">
             <h1>¡Felicidades!</h1><br>
-            <h1>Has obtenido 2 puntos por responder esta pregunta</h1><br>
+            <h1>Has obtenido puntos por responder esta pregunta</h1><br>
             <h1>Gracias por tu esfuerzo</h1><br>
             <img src="./img/undraw_happy_announcement_ac67.svg" class="img">
 

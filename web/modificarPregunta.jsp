@@ -19,7 +19,12 @@
     }catch(Exception e){
         response.sendRedirect("./preguntasPendientes.jsp");
     }
-    MPregunta pre = GestionarPregunta.ConsultarPre(id, usu.getClave());
+    MPregunta pre = GestionarPregunta.ConsultarPres(id, usu.getClave());
+    if(pre.getDes_pre().equals("no encontrada")){
+        response.sendRedirect("./preguntasPendientes.jsp");
+    }else if(pre.getId_usup() != usu.getId_usu()){
+        response.sendRedirect("./preguntasPendientes.jsp");
+    }
 
 %>
 

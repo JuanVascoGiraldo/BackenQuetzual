@@ -6,16 +6,13 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class GestionarPregunta {
-    
-    private static final String claveusu = "As7cnuLSSGkw85A8SdrDJmqLHsSJAfqd";
-    private static final String clavedoc = "S:sVw>SN?j75zcA#-q{YdZ_5#W{E=X2q";
-    private static final String claveadmin = "72eV)'xL9}:NQ999X(MUFa$MTw]$zz;w";
     
     public static boolean RealizarPre(MPregunta pre, String clave){
         boolean guardar = false;
@@ -100,12 +97,10 @@ public class GestionarPregunta {
                     JSONObject jason = ja.getJSONObject(i);
                     MPregunta pre = new MPregunta();
                     MRespuesta res = new MRespuesta();
-                    pre.setId_pre(jason.getInt("id_pre"));
                     pre.setDes_pre(jason.getString("des_pre"));
-                    pre.setFecha_pre(jason.getString("Fecha_pre"));
+                    pre.setFecha_pre(jason.getString("fecha_pre"));
                     res.setDes_res(jason.getString("des_res"));
                     res.setFecha_res(jason.getString("fecha_res"));
-                    res.setNom_doc(Cifrado.decrypt(jason.getString("nom_usu")));
                     MPublicacion publi = new MPublicacion();
                     publi.setPregunta(pre);
                     publi.setRespuesta(res);
@@ -147,7 +142,7 @@ public class GestionarPregunta {
         return lista;
     }
     
-    public static List<MPregunta> ConsultarPreResUsu(int id, String clave){
+    public static List<MPregunta> ConsultarPreResUsu(int id, String clave, String fechas){
         List<MPregunta> lista = new ArrayList<MPregunta>();
         try{
             JSONObject jo = new JSONObject();
@@ -165,12 +160,21 @@ public class GestionarPregunta {
                     pre.setDes_pre(jason.getString("des_pre"));
                     pre.setId_pre(jason.getInt("id_pre"));
                     pre.setFecha_pre(jason.getString("Fecha_pre"));
+                    String[] fecha = fechas.split("-");
+                    int edad = 0;
+                    try{
+                        edad = calcularEdad(Integer.valueOf(fecha[0]),Integer.valueOf(fecha[1]), Integer.valueOf(fecha[2]));
+                    }catch(Exception e){
+                        System.out.println(e.getMessage());
+                    }
+                    pre.setEdad_usu(edad);
                     lista.add(pre);
                 }
             }
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
+        System.out.println("tamaño lista:" + lista.size());
         return lista;
     }
     
@@ -248,16 +252,15 @@ public class GestionarPregunta {
         return resp;
     }
      
-    public static boolean RechazarPre (MPregunta pre, MRespuesta res, String clave){
+    public static boolean RechazarPre (int pre, MRespuesta res, String clave){
         boolean resp = false;
         try{
             //id_pre, id_doc, fecha, razon, pregunta, clave
             JSONObject jo = new JSONObject();
-            jo.put("id_pre", pre.getId_pre());
+            jo.put("id_pre", pre);
             jo.put("id_doc", res.getId_usuRes());
             jo.put("fecha", res.getFecha_res());
             jo.put("razon", res.getDes_res());
-            jo.put("pregunta", pre.getDes_pre());
             jo.put("clave", clave);
             String url = "/quetzual/respuesta/Pregunta/Rechazar";
             JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
@@ -289,8 +292,8 @@ public class GestionarPregunta {
                     pre.setDes_pre(jso.getString("des_pre"));
                     pre.setFecha_pre(jso.getString("Fecha_pre"));
                     pre.setId_pre(jso.getInt("id_pre"));
-                    String fecha[] = jso.getString("fecha_nac").split("/");
-                    pre.setEdad_usu(calcularEdad(Integer.valueOf(fecha[2]),Integer.valueOf(fecha[1]), Integer.valueOf(fecha[0])));
+                    String fecha[] = jso.getString("fecha_nac").split("-");
+                    pre.setEdad_usu(calcularEdad(Integer.valueOf(fecha[0]),Integer.valueOf(fecha[1]), Integer.valueOf(fecha[2])));
                     lista.add(pre);
                 }
             }
@@ -308,7 +311,7 @@ public class GestionarPregunta {
             String url = "/quetzual/pregunta/Pendientes";
             JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
             String status = jr.getString("status");
-            if(status.equals("Encontrados")){
+            if(status.equals("Encontradas")){
                 JSONArray ja = jr.getJSONArray("datos");
                 for(int i=0 ; i<ja.length(); i++){
                     JSONObject jso = ja.getJSONObject(i);
@@ -348,9 +351,9 @@ public class GestionarPregunta {
                     res.setFecha_res(jason.getString("fecha_res"));
                     String fecha[] = jason.getString("fecha_nac").split("/");
                     pre.setEdad_usu(calcularEdad(Integer.valueOf(fecha[2]),Integer.valueOf(fecha[1]), Integer.valueOf(fecha[0])));
-                    if(pre.getId_estado() == 2){
+                    /*if(pre.getId_estado() == 2){
                         res.setCali_pro(promedioRes(jason.getInt("id_res")));
-                    }
+                    }*/
                     MPublicacion publi = new MPublicacion();
                     publi.setPregunta(pre);
                     publi.setRespuesta(res);
@@ -363,7 +366,7 @@ public class GestionarPregunta {
         return lista;
     }
     
-    public static MPregunta ConsultarPre(int id, String clave){
+    public static MPregunta ConsultarPres(int id, String clave){
         MPregunta pre = new MPregunta();
         try{
             JSONObject jo = new JSONObject();
@@ -408,8 +411,8 @@ public class GestionarPregunta {
                     res.setDes_res(jso.getString("des_res"));
                     res.setId_cat(jso.getInt("id_cat"));
                     res.setNom_doc(Cifrado.decrypt(jso.getString("nom_usu")));
-                    res.setFecha_res(jso.getString("Fecha_res"));
-                    res.setCali_pro(promedioRes(res.getId_res()));
+                    res.setFecha_res(jso.getString("fecha_res"));
+                    //res.setCali_pro(promedioRes(res.getId_res()));
                     lista.add(res);
                 }
             }
@@ -451,17 +454,21 @@ public class GestionarPregunta {
     
     public static int calcularEdad(int ano, int mes, int dia){
         int edad = 0;
-        Date date = new Date();
-        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        int year  = localDate.getYear();
-        int month = localDate.getMonthValue();
-        int day   = localDate.getDayOfMonth();
-        int edad_base = year - ano;
-        if (month < mes) edad_base--;
-        else if (month == mes) {
-             if (day < dia) edad_base--;
+        try{
+            Calendar fecha = java.util.Calendar.getInstance();
+            int year  = fecha.get(java.util.Calendar.YEAR);
+            int month = fecha.get(java.util.Calendar.MONTH);
+            int day   = fecha.get(java.util.Calendar.DATE);
+            int edad_base = year - ano;
+            if (month < mes) edad_base--;
+            else if (month == mes) {
+                 if (day < dia) edad_base--;
+            }
+            edad = edad_base;
+        }catch(Exception e){
+            System.out.println( e.getMessage());
         }
-        edad = edad_base;
+        System.out.println(edad);
         return edad;
     }
     
@@ -478,13 +485,16 @@ public class GestionarPregunta {
                 pre.setCantidadRes(ja.length());
                 JSONObject cat = ja.getJSONObject(0);
                 pre.setId_catgen(cat.getInt("id_cat"));
+            }else{
+                pre.setDes_pre("no encontrada");
             }
         }catch(Exception e){
             System.out.println(e.getMessage());
+            pre.setDes_pre("no encontrada");
         }
         return pre;
     }
-    
+    /*
     private static double promedioRes(int id){
         double prom = 0.0;
         try{
@@ -508,5 +518,5 @@ public class GestionarPregunta {
             System.out.println(e.getMessage());
         }
         return prom;
-    }
+    }*/
 }

@@ -48,6 +48,14 @@
         <servlet-name>EliminarPre</servlet-name>
         <servlet-class>Servlets.EliminarPre</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ResponderPregunta</servlet-name>
+        <servlet-class>Servlets.ResponderPregunta</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RechazarPre</servlet-name>
+        <servlet-class>Servlets.RechazarPre</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistrarUsuario</servlet-name>
         <url-pattern>/RegistrarUsuario</url-pattern>
@@ -95,6 +103,14 @@
     <servlet-mapping>
         <servlet-name>EliminarPre</servlet-name>
         <url-pattern>/EliminarPre</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ResponderPregunta</servlet-name>
+        <url-pattern>/ResponderPregunta</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RechazarPre</servlet-name>
+        <url-pattern>/RechazarPre</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

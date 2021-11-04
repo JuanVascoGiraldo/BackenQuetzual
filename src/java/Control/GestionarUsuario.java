@@ -475,9 +475,12 @@ public class GestionarUsuario {
                     usu.setFecha_nac(json.getString("fecha_nac"));
                     usu.setEmail(Cifrado.decrypt(json.getString("email_usu")));
                 }
+            }else{
+                usu.setNom_usu("no encontrado");
             }
         }catch(Exception e){
             System.out.println(e.getMessage());
+            usu.setNom_usu("no encontrado");
         }
         return usu;
     }

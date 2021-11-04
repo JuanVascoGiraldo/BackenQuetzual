@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="Control.GestionarPregunta"%>
 <%@page import="Modelo.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8" session="true" language="java"%>
 
@@ -11,7 +13,18 @@
     }else{
         response.sendRedirect("index.jsp");
     }
-
+    MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
+    int id = 0;
+    try{
+        id = Integer.valueOf(request.getParameter("id"));
+    }catch(Exception e){
+        response.sendRedirect("preguntasRespondidas.jsp");
+    }
+    List<MRespuesta> lista = GestionarPregunta.ConsultarRespuestas(id, usu.getClave());
+    System.out.println(lista.size());
+    if(lista.size() == 0){
+        response.sendRedirect("preguntasRespondidas.jsp");
+    }
 %>
 
 
@@ -43,14 +56,16 @@
             </a>
         </div>
     </header>
+    <% 
+        for(MRespuesta res:lista){
+    %>
     <div class="main_container">
         <div class="mini_header">
-            <h2>Dr. Montero</h2>
+            <h2><%=res.getNom_doc() %></h2>
         </div>
         <div class="respuesta">
             <div class="respuestas">
-                <h3>Tus síntomas en general indican que podrías padecer S.I.D.A. Sin embargo, ningún médico puede darte un diagnóstico sin realizar estudio de laboratorio. El tratamiento consiste en antivirales para el VIH. Es necesario que acudas a un médico
-                    lo más pronto posible. No debes temer de ir al doctor, es mejor ir a tiempo y no cuando sea demasiado tarde. Puedes pedir a una persona de confiansa que te acompañe para sentirte más tr</h3>
+                <h3><%=res.getDes_res() %></h3>
             </div>
             <img src="./img/bx-plus-medical.svg" alt="">
         </div>
@@ -61,6 +76,9 @@
             </div>
         </div>
     </div>
+    <% 
+        }
+    %>
     <div class="modal" id="modalR">
         <div class="card">
             <article>

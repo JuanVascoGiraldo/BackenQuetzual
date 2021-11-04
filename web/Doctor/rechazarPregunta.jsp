@@ -21,7 +21,10 @@
     }catch(Exception e){
         response.sendRedirect("./preguntasPendientes.jsp");
     }
-    MPregunta pre = GestionarPregunta.ConsultarPre(id, usu.getClave());
+    MPregunta pre = GestionarPregunta.ConsultarPres(id, usu.getClave());
+    if(pre.getDes_pre().equals("no encontrada")){
+         response.sendRedirect("./preguntasPendientes.jsp");
+    }
 
 %>
 
@@ -65,34 +68,42 @@
         </div>
     </a>
     <div class="main_container">
+        <form action="../RechazarPre" name="rechazarPre">
         <div class="mini_header2">
-            <h2>11/10/2021</h2>
+            <h2><%=pre.getFecha_pre() %></h2>
         </div>
         <div class="pregunta2">
             <h1>Pregunta</h1>
         </div>
         <div class="pregunta">
-            <textarea name="" id="pregunta" class="area" placeholder="Escribe aquí tu pregunta">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente beatae laboriosam id ducimus vita?</textarea>
+            <%=pre.getDes_pre() %>
         </div>
         <div class="pregunta2">
             <h1>¿Cuál es el motivo del rechazo?</h1>
         </div>
         <div class="pregunta">
-            <textarea name="" id="razon" class="area" placeholder="Escribe aquí tu motivo de rechazo"></textarea>
+            <input type="hidden" name="id_pre" value="<%=pre.getId_pre() %>" >
+            <textarea name="razon" id="razon" class="area" placeholder="Escribe aquí tu motivo de rechazo"></textarea>
         </div>
         <div class="flex">
             <button id="rechazar" class="question" onclick="RechaPregunta()">Confirmar</button>
             <a href="./preguntasPendientes.jsp" class="enlace"><button class="cs">Cancelar</button></a>
         </div>
+        </form>
     </div>
     <div class="modal" id="modalR">
         <div class="card">
             <h1>Cuidado, esta acción será permanente, una vez que rechace la pregunta los datos no podrán recuperarse.</h1><br>
             <h1>¿Desea continuar?</h1><br>
-            <button class="cs" onclick="enviarGestionarPreguntas()">Rechazar pregunta</button><br>
+            <button class="cs" onclick="conf()">Rechazar pregunta</button><br>
             <button class="question">No, deseo mantener la pregunta</button>
         </div>
     </div>
+    <script>
+        function conf(){
+            document.rechazarPre,submit();
+        }
+    </script>
     <script src="./JS/redirigir.js"></script>
     <script src="./JS/funcionModal.js"></script>
     <script src="./JS/validar.js"></script>

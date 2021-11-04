@@ -15,7 +15,9 @@
     }
     MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
     List<MPregunta> pre = GestionarPregunta.ConsultarPrePenUsu(usu.getId_usu(), usu.getClave());
-
+    if(pre.size() == 0){
+        response.sendRedirect("hacerPregunta.jsp");
+    }
 %>
 <!DOCTYPE html>
 <html lang="en">

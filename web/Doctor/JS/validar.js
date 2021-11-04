@@ -117,10 +117,9 @@ function MPregunta() {
 }
 
 function RechaPregunta() {
-    var pregunta = document.getElementById("pregunta").value;
     var razon = document.getElementById("razon").value;
     var allvalid = true;
-    if (pregunta.length == 0 || razon.length == 0) {
+    if (razon.length == 0) {
         Swal.fire({
             title: '¡Oops!',
             text: '¡Todos los campos son obligatorios, no puedes rechazar la pregunta sin tener la pregunta ni escribir la razón del rechazo!',
@@ -129,7 +128,7 @@ function RechaPregunta() {
         allvalid = false;
         return false;
     }
-    if (pregunta.length > 100 || razon.length > 100) {
+    if ( razon.length > 100) {
         Swal.fire({
             title: '¡Oops!',
             text: '¡Sólo puedes ingresar como máximo 100 caracteres por pregunta y razón de rechazo!',
@@ -138,7 +137,7 @@ function RechaPregunta() {
         allvalid = false;
         return false;
     }
-    if (!expresiontextnumber.test(pregunta) || !expresiontextnumber.test(razon)) {
+    if (!expresiontextnumber.test(razon)) {
         Swal.fire({
             title: '¡Oops!',
             text: '¡Sólo puedes ingresar letras y números en la pregunta y en la razón de rechazo!',
@@ -156,7 +155,6 @@ function RechaPregunta() {
         return false;
     } else {
         document.getElementById('modalR').classList.add(isVisible);
-        document.getElementById('rechazar').submit;
     }
 }
 
@@ -200,6 +198,6 @@ function ResPregunta() {
         return false;
     } else {
         document.getElementById('modalR').classList.add(isVisible);
-        document.getElementById('responder').submit;
+        document.Rpregunta.submit();
     }
 }

@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="Control.GestionarPregunta"%>
 <%@page import="Modelo.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8" session="true" language="java"%>
 
@@ -11,7 +13,11 @@
     }else{
         response.sendRedirect("index.jsp");
     }
-
+    MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
+    List<MPregunta> pres = GestionarPregunta.ConsultarPreResUsu(usu.getId_usu(), usu.getClave(), usu.getFecha_nac());
+    if(pres.size() == 0){
+        response.sendRedirect("preguntasPendientes.jsp");
+    }
 %>
 
 
@@ -63,24 +69,42 @@
             <option value="./preguntasPendientes.jsp">Preguntas pendientes</option>
         </select>
     </div>
+    <%
+        for(MPregunta pre:pres){
+    %>
     <div class="main_container">
         <div class="mini_header">
-            <h2>Edad</h2>
-            <h2>Categoria</h2>
-            <h2>3 respuestas</h2>
+            <h2><%=pre.getEdad_usu() %> Años</h2>
+            <h2><% 
+                 if(pre.getId_catgen() == 1){
+                 %>Enfermedades de transmisión sexual<%
+                 }else if(pre.getId_catgen() == 2){
+                 %>Embarazo<%
+                 }else if(pre.getId_catgen() == 3){
+                 %>Salud sexual femenina<%
+                 }else if(pre.getId_catgen() == 4){
+                 %> Salud sexual masculina<%
+                 }else if(pre.getId_catgen() == 5){
+                 %>Anticonceptivos <%
+                 }
+               
+                %></h2>
+            <h2><%=pre.getCantidadRes() %> Respuestas</h2>
         </div>
         <div class="pregunta">
             <img src="./img/bxs-user.svg" alt="">
             <div class="preguntas">
-                <h3>Tuve relaciones con mi pareja, y deacuerdo a mis sintomas creo que tengo S.I.D.A. pero temo ir al medico. Podría por favor ayudarme a saber si podría padecer S.I.D.A. y cual sería un posible tratamiento por favor? Estos son mis sintomas:
-                    1.- Dolor al tragar 2.- Diarrea 3.- Llagas en la ingle</h3>
+                <h3><%=pre.getDes_pre() %></h3>
             </div>
         </div>
         <div class="respuesta">
-            <a href="./respuestasPregunta.html">Ver respuestas</a>
+            <a href="./respuestasPregunta.jsp?id=<%=pre.getId_pre() %>">Ver respuestas</a>
         </div>
 
     </div>
+    <%
+        }
+    %>
     <script src="./JS/validar.js"></script>
     <script src="./JS/sweetAlert.js"></script>
     <script src="./JS/funcionModal2.js"></script>

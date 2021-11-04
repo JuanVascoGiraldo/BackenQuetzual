@@ -11,6 +11,7 @@ public class Validar {
     private static final String ExpFecha = "^(\\d{4})(\\/|-)(\\d{1,2})(\\/|-)(\\d{1,2})$";
     private static final String ExpContra = "^(?=\\w*\\d)(?=\\w*[A-Z])(?=\\w*[a-z])\\S{8,16}$";
     private static final String ExpPregunta = "^[a-zA-Z0-9àáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ?¿,.]+$";
+    private static final String ExpFechapre = "^(?:3[01]|[12][0-9]|0?[1-9])([\\-/.])(0?[1-9]|1[1-2])\\1\\d{4}$";
     
     public static boolean Validarcorreo(String correo){
         Pattern pattern = Pattern.compile(ExpCorreo);
@@ -34,6 +35,12 @@ public class Validar {
       }
     public static boolean Validarfecha(String fecha){
         Pattern pattern = Pattern.compile(ExpFecha);
+        Matcher matcher = pattern.matcher(fecha);
+        return matcher.matches();
+      }
+    
+    public static boolean ValidarfechaPre(String fecha){
+        Pattern pattern = Pattern.compile(ExpFechapre);
         Matcher matcher = pattern.matcher(fecha);
         return matcher.matches();
       }

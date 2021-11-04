@@ -20,7 +20,9 @@
         response.sendRedirect("./adminDoctores.jsp");
     }
     MUsuario usu = GestionarUsuario.consultarDoctor(id, usua.getClave());
-
+    if(usu.getNom_usu().equals("no encontrado")){
+        response.sendRedirect("./adminDoctores.jsp");
+    }
 %>
 
 

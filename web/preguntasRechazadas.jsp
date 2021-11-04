@@ -1,3 +1,6 @@
+<%@page import="java.util.List"%>
+<%@page import="Control.GestionarPregunta"%>
+<%@page import="Control.GestionarPregunta"%>
 <%@page import="Modelo.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8" session="true" language="java"%>
 
@@ -11,7 +14,12 @@
     }else{
         response.sendRedirect("index.jsp");
     }
-
+    MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
+    List<MPublicacion> lista = GestionarPregunta.ConsultarPreRecUsu(usu.getId_usu(), usu.getClave());
+    System.out.println("preguntas recgazadas" +lista.size());
+    if(lista.size() == 0){
+        response.sendRedirect("preguntasPendientes.jsp");
+    }
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -58,21 +66,29 @@
             <option value="./preguntasPendientes.jsp">Preguntas pendientes</option>
         </select>
     </div>
+    <% 
+        for(MPublicacion publi: lista){
+            MPregunta pre = publi.getPregunta();
+            MRespuesta res = publi.getRespuesta();
+    %> 
     <div class="card">
         <div class="mini_header">
-            <h2>22/09/2021</h2>
+            <h2><%=res.getFecha_res() %></h2>
         </div>
         <div class="pregunta">
             <img src="./img/bxs-user.svg" alt="">
             <div class="preguntas">
-                <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa atque quo minus dolorum id cupiditate odit eligendi in qui voluptates?</h3>
+                <h3><%=pre.getDes_pre() %></h3>
             </div>
             <h1 class="h1">Razón del rechazo</h1>
             <div class="preguntas">
-                <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci porro iure perferendis, nemo in, aliquid laudantium sequi iste blanditiis suscipit fugit velit, non minima ducimus? Nisi asperiores repellat itaque laboriosam.</h3>
+                <h3><%=res.getDes_res() %></h3>
             </div>
         </div>
     </div>
+    <% 
+        }
+    %> 
     <script src="./JS/validar.js"></script>
     <script src="./JS/sweetAlert.js"></script>
 </body>
