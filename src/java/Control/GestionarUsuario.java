@@ -433,8 +433,8 @@ public class GestionarUsuario {
         return categorias;
     }
     
-    public static List<Double> ProgresoPreguntas(int id, String clave){
-        List<Double> preguntas = new ArrayList<Double>();
+    public static List<Integer> ProgresoPreguntas(int id, String clave){
+        List<Integer> preguntas = new ArrayList<Integer>();
         try{
             JSONObject jo = new JSONObject();
             jo.put("clave", clave);
@@ -445,11 +445,8 @@ public class GestionarUsuario {
             if(status.equals("Preguntas encontradas")){
                 int respondidas = jr.getInt("respondidas");
                 int rechazadas = jr.getInt("rechazadas");
-                int total = respondidas + rechazadas;
-                double porcentajeres= Double.valueOf((respondidas*100)/total);
-                double porcentajerec= Double.valueOf((rechazadas*100)/total);
-                preguntas.add(porcentajeres);
-                preguntas.add(porcentajerec);
+                preguntas.add(respondidas);
+                preguntas.add(rechazadas);
             }
         }catch(Exception e){
             System.out.println(e.getMessage());

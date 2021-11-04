@@ -1,3 +1,6 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="Control.GestionarUsuario"%>
 <%@page import="Modelo.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8" session="true" language="java"%>
 
@@ -114,10 +117,84 @@
     </div>
     </div>
     <button class="cs" data-open="modalR"><b>Eliminar cuenta</b></button>
-    <script type="text/javascript" src="./JS/graficas.js"></script>
+    
     <script src="./JS/funcionModal.js"></script>
     <script src="./JS/validar.js"></script>
     <script src="./JS/sweetAlert.js"></script>
+    <script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['ETS', 'Anticonceptivos', 'Embarazo', 'Salud sexual femenina', 'Salud sexual masculina'],
+        datasets: [{
+            label: 'Puntos',
+            data: [16, 10, 15, 16, 13],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        aspectRatio: 1,
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+var ctx = document.getElementById('piechart').getContext('2d');
+<% 
+    List<Integer> listas = GestionarUsuario.ProgresoPreguntas(usu.getId_usu(), usu.getClave());
+    int res = 0 ;
+    int rech = 0;
+    int i = 0;
+    for(int e: listas){
+        if(i==0)res = e;
+        if(i==1)rech = e;
+        i++;
+    }
+%>
+var piechart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: ['Aceptadas', 'Rechazadas'],
+        datasets: [{
+            label: 'Preguntas',
+            data: [<%=res%>,<%=rech %>,],
+            backgroundColor: [
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(255, 99, 132, 0.2)'
+            ],
+            borderColor: [
+                'rgba(75, 192, 192, 1)',
+                'rgba(255, 99, 132, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        aspectRatio: 1,
+    }
+});
+    </script>
 </body>
 
 </html>

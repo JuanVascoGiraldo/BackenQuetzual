@@ -42,6 +42,7 @@ public class PreguntasSimilares extends HttpServlet {
                     if(pregunta != null){
                         if(Validar.Validarpregunta(pregunta)){
                             List<MPregunta> simi = GestionarPregunta.PreguntasSimilares(pregunta, usu.getClave());
+                            System.out.println("PReguntas similares");
                             if(simi.size()>0){
                                 response.sendRedirect("preguntasSimilares.jsp?pre="+pregunta);
                             }else{

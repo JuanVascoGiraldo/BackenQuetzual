@@ -1,4 +1,5 @@
 
+<%@page import="java.util.Calendar"%>
 <%@page import="Modelo.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8" session="true" language="java"%>
 
@@ -12,6 +13,10 @@
     }else{
         response.sendRedirect("index.jsp");
     }
+    Calendar fecha = java.util.Calendar.getInstance();
+    String fech=fecha.get(java.util.Calendar.DATE) + "/"
+        + (fecha.get(java.util.Calendar.MONTH)+1) + "/" 
+                + fecha.get(java.util.Calendar.YEAR);
 
 %>
 <!DOCTYPE html>
@@ -62,7 +67,7 @@
     </div>
     <div class="main_container">
         <div class="mini_header2">
-            <h2>11/10/2021</h2>
+            <h2><%=fech %></h2>
         </div>
         <form action="PreguntasSimilares" name="HacerP">
             <div class="pregunta">

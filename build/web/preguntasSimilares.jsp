@@ -1,3 +1,6 @@
+<%@page import="java.util.List"%>
+<%@page import="Control.GestionarPregunta"%>
+<%@page import="Control.GestionarPregunta"%>
 <%@page import="Modelo.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8" session="true" language="java"%>
 
@@ -17,7 +20,7 @@
     if(pre == null){
          response.sendRedirect("hacerPregunta.jsp");
     }
-
+    List<MPregunta> simi = GestionarPregunta.PreguntasSimilares(pre, usu.getClave());
 %>
 
 <!DOCTYPE html>
@@ -59,24 +62,45 @@
         <h1>Preguntas Similares</h1>
         <hr>
     </div>
+    <a href="HacerPregunta?pre=<%=pre%>">Hacer Pregunta</a>
+    
+    <% 
+            for(MPregunta pres: simi){
+        %>
     <div class="main_container">
         <div class="mini_header">
-            <h2>Edad</h2>
-            <h2>Categoria</h2>
-            <h2>3 respuestas</h2>
+            <h2><%=pres.getEdad_usu() %> Años</h2>
+            <h2><% 
+                 if(pres.getId_catgen() == 1){
+                 %>Enfermedades de transmisión sexual<%
+                 }else if(pres.getId_catgen() == 2){
+                 %>Embarazo<%
+                 }else if(pres.getId_catgen() == 3){
+                 %>Salud sexual femenina<%
+                 }else if(pres.getId_catgen() == 4){
+                 %> Salud sexual masculina<%
+                 }else if(pres.getId_catgen() == 5){
+                 %>Anticonceptivos <%
+                 }
+               
+                %></h2>
+            <h2><%=pres.getCantidadRes() %> respuestas</h2>
         </div>
+        
         <div class="pregunta">
             <img src="./img/bxs-user.svg" alt="">
             <div class="preguntas">
-                <h3>Tuve relaciones con mi pareja, y deacuerdo a mis sintomas creo que tengo S.I.D.A. pero temo ir al medico. Podría por favor ayudarme a saber si podría padecer S.I.D.A. y cual sería un posible tratamiento por favor? Estos son mis sintomas:
-                    1.- Dolor al tragar 2.- Diarrea 3.- Llagas en la ingle</h3>
+                <h3><%=pres.getDes_pre() %></h3>
             </div>
         </div>
         <div class="respuesta">
-            <a href="./respuestasPregunta.jsp">Ver respuestas</a>
+            <a href="./respuestasPregunta.jsp?id=<%=pres.getId_pre() %>">Ver respuestas</a>
         </div>
-
+        
     </div>
+    <% 
+            }
+        %>
     <script src="./JS/validar.js"></script>
     <script src="./JS/sweetAlert.js"></script>
     <script src="./JS/funcionModal2.js"></script>
