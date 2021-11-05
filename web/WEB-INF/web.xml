@@ -56,6 +56,10 @@
         <servlet-name>RechazarPre</servlet-name>
         <servlet-class>Servlets.RechazarPre</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Respre</servlet-name>
+        <servlet-class>Servlets.Respre</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistrarUsuario</servlet-name>
         <url-pattern>/RegistrarUsuario</url-pattern>
@@ -111,6 +115,10 @@
     <servlet-mapping>
         <servlet-name>RechazarPre</servlet-name>
         <url-pattern>/RechazarPre</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Respre</servlet-name>
+        <url-pattern>/Respre</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

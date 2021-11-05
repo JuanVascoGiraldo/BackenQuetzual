@@ -1,3 +1,6 @@
+<%@page import="java.util.List"%>
+<%@page import="Control.GestionarPregunta"%>
+<%@page import="Control.GestionarPregunta"%>
 <%@page import="Modelo.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8" session="true" language="java"%>
 
@@ -11,7 +14,19 @@
     }else{
         response.sendRedirect("../index.jsp");
     }
-
+    MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
+    int id = 0;
+    try{
+        id = Integer.valueOf(request.getParameter("id"));
+    }catch(Exception e){
+        response.sendRedirect("preguntasDoctor.jsp");
+    }
+    List<MRespuesta> lista = GestionarPregunta.ConsultarRespuestas(id, usu.getClave());
+    System.out.println(lista.size());
+    if(lista.size() == 0){
+        response.sendRedirect("preguntasDoctor.jsp");
+    }
+    boolean yares = false;
 %>
 
 <!DOCTYPE html>
@@ -42,22 +57,36 @@
             </a>
         </div>
     </header>
-    <form class="alineacion">
-        <input type="text" placeholder="Respuesta" class="area">
-        <button onclick="agregarRespuesta()" class="submit">Agregar respuesta</button>
-    </form>
+    <% 
+        for(MRespuesta res:lista){
+            if(res.getId_usuRes() == usu.getId_usu())yares = true;
+    %>
     <div class="main_container">
         <div class="mini_header">
-            <h2>Dr. Montero</h2>
+            <h2><%=res.getNom_doc()%></h2>
+            <h2><%=res.getFecha_res() %> </h2>
         </div>
         <div class="respuesta">
             <div class="respuestas">
-                <h3>Tus síntomas en general indican que podrías padecer S.I.D.A. Sin embargo, ningún médico puede darte un diagnóstico sin realizar estudio de laboratorio. El tratamiento consiste en antivirales para el VIH. Es necesario que acudas a un médico
-                    lo más pronto posible. No debes temer de ir al doctor, es mejor ir a tiempo y no cuando sea demasiado tarde. Puedes pedir a una persona de confiansa que te acompañe para sentirte más tr</h3>
+                <h3><%=res.getDes_res() %></h3>
             </div>
             <img src="./img/bx-plus-medical.svg" alt="">
         </div>
     </div>
+     <% 
+        }
+        if(!yares){
+     %>
+    <form class="alineacion" action="../Respre" name="responder">
+        <div class="pregunta">
+            <textarea name="des_res" id="respuestas" class="area" placeholder="Escribe aquí tu respuesta"></textarea>
+        </div>
+        <input type="hidden" name="id_pre" value="<%=id %>" >
+        <button onclick="agregarRespuestares()" class="submit">Agregar respuesta</button>
+    </form>
+        <% 
+            }
+        %>
     <script src="./JS/validar.js"></script>
     <script src="./JS/sweetAlert.js"></script>
     <script src="./JS/funcionModal.js"></script>

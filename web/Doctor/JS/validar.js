@@ -201,3 +201,45 @@ function ResPregunta() {
         document.Rpregunta.submit();
     }
 }
+
+function agregarRespuestares() {
+    var respuesta = document.getElementById("respuestas").value;
+    var allvalid = true;
+    if (respuesta.length == 0) {
+        Swal.fire({
+            title: '¡Oops!',
+            text: '¡Todos los campos son obligatorios, no puedes responder la pregunta sin tener la pregunta ni escribir la respuesta!',
+            icon: 'error'
+        });
+        allvalid = false;
+        return false;
+    }
+    if (respuesta.length > 100) {
+        Swal.fire({
+            title: '¡Oops!',
+            text: '¡Sólo puedes ingresar como máximo 100 caracteres por pregunta y respuesta!',
+            icon: 'error'
+        });
+        allvalid = false;
+        return false;
+    }
+    if (!expresiontextnumber.test(respuesta)) {
+        Swal.fire({
+            title: '¡Oops!',
+            text: '¡Sólo puedes ingresar letras y números en la pregunta y en la respuesta!',
+            icon: 'error'
+        });
+        allvalid = false;
+        return false;
+    }
+    if (!allvalid) {
+        Swal.fire({
+            title: '¡Oops!',
+            text: '¡No se realizó correctamente el responder la pregunta!',
+            icon: 'error'
+        });
+        return false;
+    } else {
+        document.responder.submit();
+    }
+}

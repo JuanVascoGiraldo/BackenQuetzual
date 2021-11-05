@@ -290,7 +290,7 @@ public class GestionarPregunta {
                     JSONObject jso = ja.getJSONObject(i);
                     MPregunta pre = consultarPre(jso.getInt("id_pre"));
                     pre.setDes_pre(jso.getString("des_pre"));
-                    pre.setFecha_pre(jso.getString("Fecha_pre"));
+                    pre.setFecha_pre(jso.getString("fecha_pre"));
                     pre.setId_pre(jso.getInt("id_pre"));
                     String fecha[] = jso.getString("fecha_nac").split("-");
                     pre.setEdad_usu(calcularEdad(Integer.valueOf(fecha[0]),Integer.valueOf(fecha[1]), Integer.valueOf(fecha[2])));
@@ -412,6 +412,7 @@ public class GestionarPregunta {
                     res.setId_cat(jso.getInt("id_cat"));
                     res.setNom_doc(Cifrado.decrypt(jso.getString("nom_usu")));
                     res.setFecha_res(jso.getString("fecha_res"));
+                    res.setId_usuRes(jso.getInt("id_usu"));
                     //res.setCali_pro(promedioRes(res.getId_res()));
                     lista.add(res);
                 }
