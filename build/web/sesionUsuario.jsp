@@ -1,4 +1,7 @@
 
+<%@page import="java.util.List"%>
+<%@page import="Control.GestionarPregunta"%>
+<%@page import="Control.GestionarPregunta"%>
 <%@page import="Modelo.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8" session="true" language="java"%>
 
@@ -12,7 +15,22 @@
     }else{
         response.sendRedirect("index.jsp");
     }
-
+    MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
+    List<MPregunta> pre = GestionarPregunta.ConsultarAllPreRes(usu.getClave() );
+    if(pre.size() == 0){
+        response.sendRedirect("preguntasPendientes.jsp");
+    }
+    
+    int fil = 0;
+    try{
+        fil = Integer.valueOf(request.getParameter("fil"));
+        if(fil > 5){
+            fil = 0;
+        }
+    }catch(Exception e){
+        fil = 0;
+    }
+    
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,41 +79,51 @@
         <p>Puedes explorar este espacio usando el combobox para buscar preguntas que se relacionan directamente con tu duda.</p>
     </div>
     <div class="filtro">
-        <select name="filtro" id="filtro">
+        <select name="filtro" id="filtro" onchange="javascript:location.href = this.value;">
             <option selected disabled hidden>Selecciona el tema de tu interes</option>
-            <option value="a">Enfermedades de transmisión sexual</option>
-            <option value="a">Anticonceptivos</option>
-            <option value="a">Embarazo</option>
-            <option value="a">Salud sexual femenina</option>
-            <option value="a">Salud sexual masculina</option>
+            <option value="sesionUsuario.jsp?fil=1">Enfermedades de transmisión sexual</option>
+            <option value="sesionUsuario.jsp?fil=5">Anticonceptivos</option>
+            <option value="sesionUsuario.jsp?fil=2">Embarazo</option>
+            <option value="sesionUsuario.jsp?fil=3">Salud sexual femenina</option>
+            <option value="sesionUsuario.jsp?fil=4">Salud sexual masculina</option>
         </select>
     </div>
+    <% 
+        for(MPregunta res: pre){
+            if(fil == 0 || fil == res.getId_catgen() ){
+    %>
     <div class="main_container">
         <div class="mini_header">
-            <h2>Edad</h2>
-            <h2>Categoria</h2>
-            <h2>3 respuestas</h2>
+            <h2><%=res.getEdad_usu() %> años</h2>
+            <h2><% 
+                 if(res.getId_catgen() == 1){
+                 %>Enfermedades de transmisión sexual<%
+                 }else if(res.getId_catgen() == 2){
+                 %>Embarazo<%
+                 }else if(res.getId_catgen() == 3){
+                 %>Salud sexual femenina<%
+                 }else if(res.getId_catgen() == 4){
+                 %> Salud sexual masculina<%
+                 }else if(res.getId_catgen() == 5){
+                 %>Anticonceptivos <%
+                 }
+               
+                %></h2>
+            <h2><%=res.getCantidadRes() %> Respuestas</h2>
         </div>
         <div class="pregunta">
             <img src="./img/bxs-user.svg">
             <div class="preguntas">
-                <h3>Tuve relaciones con mi pareja, y deacuerdo a mis sintomas creo que tengo S.I.D.A. pero temo ir al medico. Podría por favor ayudarme a saber si podría padecer S.I.D.A. y cual sería un posible tratamiento por favor? Estos son mis sintomas:
-                    1.- Dolor al tragar 2.- Diarrea 3.- Llagas en la ingle</h3>
+                <h3><%=res.getDes_pre() %></h3>
             </div>
         </div>
-        
         <div class="respuesta">
-            <a href="./respuestasPregunta.jsp">Ver respuestas</a>
+            <a href="./respuestasPregunta.jsp?id=<%=res.getId_pre() %>">Ver respuestas</a>
         </div>
     </div>
-    <div class="modal" id="modalR">
-        <div class="card">
-            <article>
-                <b>Tu Calificación ha sido registrada</b>
-            </article>
-            <img src="./img/check-square-solid-240.png" alt="">
-        </div>
-    </div>
+    <% 
+        }}
+    %>
     <script src="./JS/validar.js"></script>
     <script src="./JS/sweetAlert.js"></script>
     <script src="./JS/funcionModal.js"></script>

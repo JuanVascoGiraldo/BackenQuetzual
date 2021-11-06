@@ -1,19 +1,39 @@
 
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="Control.GestionarUsuario"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.List"%>
 <%@page import="Modelo.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8" session="true" language="java"%>
 
 <% 
     HttpSession sesion = request.getSession(true);
     if(sesion.getAttribute("usuario") != null){
-        MUsuario usu = (MUsuario)sesion.getAttribute("usu");
+        MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
         if(usu.getId_rol() != 2){
             response.sendRedirect("../index.jsp");
         }
     }else{
         response.sendRedirect("../index.jsp");
     }
-
+    MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
+    int fil=0;
+    try{
+        fil = Integer.valueOf(request.getParameter("fil"));
+    }catch(Exception e){
+        fil = 0;
+    }
+    List<MUsuario> usuarios = new ArrayList<MUsuario>();
+    if(fil == 0){
+        usuarios = GestionarUsuario.ObtenerRankingHistorico(usu.getClave());
+    }else if(fil == 1){
+        Calendar fecha = java.util.Calendar.getInstance();
+        String fech=(fecha.get(java.util.Calendar.MONTH)+1) + "/" 
+                    + fecha.get(java.util.Calendar.YEAR);
+        usuarios = GestionarUsuario.ObtenerRankingMensual(fech, usu.getClave());
+    }
 %>
 
 <!DOCTYPE html>
@@ -55,10 +75,10 @@
         <p>Puedes consultarlo de forma general o mensual.</p>
     </div>
     <div class="filtro">
-        <select name="filtro" id="filtro">
+        <select name="filtro" id="filtro" onchange="javascript:location.href = this.value;">
             <option selected disabled hidden>Filtrar por fecha</option>
-            <option value="a">General</option>
-            <option value="a">Mensual</option>
+            <option value="ranking.jsp?fil=0">General</option>
+            <option value="ranking.jsp?fil=1">Mensual</option>
         </select>
     </div>
     <div class="main_container">
@@ -67,58 +87,44 @@
                 <div class="doctores">Doctores</div>
                 <div class="puntos">Puntos</div>
             </div>
-            <div class="primero">
-                <div class="doctores">1. Garcia Garcia Aram Jesua</div>
-                <div class="puntos">452 🏆</div>
-            </div>
-            <div class="segundo">
-                <div class="doctores">2. Vasco Giraldo Juan Esteban</div>
-                <div class="puntos">426 🏆</div>
-            </div>
-            <div class="tercero">
-                <div class="doctores">3. Elizalde Hernández Alan</div>
-                <div class="puntos">350 🏆</div>
-            </div>
-            <div class="participante">
-                <div class="doctores">4. López Castillo Azurim</div>
-                <div class="puntos">330 🏆</div>
-            </div>
-            <div class="participante">
-                <div class="doctores">5. López Castillo Azurim</div>
-                <div class="puntos">330 🏆</div>
-            </div>
-            <div class="participante">
-                <div class="doctores">6. López Castillo Azurim</div>
-                <div class="puntos">330 🏆</div>
-            </div>
-            <div class="participante">
-                <div class="doctores">7. López Castillo Azurim</div>
-                <div class="puntos">330 🏆</div>
-            </div>
-            <div class="participante">
-                <div class="doctores">8. López Castillo Azurim</div>
-                <div class="puntos">330 🏆</div>
-            </div>
-            <div class="participante">
-                <div class="doctores">9. López Castillo Azurim</div>
-                <div class="puntos">330 🏆</div>
-            </div>
-            <div class="participante">
-                <div class="doctores">10. López Castillo Azurim</div>
-                <div class="puntos">330 🏆</div>
-            </div>
-            <div class="participante">
-                <div class="doctores">11. López Castillo Azurim</div>
-                <div class="puntos">330 🏆</div>
-            </div>
-            <div class="participante">
-                <div class="doctores">12. López Castillo Azurim</div>
-                <div class="puntos">330 🏆</div>
-            </div>
-            <div class="participante">
-                <div class="doctores">13. López Castillo Azurim</div>
-                <div class="puntos">330 🏆</div>
-            </div>
+            <% 
+                int i = 0;
+                for(MUsuario usua:usuarios){
+                    i++;
+                    if(i > 3){ 
+                        %>
+                        <div class="participante">
+                            <div class="doctores"><%=i%>. <%=usua.getNom_usu() %></div>
+                            <div class="puntos"><%=usua.getPuntos() %> 🏆</div>
+                        </div>
+            <%
+                    }else if(i == 3){
+                    %>
+                    <div class="tercero">
+                        <div class="doctores"><%=i%>. <%=usua.getNom_usu() %></div>
+                        <div class="puntos"><%=usua.getPuntos() %> 🏆</div>
+                    </div>
+            
+            <%
+                    }else if(i == 2){
+                    %>
+                    <div class="segundo">
+                        <div class="doctores"><%=i%>. <%=usua.getNom_usu() %></div>
+                        <div class="puntos"><%=usua.getPuntos() %> 🏆</div>
+                    </div>
+            
+            <%
+                    }else if(i == 1){
+                    
+                    
+            %>
+                    <div class="primero">
+                        <div class="doctores"><%=i%>. <%=usua.getNom_usu() %></div>
+                        <div class="puntos"><%=usua.getPuntos() %> 🏆</div>
+                    </div>
+            <% 
+                }}
+            %>
         </div>
     </div>
     <div class="main_container">

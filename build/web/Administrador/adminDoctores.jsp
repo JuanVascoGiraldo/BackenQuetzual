@@ -58,8 +58,9 @@
                 <div></div>
             </div>
             <div class="btn">
-                <button class="cs" data-open="modal3">Inhabilitar cuenta</button>
-                <a href="consultarHistorico.jsp?id=<%=usu.getId_usu() %>"><button class="ch" >Consultar historico</button></a>
+                <button onclick="mandar(<%=usu.getId_usu()%>)" class="cs" data-open="modal3">Inhabilitar cuenta</button>
+                <button onclick="mandardatos(<%=usu.getId_usu()%>,'<%=usu.getNom_usu()%>','<%=usu.getEmail()%>','<%=usu.getId_gen()%>','<%=usu.getFecha_nac()%>')" class="mc" data-open="modal4">Modificar cuenta</button>
+                <button class="ch" onclick=" modi(<%=usu.getId_usu()%>)">Consultar historico</button>
             </div>
         </div>
         <% } %>
@@ -97,11 +98,60 @@
     </div>
     <div class="modal2" id="modal3">
         <div class="card">
+            <form name="deshabilitar" action="../DeshabilitarDoctor"><input type="hidden" name="id" id="id" value=""></form>
             <h4>Cuidado, esta acción podría afectar el flujo del sistema</h4>
-            <button class="cs">Inhabilitar cuenta</button>
+            <button class="cs" onclick="Deshabilitar()">Inhabilitar cuenta</button>
             <button class="submit">No inhabilitar cuenta</button>
         </div>
     </div>
+    <div class="modal2" id="modal4">
+        <div class="card">
+                <form action="../ModificarDoctor" name="ModCuentaDoctor">
+            <input type="hidden" name="idd" id="idd" value="" >
+            <input type="text" name="nombred" id="nombred" placeholder="Nombre de Usuario" class="input" value="">
+            <input type="text" name="correod" id="correod" placeholder="Correo electronico" class="input" value="">
+            <br>
+            <label for="" class="article">Fecha de nacimiento</label><br>
+            <input type="date" name="fechad" id="fechad" class="input" value="">
+            <br>
+            <label for="" class="article">Sexo</label>
+            <br>
+            <select name="sexod" id="sexod" class="select">
+                <option value="3" id="mas">Masculino</option>
+                <option value="2" id="fe">Femenino</option>
+                <option value="1" id="pre">Prefiero no decirlo</option>
+            </select>
+            <br>
+            <button type="button" class="submit" onclick="modificarcuentadr()">Modificar Cuenta</button>
+        </form>
+        </div>
+    </div>
+    <script>
+        function Deshabilitar(){
+           document.deshabilitar.submit();
+        }
+        function mandar(id){
+            document.getElementById("id").value = id;
+        }
+        function modi(id){
+             location.href = 'consultarHistorico.jsp?id='+id;
+        }
+        function mandardatos(id, nombre, email, id_gen, fecha){
+            document.getElementById("fechad").value = fecha;
+            document.getElementById("nombred").value= nombre;
+            document.getElementById("correod").value = email;
+            document.getElementById("idd").value = id;
+            var id_genn = parseInt(id_gen);
+            if(id_genn == 1){
+                document.getElementById("pre").selected = true;
+            }else if(id_genn == 2){
+                document.getElementById("fe").selected = true;
+            }else if(id_genn == 3){
+                document.getElementById("mas").selected = true;
+            }
+            
+        }
+    </script>
     <script src="./JS/redirigir.js"></script>
     <script src="./JS/funcionModal2.js"></script>
     <script src="./JS/validar.js"></script>

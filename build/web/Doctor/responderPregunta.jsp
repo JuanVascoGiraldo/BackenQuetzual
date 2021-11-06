@@ -77,8 +77,7 @@
             <textarea name="des_pre" id="pregunta" class="area" placeholder="Escribe aquí tu pregunta"><%=pre.getDes_pre() %></textarea>
         </div>
         <select name="id_cat" id="filtro">
-            <option selected disabled hidden>Elige la clasificación</option>
-            <option value="1">Enfermedades de transmisión sexual</option>
+            <option value="1" selected>Enfermedades de transmisión sexual</option>
             <option value="5">Anticonceptivos</option>
             <option value="2">Embarazo</option>
             <option value="3">Salud sexual femenina</option>

@@ -2,7 +2,6 @@
 package Servlets;
 
 import Control.GestionarUsuario;
-import Control.Validar;
 import Modelo.MUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,8 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
-public class ModificarDoctor extends HttpServlet {
+public class DeshabilitarDoctor extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -28,41 +26,18 @@ public class ModificarDoctor extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String nombre, correo, contra, fecha;
-            int genero, id;
-            nombre = request.getParameter("nombred");
-            correo = request.getParameter("correod");
-            fecha = request.getParameter("fechad");
-            genero = Integer.parseInt(request.getParameter("sexod"));
-            id = Integer.parseInt(request.getParameter("idd"));
+            int id = Integer.valueOf(request.getParameter("id"));
             HttpSession sesion = request.getSession(true);
             if(sesion.getAttribute("usuario")!= null){
-                if(nombre != null && correo != null && fecha != null){
-                    MUsuario usua = (MUsuario)sesion.getAttribute("usuario");
-                    if(usua.getId_rol() == 3){
-                        if(Validar.Validarcorreo(correo)&& Validar.Validarfecha(fecha) && Validar.Validarnombre(nombre)){
-                                MUsuario usu = new MUsuario();
-                                usu.setClave(usua.getClave());
-                                usu.setId_rol(2);
-                                usu.setId_usu(id);
-                                usu.setEmail(correo);
-                                usu.setFecha_nac(fecha);
-                                usu.setNom_usu(nombre);
-                                usu.setId_gen(genero);
-                            if(GestionarUsuario.ModificarUsuario(usu)){
-                                response.sendRedirect("./Administrador/adminDoctores.jsp");
-                            }else{
-                                response.sendRedirect("./Administrador/adminDoctores.jsp");
-                                
-                            }
-                        }else{
-                            response.sendRedirect("paginaError2.html");
-                        }
+                MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
+                if(usu.getId_rol() == 3){
+                    if(GestionarUsuario.DeshabilitarDoctor(id, usu.getClave())){
+                        response.sendRedirect("./Administrador/adminDoctores.jsp");
                     }else{
                         response.sendRedirect("paginaError2.html");
                     }
                 }else{
-                    response.sendRedirect("paginaError2.html");
+                    response.sendRedirect("index.jsp");
                 }
             }else{
                 response.sendRedirect("index.jsp");

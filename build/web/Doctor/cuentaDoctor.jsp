@@ -1,5 +1,7 @@
 
 
+<%@page import="java.util.List"%>
+<%@page import="Control.GestionarPregunta"%>
 <%@page import="Modelo.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8" session="true" language="java"%>
 
@@ -13,7 +15,18 @@
     }else{
         response.sendRedirect("../index.jsp");
     }
-
+    MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
+    List<MPublicacion> publi= GestionarPregunta.ConsultatHistoricoDoc(usu.getId_usu(), usu.getClave());
+    int fil = 0;
+    try{
+        fil = Integer.valueOf(request.getParameter("fil"));
+        if(fil == 1 || fil>4){
+            response.sendRedirect("cuentaDoctor.jsp?fil=0");
+        }
+    }catch(Exception e){
+        response.sendRedirect("cuentaDoctor.jsp?fil=0");
+    }
+    
 %>
 
 <!DOCTYPE html>
@@ -50,52 +63,88 @@
     </header>
 
     <div class="title">
-        <h1>Preguntas Respondidas</h1>
+        <h1><%if(fil == 0){%>Todas las Preguntas<%}else if(fil == 2){%>Preguntas Respondidas<%}else if(fil == 3){%>Preguntas Rechazadas<%} %></h1>
         <hr>
     </div>
     <div class="filtro">
-        <select name="filtro" id="filtro">
+        <select name="filtro" id="filtro" onchange="javascript:location.href = this.value;">
             <option selected disabled hidden>Selecciona el filtro de preguntas</option>
-            <option value="a">Preguntas Rechazadas</option>
-            <option value="a">Preguntas Respondidas</option>
+            <option value="cuentaDoctor.jsp?fil=0">Todas Las Preguntas</option>
+            <option value="cuentaDoctor.jsp?fil=3">Preguntas Rechazadas</option>
+            <option value="cuentaDoctor.jsp?fil=2">Preguntas Respondidas</option>
         </select>
     </div>
-    <div class="main_container">
-        <div class="mini_header">
-            <h2>Edad</h2>
-            <h2>Categoria</h2>
-        </div>
-        <div class="pregunta">
-            <img src="./img/bxs-user.svg" class="img">
-            <div class="preguntas">
-                <h3>Tuve relaciones con mi pareja, y deacuerdo a mis sintomas creo que tengo S.I.D.A. pero temo ir al medico. Podría por favor ayudarme a saber si podría padecer S.I.D.A. y cual sería un posible tratamiento por favor? Estos son mis sintomas:
-                    1.- Dolor al tragar 2.- Diarrea 3.- Llagas en la ingle</h3>
+    <% 
+        for(MPublicacion pu: publi){
+            MPregunta pre = pu.getPregunta();
+            MRespuesta res = pu.getRespuesta();
+            
+            if(((fil == 0 && pre.getId_estado() == 2) || (fil == pre.getId_estado()))&& res.getId_cat() != 6){
+    %>
+    <div class="card">
+        <div class="main_container">
+            <div class="mini_header">
+                <h2><%=pre.getEdad_usu() %> años</h2>
+                <h2><% 
+                 if(res.getId_cat() == 1){
+                 %>Enfermedades de transmisión sexual<%
+                 }else if(res.getId_cat() == 2){
+                 %>Embarazo<%
+                 }else if(res.getId_cat() == 3){
+                 %>Salud sexual femenina<%
+                 }else if(res.getId_cat() == 4){
+                 %> Salud sexual masculina<%
+                 }else if(res.getId_cat() == 5){
+                 %>Anticonceptivos <%
+                 }
+               
+                %></h2>
+                <h2><%=res.getCali_pro() %>
+                    <p class="star">★</p>
+                </h2>
+            </div>
+            <div class="sub_header">
+                <h2><%=pre.getFecha_pre() %> - Respondido: <%=res.getFecha_res() %></h2>
+                <h2>Dr. <%=usu.getNom_usu()%></h2>
+            </div>
+            <div class="pregunta">
+                <img src="./img/bxs-user.svg" class="img">
+                <div class="preguntas">
+                    <h3><%=pre.getDes_pre()%></h3>
+                </div>
+            </div>
+            <div class="respuesta">
+                <div class="respuestas">
+                    <h3><%=res.getDes_res() %></h3>
+                </div>
+                <img src="./img/bx-plus-medical.svg" class="img">
             </div>
         </div>
-        <div class="respuesta">
-            <div class="respuestas">
-                <h3>Tus síntomas en general indican que podrías padecer S.I.D.A. Sin embargo, ningún médico puede darte un diagnóstico sin realizar estudio de laboratorio. El tratamiento consiste en antivirales para el VIH. Es necesario que acudas a un médico
-                    lo más pronto posible. No debes temer de ir al doctor, es mejor ir a tiempo y no cuando sea demasiado tarde. Puedes pedir a una persona de confiansa que te acompañe para sentirte más tr</h3>
-            </div>
-            <img src="./img/bx-plus-medical.svg" class="img">
-        </div>
     </div>
-    </div>
+    <% 
+        } 
+    if(((fil == 0 && pre.getId_estado() == 3) || (fil == pre.getId_estado() )) && res.getId_cat() == 6){
+    
+    %>
     <div class="card">
         <div class="mini_header2">
-            <h2>22/09/2021</h2>
+            <h2><%=res.getFecha_res() %></h2>
         </div>
         <div class="pregunta2">
             <img src="./img/bxs-user.svg" alt="">
             <div class="preguntas2">
-                <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa atque quo minus dolorum id cupiditate odit eligendi in qui voluptates?</h3>
+                <h3><%=pre.getDes_pre()%></h3>
             </div>
             <h1 class="h1">Razón del rechazo</h1>
             <div class="preguntas2">
-                <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci porro iure perferendis, nemo in, aliquid laudantium sequi iste blanditiis suscipit fugit velit, non minima ducimus? Nisi asperiores repellat itaque laboriosam.</h3>
+                <h3><%=res.getDes_res() %></h3>
             </div>
         </div>
     </div>
+    <% 
+        }
+    }
+    %>
     <script src="./JS/redirigir.js"></script>
 </body>
 

@@ -63,7 +63,7 @@
     %>
     <div class="main_container">
         <div class="mini_header">
-            <h2><%=res.getNom_doc()%></h2>
+            <h2>Dr. <%=res.getNom_doc()%></h2>
             <h2><%=res.getFecha_res() %> </h2>
         </div>
         <div class="respuesta">

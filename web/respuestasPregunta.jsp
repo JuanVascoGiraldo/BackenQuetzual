@@ -50,11 +50,6 @@
             <article>Respuestas</article>
             <button class="cs" onclick="cerrarSesion()">Cerrar sesión</button>
         </nav>
-        <div class="menu">
-            <a href="./preguntasRespondidas.jsp">
-                <img src="./img/bxs-left-arrow.svg" alt="Imagen"> Volver
-            </a>
-        </div>
     </header>
     <% 
         for(MRespuesta res:lista){

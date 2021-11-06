@@ -171,11 +171,35 @@ public class GestionarUsuario {
        return docs;
     }
     
+    public static List<MUsuario> BuscarDoctoresrank(String clave){
+       List<MUsuario> docs = new ArrayList<MUsuario>();
+       try{
+           JSONObject jo = new JSONObject();
+           jo.put("clave", clave);
+           String url = "/quetzual/usuario/Obtener/Doctores/rank";
+           JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
+           String status = jr.getString("status");
+           if(status.equals("Encontrados")){
+               JSONArray ja  = jr.getJSONArray("datos");
+               for(int i=0; i<ja.length(); i++){
+                   JSONObject doc = ja.getJSONObject(i);
+                   MUsuario usu = new MUsuario();
+                   usu.setNom_usu(Cifrado.decrypt(doc.getString("nom_usu")));
+                   usu.setId_usu(doc.getInt("id_usu"));
+                   docs.add(usu);
+               }
+           }
+       }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+       return docs;
+    }
+    
     public static List<MUsuario> ObtenerRankingMensual(String mes, String clave){
         List<MUsuario> docs = new ArrayList<MUsuario>();
         try{
             JSONObject jo = new JSONObject();
-            jo.put("me", mes);
+            jo.put("mes", mes);
             jo.put("clave", clave);
             String url = "/quetzual/usuario/Ranking/Mensual";
             JSONObject js = ConexionAPI.peticionPostJSONObject(url, jo);
@@ -199,7 +223,7 @@ public class GestionarUsuario {
     public static ArrayList<MUsuario> ObtenerRankingHistorico(String Clave){
         ArrayList<MUsuario> docs = new ArrayList<MUsuario>();
         try{
-            List<MUsuario> usua = BuscarDoctores(Clave);
+            List<MUsuario> usua = BuscarDoctoresrank(Clave);
             String url = "/quetzual/usuario/Ranking/Historico";
             for(MUsuario u:usua){
                 JSONObject jo = new JSONObject();
@@ -208,10 +232,14 @@ public class GestionarUsuario {
                 JSONObject ja = ConexionAPI.peticionPostJSONObject(url, jo);
                 String status = ja.getString("status");
                 MUsuario usu = new MUsuario();
-                if(status.equals("Dato")){
+                if(status.equals("Datos")){
                   usu.setPuntos(ja.getInt("total"));
                   usu.setNom_usu(u.getNom_usu());
                   docs.add(usu);
+                }else{
+                    usu.setPuntos(0);
+                    usu.setNom_usu(u.getNom_usu());
+                    docs.add(usu);
                 }
             }
         }catch(Exception e){
@@ -299,7 +327,9 @@ public class GestionarUsuario {
                 for(int i = 0; i<listcat1.size(); i++){
                     puntos1 += listcat1.get(i);
                 }
-                cat1.setPuntos(Double.valueOf(puntos1/listcat1.size()));
+                double size1 = 1.0;
+                if(listcat1.size() !=0)size1 = Double.valueOf(listcat1.size());
+                cat1.setPuntos(Double.valueOf(puntos1)/size1);
                 
                 CCategoria cat2 = new CCategoria();
                 cat2.setId_cat(2);
@@ -307,7 +337,10 @@ public class GestionarUsuario {
                 for(int i = 0; i<listcat2.size(); i++){
                     puntos2 += listcat2.get(i);
                 }
-                cat2.setPuntos(Double.valueOf(puntos2/listcat2.size()));
+                
+                double size2 = 1.0;
+                if(listcat2.size() !=0)size2 = Double.valueOf(listcat2.size());
+                cat2.setPuntos(Double.valueOf(puntos2)/size2);
                 
                 CCategoria cat3 = new CCategoria();
                 cat3.setId_cat(3);
@@ -315,7 +348,9 @@ public class GestionarUsuario {
                 for(int i = 0; i<listcat3.size(); i++){
                     puntos3 += listcat3.get(i);
                 }
-                cat3.setPuntos(Double.valueOf(puntos3/listcat3.size()));
+                double size3 = 1.0;
+                if(listcat3.size() !=0)size3 = Double.valueOf(listcat3.size());
+                cat3.setPuntos(Double.valueOf(puntos3)/size3);
                 
                 CCategoria cat4 = new CCategoria();
                 cat4.setId_cat(4);
@@ -323,7 +358,9 @@ public class GestionarUsuario {
                 for(int i = 0; i<listcat4.size(); i++){
                     puntos4 += listcat4.get(i);
                 }
-                cat4.setPuntos(Double.valueOf(puntos4/listcat4.size()));
+                double size4 = 1.0;
+                if(listcat4.size() !=0)size4 = Double.valueOf(listcat4.size());
+                cat4.setPuntos(Double.valueOf(puntos4)/size4);
                 
                 CCategoria cat5 = new CCategoria();
                 cat5.setId_cat(5);
@@ -331,7 +368,15 @@ public class GestionarUsuario {
                 for(int i = 0; i<listcat5.size(); i++){
                     puntos5 += listcat5.get(i);
                 }
-                cat5.setPuntos(Double.valueOf(puntos5/listcat5.size()));
+                double size5 = 1.0;
+                if(listcat5.size() !=0)size5 = Double.valueOf(listcat5.size());
+                cat5.setPuntos(Double.valueOf(puntos5)/size5);
+                
+                cat1.setDes_cat("ETS");
+                cat2.setDes_cat("Embarazo");
+                cat3.setDes_cat("Salud sexual femenina");
+                cat4.setDes_cat("Salud sexual masculina");
+                cat5.setDes_cat("Anticonceptivos");
                 
                 categorias.add(cat1);
                 categorias.add(cat2);
@@ -351,7 +396,7 @@ public class GestionarUsuario {
             JSONObject jo = new JSONObject();
             jo.put("clave", clave);
             jo.put("id", id);
-            String url = "/quetzual/usuario/Progreso/General";
+            String url = "/quetzual/usuario/Progreso/Usuario/Calificaciones";
             JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
             String status = jr.getString("status");
             if(status.equals("Encontrados")){
@@ -381,7 +426,10 @@ public class GestionarUsuario {
                 for(int i = 0; i<listcat1.size(); i++){
                     puntos1 += listcat1.get(i);
                 }
-                cat1.setPuntos(Double.valueOf(puntos1/listcat1.size()));
+                double size1 = 1.0;
+                if(listcat1.size() !=0)size1 = Double.valueOf(listcat1.size());
+                cat1.setPuntos(Double.valueOf(puntos1)/size1);
+                
                 
                 CCategoria cat2 = new CCategoria();
                 cat2.setId_cat(2);
@@ -389,7 +437,9 @@ public class GestionarUsuario {
                 for(int i = 0; i<listcat2.size(); i++){
                     puntos2 += listcat2.get(i);
                 }
-                cat2.setPuntos(Double.valueOf(puntos2/listcat2.size()));
+                double size2 = 1.0;
+                if(listcat2.size() !=0)size2 = Double.valueOf(listcat2.size());
+                cat2.setPuntos(Double.valueOf(puntos2)/size2);
                 
                 CCategoria cat3 = new CCategoria();
                 cat3.setId_cat(3);
@@ -397,7 +447,9 @@ public class GestionarUsuario {
                 for(int i = 0; i<listcat3.size(); i++){
                     puntos3 += listcat3.get(i);
                 }
-                cat3.setPuntos(Double.valueOf(puntos3/listcat3.size()));
+                double size3 = 1.0;
+                if(listcat3.size() !=0)size3 = Double.valueOf(listcat3.size());
+                cat3.setPuntos(Double.valueOf(puntos3)/size3);
                 
                 CCategoria cat4 = new CCategoria();
                 cat4.setId_cat(4);
@@ -405,7 +457,9 @@ public class GestionarUsuario {
                 for(int i = 0; i<listcat4.size(); i++){
                     puntos4 += listcat4.get(i);
                 }
-                cat4.setPuntos(Double.valueOf(puntos4/listcat4.size()));
+                double size4 = 1.0;
+                if(listcat4.size() !=0)size4 = Double.valueOf(listcat4.size());
+                cat4.setPuntos(Double.valueOf(puntos4)/size4);
                 
                 CCategoria cat5 = new CCategoria();
                 cat5.setId_cat(5);
@@ -413,9 +467,11 @@ public class GestionarUsuario {
                 for(int i = 0; i<listcat5.size(); i++){
                     puntos5 += listcat5.get(i);
                 }
-                cat5.setPuntos(Double.valueOf(puntos5/listcat5.size()));
+                double size5 = 1.0;
+                if(listcat5.size() !=0)size5 = Double.valueOf(listcat5.size());
+                cat5.setPuntos(Double.valueOf(puntos5)/size5);
                 
-                cat1.setDes_cat("Enfermedades de transmisión sexual");
+                cat1.setDes_cat("ETS");
                 cat2.setDes_cat("Embarazo");
                 cat3.setDes_cat("Salud sexual femenina");
                 cat4.setDes_cat("Salud sexual masculina");
@@ -476,7 +532,9 @@ public class GestionarUsuario {
                 usu.setNom_usu("no encontrado");
             }
         }catch(Exception e){
-            System.out.println(e.getMessage());
+            usu.setNom_usu("no encontrado");
+        }
+        if(usu.getNom_usu()==null){
             usu.setNom_usu("no encontrado");
         }
         return usu;

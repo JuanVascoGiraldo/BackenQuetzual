@@ -1,3 +1,6 @@
+<%@page import="java.util.List"%>
+<%@page import="Control.GestionarUsuario"%>
+<%@page import="Control.GestionarUsuario"%>
 <%@page import="Modelo.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8" session="true" language="java"%>
 
@@ -11,6 +14,13 @@
     }else{
         response.sendRedirect("../index.jsp");
     }
+    MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
+    List<CCategoria> lista = GestionarUsuario.ProgresoGenerar(usu.getClave());
+    CCategoria cat1 = lista.get(0);
+    CCategoria cat2 = lista.get(1);
+    CCategoria cat3 = lista.get(2);
+    CCategoria cat4 = lista.get(3);
+    CCategoria cat5 = lista.get(4);
 
 %>
 
@@ -42,7 +52,44 @@
         <canvas id="admChart"></canvas>
     </div>
     <script src="./JS/redirigir.js"></script>
-    <script type="text/javascript" src="./JS/graficas.js"></script>
+    <script>
+        var ctx = document.getElementById('admChart').getContext('2d');
+        var docChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['<%=cat1.getDes_cat()%>', '<%=cat2.getDes_cat()%>', '<%=cat3.getDes_cat()%>', '<%=cat4.getDes_cat()%>', '<%=cat5.getDes_cat()%>'],
+                datasets: [{
+                    label: 'Puntos',
+                    data: [<%=cat1.getPuntos()%>, <%=cat2.getPuntos()%>, <%=cat3.getPuntos()%>, <%=cat4.getPuntos()%>, <%=cat5.getPuntos()%>],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                aspectRatio: 1,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>

@@ -346,14 +346,15 @@ public class GestionarPregunta {
                     pre.setId_pre(jason.getInt("id_pre"));
                     pre.setId_estado(jason.getInt("id_estado"));
                     pre.setDes_pre(jason.getString("des_pre"));
-                    pre.setFecha_pre(jason.getString("Fecha_pre"));
+                    pre.setFecha_pre(jason.getString("fecha_pre"));
                     res.setDes_res(jason.getString("des_res"));
                     res.setFecha_res(jason.getString("fecha_res"));
-                    String fecha[] = jason.getString("fecha_nac").split("/");
-                    pre.setEdad_usu(calcularEdad(Integer.valueOf(fecha[2]),Integer.valueOf(fecha[1]), Integer.valueOf(fecha[0])));
-                    /*if(pre.getId_estado() == 2){
+                    res.setId_cat(jason.getInt("id_cat"));
+                    String fecha[] = jason.getString("fecha_nac").split("-");
+                    pre.setEdad_usu(calcularEdad(Integer.valueOf(fecha[0]),Integer.valueOf(fecha[1]), Integer.valueOf(fecha[2])));
+                    if(pre.getId_estado() == 2){
                         res.setCali_pro(promedioRes(jason.getInt("id_res")));
-                    }*/
+                    }
                     MPublicacion publi = new MPublicacion();
                     publi.setPregunta(pre);
                     publi.setRespuesta(res);
@@ -363,6 +364,7 @@ public class GestionarPregunta {
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
+        System.out.println("lista tam" + lista.size());
         return lista;
     }
     
@@ -386,6 +388,9 @@ public class GestionarPregunta {
             }
         }catch(Exception e){
             System.out.println(e.getMessage());
+        }
+        if(pre.getDes_pre() == null){
+            pre.setDes_pre("no encontrada");
         }
         return pre;
     }
@@ -488,16 +493,16 @@ public class GestionarPregunta {
                 pre.setCantidadRes(ja.length());
                 JSONObject cat = ja.getJSONObject(0);
                 pre.setId_catgen(cat.getInt("id_cat"));
-            }else{
-                pre.setDes_pre("no encontrada");
             }
         }catch(Exception e){
             System.out.println(e.getMessage());
+        }
+        if(pre.getDes_pre() == null){
             pre.setDes_pre("no encontrada");
         }
         return pre;
     }
-    /*
+    
     private static double promedioRes(int id){
         double prom = 0.0;
         try{
@@ -521,5 +526,5 @@ public class GestionarPregunta {
             System.out.println(e.getMessage());
         }
         return prom;
-    }*/
+    }
 }

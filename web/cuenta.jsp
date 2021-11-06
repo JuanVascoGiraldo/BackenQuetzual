@@ -15,6 +15,15 @@
         response.sendRedirect("index.jsp");
     }
     MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
+    
+    List<CCategoria> lista = GestionarUsuario.ProgresoUSuario(usu.getId_usu(), usu.getClave());
+    CCategoria cat1 = lista.get(0);
+    CCategoria cat2 = lista.get(1);
+    CCategoria cat3 = lista.get(2);
+    CCategoria cat4 = lista.get(3);
+    CCategoria cat5 = lista.get(4);
+    
+    
 
 %>
 <!DOCTYPE html>
@@ -111,25 +120,29 @@
                     Cuidado, esta acción será permanente, una ver eliminada la cuenta, tus datos y todo el progreso no podrán recuperarse ¿Desea continuar?
                 </b>
             </article>
-            <button class="cs">Eliminar cuenta</button> <br>
+            <button class="cs" onclick="eliminar()">Eliminar cuenta</button> <br>
             <button class="submit" onclick="crm()">Deseo permanecer en el sistema</button>
         </div>
     </div>
     </div>
     <button class="cs" data-open="modalR"><b>Eliminar cuenta</b></button>
-    
+    <script>
+        function eliminar(){
+            location.href = './EliminarCuenta';
+        }
+    </script>
     <script src="./JS/funcionModal.js"></script>
     <script src="./JS/validar.js"></script>
     <script src="./JS/sweetAlert.js"></script>
     <script>
     var ctx = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(ctx, {
+    var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ['ETS', 'Anticonceptivos', 'Embarazo', 'Salud sexual femenina', 'Salud sexual masculina'],
+        labels: ['<%=cat1.getDes_cat()%>', '<%=cat2.getDes_cat()%>', '<%=cat3.getDes_cat()%>', '<%=cat4.getDes_cat()%>', '<%=cat5.getDes_cat()%>'],
         datasets: [{
             label: 'Puntos',
-            data: [16, 10, 15, 16, 13],
+            data: [<%=cat1.getPuntos()%>, <%=cat2.getPuntos()%>, <%=cat3.getPuntos()%>, <%=cat4.getPuntos()%>, <%=cat5.getPuntos()%>],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
