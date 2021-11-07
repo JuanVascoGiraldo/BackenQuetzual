@@ -198,7 +198,10 @@ function ResPregunta() {
         return false;
     } else {
         document.getElementById('modalR').classList.add(isVisible);
-        document.Rpregunta.submit();
+        etTimeout(function() {
+            document.Rpregunta.submit();
+        }, 1000);
+        
     }
 }
 
@@ -240,6 +243,10 @@ function agregarRespuestares() {
         });
         return false;
     } else {
-        document.responder.submit();
+        document.getElementById('modalR').classList.add(isVisible);
+        setTimeout(function() {
+          document.responder.submit();  
+        }, 1000);
+        
     }
 }

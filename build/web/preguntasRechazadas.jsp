@@ -17,9 +17,7 @@
     MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
     List<MPublicacion> lista = GestionarPregunta.ConsultarPreRecUsu(usu.getId_usu(), usu.getClave());
     System.out.println("preguntas recgazadas" +lista.size());
-    if(lista.size() == 0){
-        response.sendRedirect("preguntasPendientes.jsp");
-    }
+    
 %>
 <!DOCTYPE html>
 <html lang="es">

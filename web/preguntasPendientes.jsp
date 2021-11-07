@@ -15,9 +15,7 @@
     }
     MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
     List<MPregunta> pre = GestionarPregunta.ConsultarPrePenUsu(usu.getId_usu(), usu.getClave());
-    if(pre.size() == 0){
-        response.sendRedirect("hacerPregunta.jsp");
-    }
+    
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,7 +67,6 @@
     
     %>
     <div class="main_container">
-
         <div class="mini_header">
             <h2>Pendiente</h2>
         </div>
@@ -81,7 +78,7 @@
             <div class="pregunta">
                 <img src="./img/bxs-user.svg" alt="">
                 <div class="preguntas">
-                    <p class="text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=pres.getDes_pre() %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                    <p class="text"><%=pres.getDes_pre() %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
                 </div>
             </div>
             <div class="pregunta">

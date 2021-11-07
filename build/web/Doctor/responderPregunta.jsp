@@ -91,7 +91,7 @@
         </div>
         <div class="flex">
             <button id="responder" class="question" onclick="ResPregunta()">Responder</button>
-            <a href="./preguntasPendientes.html" class="enlace"><button class="cs">Cancelar</button></a>
+            <a href="./preguntasPendientes.jsp" class="enlace"><button class="cs">Cancelar</button></a>
         </div>
     </div>
     </form>

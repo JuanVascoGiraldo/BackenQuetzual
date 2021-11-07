@@ -418,7 +418,7 @@ public class GestionarPregunta {
                     res.setNom_doc(Cifrado.decrypt(jso.getString("nom_usu")));
                     res.setFecha_res(jso.getString("fecha_res"));
                     res.setId_usuRes(jso.getInt("id_usu"));
-                    //res.setCali_pro(promedioRes(res.getId_res()));
+                    res.setCali_pro(promedioRes(res.getId_res()));
                     lista.add(res);
                 }
             }
@@ -460,6 +460,47 @@ public class GestionarPregunta {
         return lista;
     }
     
+    public static boolean calificarres(int id, int res, int cal){
+        boolean seguir = false;
+        try{
+            JSONObject jo = new JSONObject();
+            jo.put("usu", id);
+            jo.put("calif", cal);
+            jo.put("resp", res);
+            String url = "/quetzual/respuesta/Calificar/Respuesta/Usuario";
+            JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
+            String status = jr.getString("status");
+            if(status.equals("Eliminada")||status.equals("Calificada")){
+                seguir = true;
+            }
+        }catch(Exception e){
+            seguir = false;
+            System.out.println(e.getMessage());
+        }
+        return seguir;
+    }
+    
+    public static int caliRes(int id, int res, String clave){
+        int total = 0;
+        try{
+            //{clave, usu, resp}
+            JSONObject jo = new JSONObject();
+            jo.put("clave", clave);
+            jo.put("usu", id);
+            jo.put("resp", res);
+            String url = "/quetzual/respuesta/Calificada/Respuesta";
+            JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
+            String status = jr.getString("status");
+            if(status.equals("Encontrada")){
+                total = jr.getInt("cal");
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            total = 0;
+        }
+        return total;
+    }
+    
     public static int calcularEdad(int ano, int mes, int dia){
         int edad = 0;
         try{
@@ -476,7 +517,9 @@ public class GestionarPregunta {
         }catch(Exception e){
             System.out.println( e.getMessage());
         }
-        System.out.println(edad);
+        if(edad < 1){
+            edad = 0;
+        }
         return edad;
     }
     
@@ -513,8 +556,9 @@ public class GestionarPregunta {
             String status = jr.getString("status");
             if(status.equals("Encontradas")){
                 JSONArray ja = jr.getJSONArray("datos");
-                if(ja.length()>1){
-                    int total = 0;
+                if(ja.length()>0){
+                    double total = 0;
+                
                     for(int i=0; i<ja.length(); i++){
                         JSONObject jso = ja.getJSONObject(i);
                         total += jso.getInt("cal");

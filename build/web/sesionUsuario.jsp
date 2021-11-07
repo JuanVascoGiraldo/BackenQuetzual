@@ -17,9 +17,7 @@
     }
     MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
     List<MPregunta> pre = GestionarPregunta.ConsultarAllPreRes(usu.getClave() );
-    if(pre.size() == 0){
-        response.sendRedirect("preguntasPendientes.jsp");
-    }
+    
     
     int fil = 0;
     try{
@@ -118,7 +116,7 @@
             </div>
         </div>
         <div class="respuesta">
-            <a href="./respuestasPregunta.jsp?id=<%=res.getId_pre() %>">Ver respuestas</a>
+            <a href="./respuestasPregunta.jsp?id=<%=res.getId_pre() %>&&re=0">Ver respuestas</a>
         </div>
     </div>
     <% 

@@ -18,12 +18,25 @@
     try{
         id = Integer.valueOf(request.getParameter("id"));
     }catch(Exception e){
-        response.sendRedirect("preguntasRespondidas.jsp");
+        response.sendRedirect("sesionUsuario.jsp");
     }
     List<MRespuesta> lista = GestionarPregunta.ConsultarRespuestas(id, usu.getClave());
     System.out.println(lista.size());
     if(lista.size() == 0){
-        response.sendRedirect("preguntasRespondidas.jsp");
+        response.sendRedirect("sesionUsuario.jsp");
+    }
+    
+    int re = 0;
+    try{
+        re = Integer.valueOf(request.getParameter("re"));
+    }catch(Exception e){
+        re = 0;
+    }
+    String redireccionar = "";
+    if(re == 0){
+        redireccionar = "sesionUsuario.jsp";
+    }else{
+        redireccionar = "preguntasRespondidas.jsp";
     }
 %>
 
@@ -50,7 +63,13 @@
             <article>Respuestas</article>
             <button class="cs" onclick="cerrarSesion()">Cerrar sesión</button>
         </nav>
+        <div class="menu">
+            <a href="./<%=redireccionar %>">
+                <img src="./img/bxs-left-arrow.svg" alt="Imagen"> Volver
+            </a>
+        </div>
     </header>
+    
     <% 
         for(MRespuesta res:lista){
     %>
@@ -58,6 +77,21 @@
         <div class="mini_header">
             <h2>Dr. <%=res.getNom_doc() %></h2>
             <h2><%=res.getFecha_res() %> </h2>
+            <h2><%=res.getCali_pro() %><p class="star">★</p> </h2>
+        </div>
+        <div class="sub_header">
+                <h2><% 
+                        int cal = GestionarPregunta.caliRes(usu.getId_usu(), res.getId_res(), usu.getClave());
+                        if(cal >0){
+                %> 
+                        Calificada con <%=cal %><p class="star">★</p> </h2>
+                    <%     
+                        }else if(cal == 0){
+                        %> 
+                        No ha Dado una Calificación
+            <%
+                        }
+                    %></h2>
         </div>
         <div class="respuesta">
             <div class="respuestas">
@@ -68,7 +102,7 @@
         <div class="calificacion">
             <div class="contenedor">
                 <div class="p">¿Te ha resultado útil esta solución?</div>
-                <div class="Estrellas" id="Estrellas"></div>
+                <div class="Estrellas" id="Estrellas" onclick="calificar(<%=id%>,<%=res.getId_res()%>,<%=re%>)"></div>
             </div>
         </div>
     </div>

@@ -57,12 +57,6 @@
         </div>
     </header>
 
-    <div class="datos">
-        <p>Nombre</p>
-        <p>Correo electronico</p>
-        <p>Fecha de nacimiento</p>
-        <p>Sexo</p>
-    </div>
     <div class="title">
         <h1>Aprovechamiento del sistema</h1>
         <hr>

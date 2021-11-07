@@ -1,10 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Servlets;
 
+import Control.GestionarPregunta;
 import Modelo.MUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,8 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
-public class CerrarSesion extends HttpServlet {
+public class CalificarRespuesta extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,10 +27,26 @@ public class CerrarSesion extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             HttpSession sesion = request.getSession(true);
-            
             if(sesion.getAttribute("usuario") != null){
-                    sesion.invalidate();
-                    response.sendRedirect("index.jsp");
+                MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
+                if(usu.getId_rol() == 1){
+                    if(request.getParameter("id_pre")!= null && request.getParameter("id_res")!= null && request.getParameter("cal")!= null
+                            && request.getParameter("re")!= null){
+                        int pre = Integer.valueOf(request.getParameter("id_pre"));
+                        int res = Integer.valueOf(request.getParameter("id_res"));
+                        int cal  = Integer.valueOf(request.getParameter("cal"));
+                        int re  = Integer.valueOf(request.getParameter("re"));
+                        if(GestionarPregunta.calificarres(usu.getId_usu(), res, cal)){
+                            response.sendRedirect("respuestasPregunta.jsp?id="+pre+"&&re="+re);
+                        }else{
+                            response.sendRedirect("paginaError2.html");
+                        }
+                    }else{
+                        response.sendRedirect("paginaError2.html");
+                    }
+                }else{
+                    response.sendRedirect("paginaError2.html");
+                }
             }else{
                 response.sendRedirect("paginaError2.html");
             }

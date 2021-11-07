@@ -82,11 +82,22 @@
             <textarea name="des_res" id="respuestas" class="area" placeholder="Escribe aquí tu respuesta"></textarea>
         </div>
         <input type="hidden" name="id_pre" value="<%=id %>" >
-        <button onclick="agregarRespuestares()" class="submit">Agregar respuesta</button>
+        <button type="button" onclick="agregarRespuestares()" class="submit">Agregar respuesta</button>
     </form>
         <% 
             }
         %>
+    
+    <div class="modal" id="modalR">
+        <div class="card">
+            <h1>¡Felicidades!</h1><br>
+            <h1>Has obtenido puntos por responder esta pregunta</h1><br>
+            <h1>Gracias por tu esfuerzo</h1><br>
+            <img src="./img/undraw_happy_announcement_ac67.svg" class="img">
+
+            <button class="question" onclick="enviarGestionarPreguntas()">Aceptar</button>
+        </div>
+    </div>  
     <script src="./JS/validar.js"></script>
     <script src="./JS/sweetAlert.js"></script>
     <script src="./JS/funcionModal.js"></script>

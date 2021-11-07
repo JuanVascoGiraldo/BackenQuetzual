@@ -1,3 +1,8 @@
+
+var id_pre = 0;
+var id_res = 0;
+var re = 0;
+
 /*
  *  jQuery StarRatingSvg v1.2.0
  *
@@ -97,7 +102,7 @@
     handleRating: function(e){
       var index = this.getIndex(e);
       var rating = index + 1;
-
+      mandar(rating);
       this.applyRating(rating, this.$el);
       this.executeCallback( rating, this.$el );
 
@@ -340,4 +345,15 @@
 
 })( jQuery, window, document );
 
+function calificar(id_pres , id_ress, ree){
+    id_pre = id_pres;
+    id_res = id_ress;
+    re = ree;
+}
 
+function mandar(punt){
+    setTimeout(function() {
+            location.href = './CalificarRespuesta?id_pre='+id_pre+'&&id_res='+id_res+'&&cal='+punt+'&&re='+re;
+        }, 1000);
+    
+}
