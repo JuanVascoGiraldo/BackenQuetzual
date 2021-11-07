@@ -76,7 +76,7 @@
             </div>
             <div class="flex">
                 <!--<button class="question" onclick="HPregunta()">Preguntar</button>-->
-                <button class="question" onclick="HPregunta()">Preguntar</button>
+                <button type="button" class="question" onclick="HPregunta()">Preguntar</button>
                 <button class="cs" onclick="javascript:location.href ='./sesionUsuario.jsp'">Cancelar</button>
             </div>
         </form>

@@ -90,7 +90,7 @@
             <textarea name="des_res" id="respuesta" class="area" placeholder="Escribe aquí tu respuesta"></textarea>
         </div>
         <div class="flex">
-            <button id="responder" class="question" onclick="ResPregunta()">Responder</button>
+            <button type="button" id="responder" class="question" onclick="ResPregunta()">Responder</button>
             <a href="./preguntasPendientes.jsp" class="enlace"><button class="cs">Cancelar</button></a>
         </div>
     </div>

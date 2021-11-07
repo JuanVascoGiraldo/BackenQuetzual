@@ -82,7 +82,7 @@
             </div>
             <div class="flex">
                 <button class="cs" data-open="modalR" onclick="redeliminar(<%=pre.getId_pre() %>)">Eliminar pregunta</button>
-                <button class="question" onclick="MPregunta()">Guardar cambios</button>
+                <button type="button" class="question" onclick="MPregunta()">Guardar cambios</button>
             </div>
         </form>
     </div>

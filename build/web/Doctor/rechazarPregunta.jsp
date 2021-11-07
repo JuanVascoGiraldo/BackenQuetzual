@@ -86,7 +86,7 @@
             <textarea name="razon" id="razon" class="area" placeholder="Escribe aquí tu motivo de rechazo"></textarea>
         </div>
         <div class="flex">
-            <button id="rechazar" class="question" onclick="RechaPregunta()">Confirmar</button>
+            <button type="button" id="rechazar" class="question" onclick="RechaPregunta()">Confirmar</button>
             <a href="./preguntasPendientes.jsp" class="enlace"><button class="cs">Cancelar</button></a>
         </div>
         </form>
