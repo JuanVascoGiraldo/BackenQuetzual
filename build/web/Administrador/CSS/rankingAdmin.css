@@ -299,3 +299,26 @@ aside {
         align-items: center;
     }
 }
+
+.vacio {
+    width: 90%;
+    margin: 10px auto;
+    background-color: #fff;
+    max-width: 800px;
+    text-align: center;
+    font-size: 25px;
+    border: 1px solid #0000008a;
+    box-shadow: 1px 2px 8px #0000008a;
+    padding: 10px;
+}
+
+.vacio>p {
+    text-align: center;
+}
+
+.vacio>img {
+    max-height: 500px;
+    max-width: 500px;
+    width: 90%;
+    margin: 0 auto;
+}

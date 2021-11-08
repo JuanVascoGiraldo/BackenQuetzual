@@ -15,9 +15,7 @@
     }
     MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
     List<MPregunta> pre = GestionarPregunta.ConsultarAllPreRes(usu.getClave() );
-    if(pre.size() == 0){
-        response.sendRedirect("preguntasPendientes.jsp");
-    }
+   
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -97,6 +95,14 @@
         </div>
     </div>
     <% 
+        }
+       if(pre.size() == 0){
+        %> 
+        <div class="vacio">
+            <p>No hay Preguntas Publicas Actualmente</p>
+            <img src="./img/sinpreresdoc.svg">
+        </div>
+    <%
         }
     %>
     <script src="./JS/validar.js"></script>

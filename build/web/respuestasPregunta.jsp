@@ -77,7 +77,6 @@
         <div class="mini_header">
             <h2>Dr. <%=res.getNom_doc() %></h2>
             <h2><%=res.getFecha_res() %> </h2>
-            <h2><%=res.getCali_pro() %><p class="star">★</p> </h2>
         </div>
         <div class="sub_header">
                 <h2><% 
@@ -92,6 +91,7 @@
             <%
                         }
                     %></h2>
+        <h2><%=res.getCali_pro() %><p class="star">★</p> </h2>
         </div>
         <div class="respuesta">
             <div class="respuestas">

@@ -86,7 +86,14 @@
     </div>
     <% 
         }
+        if(lista.size() == 0){
     %> 
+    
+    <div class="vacio">
+            <p>No Tienes Preguntas Rechazadas Actualmente</p>
+            <img src="./img/sinprerechusu.svg">
+        </div>
+    <% } %>
     <script src="./JS/validar.js"></script>
     <script src="./JS/sweetAlert.js"></script>
 </body>

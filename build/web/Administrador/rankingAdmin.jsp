@@ -64,9 +64,11 @@
                 <div class="puntos">Puntos</div>
             </div>
             <% 
+                int total = 0;
                 int i = 0;
                 for(MUsuario usua:usuarios){
                     i++;
+                    total++;
                     if(i > 3){ 
                         %>
                         <div class="participante">
@@ -100,8 +102,20 @@
                     </div>
             <% 
                 }}
-            %>
+            
+        %>
         </div>
+        <% 
+        
+        if(total == 0){
+        %> 
+        <div class="vacio">
+            <p>No hay Ranking <%if(fil==0){%>Historico <% }else if(fil==1){%>Mensual <% } %>Actualmente</p>
+            <img src="./img/sinrakmen.svg">
+        </div>
+        <%
+            }
+        %>
     </div>
     <div class="modal" id="modalR">
         <aside class="modal-dialog">

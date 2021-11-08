@@ -15,6 +15,21 @@
     }
     MUsuario usus = (MUsuario)sesion.getAttribute("usuario");
     List<MUsuario> doctores = GestionarUsuario.BuscarDoctores(usus.getClave());
+    
+    int correo = 0;
+    try{
+        correo = Integer.valueOf(request.getParameter("correo"));
+    }catch(Exception e){
+        correo = 0;
+    }
+    
+    int contra = 0;
+    try{
+        contra = Integer.valueOf(request.getParameter("contra"));
+    }catch(Exception e){
+        contra = 0;
+    }
+
 %>
 
 
@@ -63,7 +78,18 @@
                 <button class="ch" onclick=" modi(<%=usu.getId_usu()%>)">Consultar historico</button>
             </div>
         </div>
-        <% } %>
+        <% } 
+            if(doctores.size() == 0){
+
+            %> 
+            <div class="vacio">
+            <p>No hay Doctores Registrados Actualmente</p>
+            <img src="./img/sindoc.svg">
+         </div>
+        
+        <%
+            }
+        %>
     </div>
     <div class="modal" id="modalR">
         <aside class="modal-dialog">
@@ -122,6 +148,8 @@
                 <option value="1" id="pre">Prefiero no decirlo</option>
             </select>
             <br>
+            <input type="password" name="password" id="password" placeholder="Contraseña" class="input">
+            <br>
             <button type="button" class="submit" onclick="modificarcuentadr()">Modificar Cuenta</button>
         </form>
         </div>
@@ -155,6 +183,37 @@
     <script src="./JS/redirigir.js"></script>
     <script src="./JS/funcionModal2.js"></script>
     <script src="./JS/validar.js"></script>
+    <% 
+        if(contra == 1){
+            %> 
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'No se Modificado el doctor',
+                    text: 'No coincide la contraseña de la cuenta '
+                });
+            </script>
+    
+    
+    <%
+        }
+    %>
+    
+    <% 
+        if(correo == 1){
+            %> 
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Correo ya registrado',
+                    text: 'El correo ya ha sido Registrado Intente de nuevo'
+                });
+            </script>
+    
+    
+    <%
+        }
+    %>
     
 </body>
 

@@ -43,6 +43,7 @@ public class ModifcarCuenta extends HttpServlet {
                 if(nombre != null && correo != null && fecha != null){
                     if(Validar.Validarcorreo(correo)&& Validar.Validarfecha(fecha) && Validar.Validarnombre(nombre)){
                             MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
+                            String corrr = usu.getEmail();
                             usu.setEmail(correo);
                             usu.setFecha_nac(fecha);
                             usu.setNom_usu(nombre);
@@ -51,9 +52,11 @@ public class ModifcarCuenta extends HttpServlet {
                             response.sendRedirect("CerrarSesion");
                         }else{
                             if(usu.getId_rol() == 1){
-                                response.sendRedirect("cuenta.jsp");
+                                usu.setEmail(corrr);
+                                response.sendRedirect("cuenta.jsp?correo=1");
                             }else if(usu.getId_rol() == 3){
-                                response.sendRedirect("./Administrador/cuentaAdmin.jsp");
+                                usu.setEmail(corrr);
+                                response.sendRedirect("./Administrador/cuentaAdmin.jsp?correo=1");
                             }
                         }
                     }else{

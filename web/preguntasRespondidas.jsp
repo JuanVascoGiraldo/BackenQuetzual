@@ -102,6 +102,15 @@
     </div>
     <%
         }
+        if(pres.size() == 0){
+    %>
+    
+    <div class="vacio">
+            <p>No Tienes Preguntas Respondidas Actualmente</p>
+            <img src="./img/sinpreresusu.svg">
+    </div>
+    <% 
+        }
     %>
     <script src="./JS/validar.js"></script>
     <script src="./JS/sweetAlert.js"></script>

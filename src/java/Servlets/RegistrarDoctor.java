@@ -51,7 +51,7 @@ public class RegistrarDoctor extends HttpServlet {
                             if(GestionarUsuario.CrearDoctor(usu, usua.getClave())){
                                 response.sendRedirect("./Administrador/adminDoctores.jsp");
                             }else{
-                                response.sendRedirect("paginaError2.html");
+                                 response.sendRedirect("./Administrador/adminDoctores.jsp?correo=1");
                             }
                         }else{
                             response.sendRedirect("paginaError2.html");

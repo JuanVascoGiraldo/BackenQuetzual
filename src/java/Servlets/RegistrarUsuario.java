@@ -47,7 +47,7 @@ public class RegistrarUsuario extends HttpServlet {
                         if(GestionarUsuario.CrearUsuario(usu)){
                             response.sendRedirect("IniciarSesion?email="+correo+"&&contra="+contra);
                         }else{
-                            response.sendRedirect("paginaError2.html");
+                            response.sendRedirect("index.jsp?res=1");
                         }
                     }else{
                         response.sendRedirect("paginaError2.html");

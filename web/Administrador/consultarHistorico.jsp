@@ -72,11 +72,13 @@
         </select>
     </div>
     <% 
+       int total = 0;
         for(MPublicacion pu: publi){
             MPregunta pre = pu.getPregunta();
             MRespuesta res = pu.getRespuesta();
             
             if(((fil == 0 && pre.getId_estado() == 2) || (fil == pre.getId_estado()))&& res.getId_cat() != 6){
+                total++;
     %>
     <div class="card">
         <div class="main_container">
@@ -121,7 +123,7 @@
     <% 
         } 
     if(((fil == 0 && pre.getId_estado() == 3) || (fil == pre.getId_estado() )) && res.getId_cat() == 6){
-    
+        total++;
     %>
     <div class="card">
         <div class="mini_header2">
@@ -140,6 +142,14 @@
     <% 
         }
     }
+    if(total == 0){
+        %> 
+        <div class="vacio">
+            <p>No hay Preguntas<%if(fil == 2){%> Respondidas <% }else if(fil == 3){%> Rechazadas<%  }%> en el Historico</p>
+            <img src="./img/sinhis.svg">
+        </div>
+    <%
+        }
     %>
    
     <div class="modal" id="modalR">

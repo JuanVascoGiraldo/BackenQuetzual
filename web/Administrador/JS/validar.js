@@ -93,7 +93,8 @@ function modificarcuentadr() {
     var fecha = document.getElementById("fechad").value;
     var email = document.getElementById("correod").value;
     var nombre = document.getElementById("nombred").value;
-    if (validarnombre(nombre) && validarfecha(fecha) && validarcorreo(email)) {
+    var pass = document.getElementById("password").value;
+    if (validarnombre(nombre) && validarfecha(fecha) && validarcorreo(email) && validarcontrasena(pass)) {
         document.getElementById("modalR").classList.add(isVisible);
         document.ModCuentaDoctor.submit();
     }
@@ -105,7 +106,10 @@ function modificarcuentaAdmin() {
     var nombre = document.getElementById("nombreadmin").value;
     if (validarnombre(nombre) && validarfecha(fecha) && validarcorreo(email)) {
         document.getElementById("modalR").classList.add(isVisible);
-        document.ModCuentaAdmin.submit();
+        setTimeout(function() {
+            document.ModCuentaAdmin.submit();
+        }, 2000);
+        
     }
     //
 
@@ -124,7 +128,7 @@ function modificarContra() {
         //
         setTimeout(function() {
             document.ModiContraAdmin.submit();
-        }, 5000);
+        }, 2000);
     } else if (pass != confpass) {
         Swal.fire({
             icon: 'error',

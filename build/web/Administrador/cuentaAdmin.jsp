@@ -14,6 +14,19 @@
         response.sendRedirect("../index.jsp");
     }
     MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
+    int correo = 0;
+    try{
+        correo = Integer.valueOf(request.getParameter("correo"));
+    }catch(Exception e){
+        correo = 0;
+    }
+    
+    int contra = 0;
+    try{
+        contra = Integer.valueOf(request.getParameter("contra"));
+    }catch(Exception e){
+        contra = 0;
+    }
 %>
 
 
@@ -78,6 +91,38 @@
     <script src="./JS/redirigir.js"></script>
     <script src="./JS/funcionModal.js"></script>
     <script src="./JS/validar.js"></script>
+    
+     <% 
+        if(contra == 1){
+            %> 
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'No se Modificado la cuenta',
+                    text: 'No coincide la contraseña de la cuenta '
+                });
+            </script>
+    
+    
+    <%
+        }
+    %>
+    
+    <% 
+        if(correo == 1){
+            %> 
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Correo ya registrado',
+                    text: 'El correo ya ha sido Registrado Intente de nuevo'
+                });
+            </script>
+    
+    
+    <%
+        }
+    %>
 </body>
 
 </html>

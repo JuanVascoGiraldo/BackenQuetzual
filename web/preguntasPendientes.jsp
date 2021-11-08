@@ -76,7 +76,6 @@
         </div>
         <div class="flex">
             <div class="pregunta">
-                <img src="./img/bxs-user.svg" alt="">
                 <div class="preguntas">
                     <p class="text"><%=pres.getDes_pre() %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
                 </div>
@@ -97,7 +96,13 @@
     </div>
     <%
         }
+        if(pre.size() == 0){
     %>
+        <div class="vacio">
+            <p>No Tienes Preguntas Pendientes Actualmente</p>
+            <img src="./img/sinprepenusu.svg">
+        </div>
+        <% } %>
     <script src="./JS/validar.js"></script>
     <script src="./JS/sweetAlert.js"></script>
     <script>

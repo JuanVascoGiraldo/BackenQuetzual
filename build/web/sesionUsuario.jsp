@@ -28,6 +28,8 @@
     }catch(Exception e){
         fil = 0;
     }
+    int tota = 0;
+    
     
 %>
 <!DOCTYPE html>
@@ -89,6 +91,7 @@
     <% 
         for(MPregunta res: pre){
             if(fil == 0 || fil == res.getId_catgen() ){
+                tota++;
     %>
     <div class="main_container">
         <div class="mini_header">
@@ -121,6 +124,14 @@
     </div>
     <% 
         }}
+        if(tota == 0){
+        %> 
+        <div class="vacio">
+            <p>No hay Preguntas Actualmente</p>
+            <img src="./img/sinprepuusu.svg">
+        </div>
+    <%
+        }
     %>
     <script src="./JS/validar.js"></script>
     <script src="./JS/sweetAlert.js"></script>

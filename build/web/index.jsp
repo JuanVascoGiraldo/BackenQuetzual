@@ -13,6 +13,20 @@
             response.sendRedirect("./Administrador/sesionAdmin.jsp");
         }
     }
+    
+    int fil = 0;
+    try{
+        fil = Integer.valueOf(request.getParameter("fil"));
+    }catch(Exception e){
+        fil = 0;
+    }
+    
+    int res = 0;
+    try{
+        res = Integer.valueOf(request.getParameter("res"));
+    }catch(Exception e){
+        res = 0;
+    }
 
 %>
 <!DOCTYPE html>
@@ -67,7 +81,7 @@
                     </select>
                     <input type="password" name="contra" id="password" placeholder="Contraseña" class="input">
                     <input type="password" name="confcontra" id="confpass" placeholder="Confirmar Contraseña" class="input">
-                    <article class="article">Al hacer clic en “Registrarte”, aceptas nuestro <a href="./politicas.html" class="a">Aviso de privacidad</a></article>
+                    <article class="article">Al hacer clic en “Registrarte”, aceptas nuestro <a href="./politicas.html" class="a" target="_blank">Aviso de privacidad</a></article>
                     <button type="button" class="submit" onclick="registrarr()" id="enviar">Registrarse </button>
                 </form>
             </div>
@@ -79,5 +93,36 @@
     <script src="./JS/validar.js"></script>
     <script src="./JS/sweetAlert.js"></script>
     <script src="./JS/funcionModal.js"></script>
+    <% 
+        if(fil == 1){
+            %> 
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'No se ha iniciado Sesión',
+                    text: 'El correo o contraseña no coinciden con ningun usuario intente de nuevo'
+                });
+            </script>
+    
+    
+    <%
+        }
+    %>
+    
+    <% 
+        if(res == 1){
+            %> 
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'No se ha Registrado',
+                    text: 'El correo ya ha sido Registrado Intente de nuevo'
+                });
+            </script>
+    
+    
+    <%
+        }
+    %>
 </body>
 </html>

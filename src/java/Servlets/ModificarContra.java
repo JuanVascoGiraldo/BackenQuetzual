@@ -40,13 +40,17 @@ public class ModificarContra extends HttpServlet {
                             if(GestionarUsuario.ModificarContra(newpass, usu.getId_usu(), usu.getId_rol(), usu.getClave())){
                                 response.sendRedirect("CerrarSesion");
                             }else{
-                                response.sendRedirect("paginaError2.html");
+                                if(usu.getId_rol() == 1){
+                                response.sendRedirect("cuenta.jsp?contra=1");
+                            }else if(usu.getId_rol() == 3){
+                                response.sendRedirect("./Administrador/cuentaAdmin.jsp?contra=1");
+                            }
                             }
                         }else{
                             if(usu.getId_rol() == 1){
-                                response.sendRedirect("cuenta.jsp");
+                                response.sendRedirect("cuenta.jsp?contra=1");
                             }else if(usu.getId_rol() == 3){
-                                response.sendRedirect("./Administrador/cuentaAdmin.jsp");
+                                response.sendRedirect("./Administrador/cuentaAdmin.jsp?contra=1");
                             }
                         }
                     }else{

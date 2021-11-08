@@ -75,6 +75,14 @@
     </div>
     <% 
         }
+    if(lista.size() == 0){
+        %> 
+        <div class="vacio">
+            <p>No hay Preguntas Pendientes Actualmente</p>
+            <img src="./img/sinprependoc.svg">
+        </div>
+    <%
+        }
     %>
     <script src="./JS/redirigir.js"></script>
     <script>

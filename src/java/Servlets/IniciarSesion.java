@@ -40,7 +40,7 @@ public class IniciarSesion extends HttpServlet {
                     if(Validar.Validarcorreo(email)&& Validar.Validarcontra(contra)){
                         MUsuario usu = GestionarUsuario.iniciarSesion(email, contra);
                         if(usu.getNom_usu().equals("No se ha encontrado ningun usuario")){
-                            response.sendRedirect("index.jsp");
+                            response.sendRedirect("index.jsp?fil=1");
                         }else{
                             int id = usu.getId_rol();
                             if(id == 1){

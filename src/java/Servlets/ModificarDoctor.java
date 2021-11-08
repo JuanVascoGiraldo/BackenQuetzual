@@ -34,29 +34,33 @@ public class ModificarDoctor extends HttpServlet {
             correo = request.getParameter("correod");
             fecha = request.getParameter("fechad");
             genero = Integer.parseInt(request.getParameter("sexod"));
+            contra = request.getParameter("password");
             id = Integer.parseInt(request.getParameter("idd"));
             HttpSession sesion = request.getSession(true);
             if(sesion.getAttribute("usuario")!= null){
                 if(nombre != null && correo != null && fecha != null){
                     MUsuario usua = (MUsuario)sesion.getAttribute("usuario");
                     if(usua.getId_rol() == 3){
-                        if(Validar.Validarcorreo(correo)&& Validar.Validarfecha(fecha) && Validar.Validarnombre(nombre)){
-                                MUsuario usu = new MUsuario();
-                                usu.setClave(usua.getClave());
-                                usu.setId_rol(2);
-                                usu.setId_usu(id);
-                                usu.setEmail(correo);
-                                usu.setFecha_nac(fecha);
-                                usu.setNom_usu(nombre);
-                                usu.setId_gen(genero);
-                            if(GestionarUsuario.ModificarUsuario(usu)){
-                                response.sendRedirect("./Administrador/adminDoctores.jsp");
+                        if(contra.equals(usua.getContra())){
+                            if(Validar.Validarcorreo(correo)&& Validar.Validarfecha(fecha) && Validar.Validarnombre(nombre)){
+                                    MUsuario usu = new MUsuario();
+                                    usu.setClave(usua.getClave());
+                                    usu.setId_rol(2);
+                                    usu.setId_usu(id);
+                                    usu.setEmail(correo);
+                                    usu.setFecha_nac(fecha);
+                                    usu.setNom_usu(nombre);
+                                    usu.setId_gen(genero);
+                                if(GestionarUsuario.ModificarUsuario(usu)){
+                                    response.sendRedirect("./Administrador/adminDoctores.jsp");
+                                }else{
+                                    response.sendRedirect("./Administrador/adminDoctores.jsp?correo=1");
+                                }
                             }else{
-                                response.sendRedirect("./Administrador/adminDoctores.jsp");
-                                
+                                response.sendRedirect("paginaError2.html");
                             }
                         }else{
-                            response.sendRedirect("paginaError2.html");
+                            response.sendRedirect("./Administrador/adminDoctores.jsp?contra=1");
                         }
                     }else{
                         response.sendRedirect("paginaError2.html");
