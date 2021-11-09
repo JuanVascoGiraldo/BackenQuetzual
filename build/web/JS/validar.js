@@ -63,7 +63,7 @@ function validarfecha(fecha) {
 
 function validarPregunta(pregunta) {
     var validar = expresiontextnumber.test(pregunta);
-    if (pregunta.length > 100 || pregunta.length < 10) {
+    if (pregunta.length > 200 || pregunta.length < 11) {
         Swal.fire({
             icon: 'error',
             title: 'Oops...',

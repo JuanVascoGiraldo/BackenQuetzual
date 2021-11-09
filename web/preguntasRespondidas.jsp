@@ -11,7 +11,11 @@
             response.sendRedirect("index.jsp");
         }
     }else{
-        response.sendRedirect("index.jsp");
+        %> 
+        <jsp:forward page="paginaError2.html">
+        <jsp:param name="Error" value="Es obligatorio identificarse" />
+         </jsp:forward>
+<%
     }
     MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
     List<MPregunta> pres = GestionarPregunta.ConsultarPreResUsu(usu.getId_usu(), usu.getClave(), usu.getFecha_nac());

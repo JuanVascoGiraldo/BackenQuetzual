@@ -384,6 +384,7 @@ public class GestionarPregunta {
                     pre.setDes_pre(jso.getString("des_pre"));
                     pre.setId_pre(jso.getInt("id_pre"));
                     pre.setFecha_pre(jso.getString("Fecha_pre"));
+                    pre.setId_usup(jso.getInt("id_usup"));
                 }
             }
         }catch(Exception e){
@@ -441,7 +442,6 @@ public class GestionarPregunta {
             String status = jr.getString("status");
             if(status.equals("Encontradas")){
                 JSONArray ja = jr.getJSONArray("datos");
-                System.out.println("aqui no");
                 for(int i=0; i<ja.length(); i++){
                     JSONObject jso= ja.getJSONObject(i);
                     MPregunta pre = consultarPre(jso.getInt("id_pre"));
@@ -571,4 +571,5 @@ public class GestionarPregunta {
         }
         return prom;
     }
+
 }

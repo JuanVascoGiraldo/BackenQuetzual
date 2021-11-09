@@ -11,7 +11,11 @@
             response.sendRedirect("index.jsp");
         }
     }else{
-        response.sendRedirect("index.jsp");
+        %> 
+        <jsp:forward page="paginaError2.html">
+        <jsp:param name="Error" value="Es obligatorio identificarse" />
+         </jsp:forward>
+<%
     }
     Calendar fecha = java.util.Calendar.getInstance();
     String fech=fecha.get(java.util.Calendar.DATE) + "/"

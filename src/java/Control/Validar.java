@@ -62,7 +62,7 @@ public class Validar {
         Pattern pattern = Pattern.compile(ExpPregunta);
         Matcher matcher = pattern.matcher(pregunta);
         if(matcher.matches()){
-           if(pregunta.length() > 100 || pregunta.length() < 11){
+           if(pregunta.length() > 200 || pregunta.length() < 11){
                return false;
            }else{
                return true;

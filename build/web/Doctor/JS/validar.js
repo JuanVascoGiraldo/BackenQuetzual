@@ -119,7 +119,7 @@ function MPregunta() {
 function RechaPregunta() {
     var razon = document.getElementById("razon").value;
     var allvalid = true;
-    if (razon.length == 0) {
+    if (razon.length <11) {
         Swal.fire({
             title: '¡Oops!',
             text: '¡Todos los campos son obligatorios, no puedes rechazar la pregunta sin tener la pregunta ni escribir la razón del rechazo!',
@@ -128,7 +128,7 @@ function RechaPregunta() {
         allvalid = false;
         return false;
     }
-    if ( razon.length > 100) {
+    if ( razon.length > 200) {
         Swal.fire({
             title: '¡Oops!',
             text: '¡Sólo puedes ingresar como máximo 100 caracteres por pregunta y razón de rechazo!',
@@ -162,7 +162,7 @@ function ResPregunta() {
     var pregunta = document.getElementById("pregunta").value;
     var respuesta = document.getElementById("respuesta").value;
     var allvalid = true;
-    if (pregunta.length == 0 || respuesta.length == 0) {
+    if (pregunta.length < 11 || respuesta.length < 11) {
         Swal.fire({
             title: '¡Oops!',
             text: '¡Todos los campos son obligatorios, no puedes responder la pregunta sin tener la pregunta ni escribir la respuesta!',
@@ -171,7 +171,7 @@ function ResPregunta() {
         allvalid = false;
         return false;
     }
-    if (pregunta.length > 100 || respuesta.length > 100) {
+    if (pregunta.length > 200 || respuesta.length > 200) {
         Swal.fire({
             title: '¡Oops!',
             text: '¡Sólo puedes ingresar como máximo 100 caracteres por pregunta y respuesta!',
@@ -208,7 +208,7 @@ function ResPregunta() {
 function agregarRespuestares() {
     var respuesta = document.getElementById("respuestas").value;
     var allvalid = true;
-    if (respuesta.length == 0) {
+    if (respuesta.length < 11) {
         Swal.fire({
             title: '¡Oops!',
             text: '¡Todos los campos son obligatorios, no puedes responder la pregunta sin tener la pregunta ni escribir la respuesta!',
@@ -217,7 +217,7 @@ function agregarRespuestares() {
         allvalid = false;
         return false;
     }
-    if (respuesta.length > 100) {
+    if (respuesta.length > 200) {
         Swal.fire({
             title: '¡Oops!',
             text: '¡Sólo puedes ingresar como máximo 100 caracteres por pregunta y respuesta!',

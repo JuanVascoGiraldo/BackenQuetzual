@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="Modelo.*"%>
 <%@page import="Control.*"%>
@@ -5,16 +6,24 @@
 
 <% 
     HttpSession sesion = request.getSession(true);
-    if(sesion.getAttribute("usuario") != null){
+    if(sesion.getAttribute("usuario") == null){
+        %> 
+        <jsp:forward page="paginaError2.html">
+        <jsp:param name="Error" value="Es obligatorio identificarse" />
+         </jsp:forward>
+<%
+    }else{
         MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
         if(usu.getId_rol() != 3){
             response.sendRedirect("../index.jsp");
         }
-    }else{
-        response.sendRedirect("../index.jsp");
     }
     MUsuario usus = (MUsuario)sesion.getAttribute("usuario");
+    if(usus.getNom_usu() == null){
+        response.sendRedirect("../index.jsp");
+    }
     List<MUsuario> doctores = GestionarUsuario.BuscarDoctores(usus.getClave());
+    
     
     int correo = 0;
     try{
