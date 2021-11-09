@@ -53,6 +53,7 @@ public class Validar {
                return false;
            }else{
                return true;
+               
            }
         }else{
             return false;
@@ -68,6 +69,7 @@ public class Validar {
                return true;
            }
         }else{
+            System.out.println("Caracteres invalidos");
             return false;
         }
       }
