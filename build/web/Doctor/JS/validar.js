@@ -198,7 +198,7 @@ function ResPregunta() {
         return false;
     } else {
         document.getElementById('modalR').classList.add(isVisible);
-        etTimeout(function() {
+        setTimeout(function() {
             document.Rpregunta.submit();
         }, 1000);
         

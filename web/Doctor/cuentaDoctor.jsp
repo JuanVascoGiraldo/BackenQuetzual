@@ -87,7 +87,6 @@
             if(((fil == 0 && pre.getId_estado() == 2) || (fil == pre.getId_estado()))&& res.getId_cat() != 6){
                 total++;
     %>
-    <div class="card">
         <div class="main_container">
             <div class="mini_header">
                 <h2><%=pre.getEdad_usu() %> años</h2>
@@ -126,7 +125,6 @@
                 <img src="./img/bx-plus-medical.svg" class="img">
             </div>
         </div>
-    </div>
     <% 
         } 
     if(((fil == 0 && pre.getId_estado() == 3) || (fil == pre.getId_estado() )) && res.getId_cat() == 6){

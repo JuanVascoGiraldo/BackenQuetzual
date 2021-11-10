@@ -105,7 +105,7 @@
     </div>
     <script>
         function conf(){
-            document.rechazarPre,submit();
+            document.rechazarPre.submit();
         }
     </script>
     <script src="./JS/redirigir.js"></script>

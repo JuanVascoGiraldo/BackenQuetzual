@@ -105,8 +105,6 @@
             <h1>Has obtenido puntos por responder esta pregunta</h1><br>
             <h1>Gracias por tu esfuerzo</h1><br>
             <img src="./img/undraw_happy_announcement_ac67.svg" class="img">
-
-            <button class="question" onclick="enviarGestionarPreguntas()">Aceptar</button>
         </div>
     </div>
     <script src="./JS/funcionModal.js"></script>
