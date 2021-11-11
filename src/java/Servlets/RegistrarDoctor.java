@@ -48,7 +48,7 @@ public class RegistrarDoctor extends HttpServlet {
                                 usu.setFecha_nac(fecha);
                                 usu.setNom_usu(nombre);
                                 usu.setId_gen(genero);
-                            if(GestionarUsuario.CrearDoctor(usu, usua.getClave())){
+                            if(GestionarUsuario.CrearDoctor(usu, usua)){
                                 response.sendRedirect("./Administrador/adminDoctores.jsp");
                             }else{
                                  response.sendRedirect("./Administrador/adminDoctores.jsp?correo=1");

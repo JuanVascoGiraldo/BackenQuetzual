@@ -41,7 +41,7 @@ public class GestionarUsuario {
         return funciono;
     }
     
-    public static boolean CrearDoctor(MUsuario usu,String clave){
+    public static boolean CrearDoctor(MUsuario usu, MUsuario us){
         boolean funciono = true;
         try{
             JSONObject jo = new JSONObject();
@@ -50,9 +50,10 @@ public class GestionarUsuario {
             jo.put("contra", Cifrado.encrypt(usu.getContra()));
             jo.put("fecha", usu.getFecha_nac());
             jo.put("genero",usu.getId_gen());
-            jo.put("Clave", clave);
+            jo.put("Clave", us.getClave());
+            jo.put("id", us.getId_usu());
             String url = "/quetzual/usuario/Registrar/Usuario/Doctor";
-            JSONObject js = ConexionAPI.peticionPostJSONObject(url, jo);
+            JSONObject js = ConexionAPI.peticionPostJSONObjectcontoken(url, jo, us.getToken());
             String estatus = js.getString("status");
             if(estatus.equals("Se ha guardado el Usuario")){
                 funciono = true;
@@ -85,6 +86,8 @@ public class GestionarUsuario {
                 usu.setId_usu(usuario.getInt("id_usu"));
                 usu.setNom_usu(Cifrado.decrypt(usuario.getString("nom_usu")));
                 usu.setId_gen(usuario.getInt("id_gen"));
+                usu.setToken(js.getString("token"));
+                System.out.println(usu.getToken());
             }else{
                 usu.setNom_usu("No se ha encontrado ningun usuario");
             }
