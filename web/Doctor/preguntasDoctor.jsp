@@ -62,7 +62,7 @@
     </div>
     <div class="filtro">
         <select name="filtro" id="filtro" onchange="javascript:location.href = this.value;">
-            <option value="./preguntasDoctor.jsp">Preguntas respondidas</option>
+            <option value="./preguntasDoctor.jsp" >Preguntas respondidas</option>
             <option value="./preguntasPendientes.jsp">Preguntas pendientes</option>
         </select>
     </div>

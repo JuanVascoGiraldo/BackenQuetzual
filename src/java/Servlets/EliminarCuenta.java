@@ -34,7 +34,7 @@ public class EliminarCuenta extends HttpServlet {
              if(sesion.getAttribute("usuario")!= null){
                  MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
                  if(usu.getId_rol() == 1){
-                    if(GestionarUsuario.EliminarUsuario(usu.getId_usu(), usu.getId_rol(), usu.getClave())){
+                    if(GestionarUsuario.EliminarUsuario(usu.getId_usu(), usu.getId_rol(), usu.getClave(), usu.getToken())){
                         response.sendRedirect("CerrarSesion");
                     }else{
                         response.sendRedirect("cuenta.jsp");

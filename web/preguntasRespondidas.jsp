@@ -18,7 +18,7 @@
 <%
     }
     MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
-    List<MPregunta> pres = GestionarPregunta.ConsultarPreResUsu(usu.getId_usu(), usu.getClave(), usu.getFecha_nac());
+    List<MPregunta> pres = GestionarPregunta.ConsultarPreResUsu(usu.getId_usu(), usu.getClave(), usu.getFecha_nac(), usu.getToken());
     
 %>
 
@@ -66,7 +66,7 @@
         <select name="filtro" id="filtro" onchange="javascript:location.href = this.value;">
             <option selected disabled hidden>Selecciona el filtro de preguntas</option>
             <option value="./hacerPregunta.jsp">Hacer pregunta</option>
-            <option value="./preguntasRespondidas.jsp">Preguntas Respondidas</option>
+            <option value="./preguntasRespondidas.jsp" selected>Preguntas Respondidas</option>
             <option value="./preguntasRechazadas.jsp">Preguntas rechazadas</option>
             <option value="./preguntasPendientes.jsp">Preguntas pendientes</option>
         </select>

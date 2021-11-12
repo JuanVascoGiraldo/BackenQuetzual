@@ -46,7 +46,7 @@ public class HacerPregunta extends HttpServlet {
                             preg.setFecha_pre(fech);
                             preg.setDes_pre(pre);
                             preg.setId_usup(usu.getId_usu());
-                            if(GestionarPregunta.RealizarPre(preg, usu.getClave())){
+                            if(GestionarPregunta.RealizarPre(preg, usu.getClave(), usu.getToken())){
                                 response.sendRedirect("confirmacionUsuario.jsp");
                             }else{
                                 response.sendRedirect("paginaError2.html");

@@ -18,7 +18,7 @@
 <%
     }
     MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
-    List<MPregunta> pre = GestionarPregunta.ConsultarPrePenUsu(usu.getId_usu(), usu.getClave());
+    List<MPregunta> pre = GestionarPregunta.ConsultarPrePenUsu(usu.getId_usu(), usu.getClave(), usu.getToken());
     
 %>
 <!DOCTYPE html>
@@ -63,7 +63,7 @@
             <option value="./hacerPregunta.jsp">Hacer pregunta</option>
             <option value="./preguntasRespondidas.jsp">Preguntas Respondidas</option>
             <option value="./preguntasRechazadas.jsp">Preguntas rechazadas</option>
-            <option value="./preguntasPendientes.jsp">Preguntas pendientes</option>
+            <option value="./preguntasPendientes.jsp" selected>Preguntas pendientes</option>
         </select>
     </div>
     <% 

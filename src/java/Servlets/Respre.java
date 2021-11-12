@@ -42,7 +42,7 @@ public class Respre extends HttpServlet {
                                 + (fecha.get(java.util.Calendar.MONTH)+1) + "/" 
                                         + fecha.get(java.util.Calendar.YEAR);
                             //String res, String fecha, int usu, int pre, String clave
-                            if(GestionarPregunta.ResponderPreRes(res, fech, usu.getId_usu(), id_pre, usu.getClave())){
+                            if(GestionarPregunta.ResponderPreRes(res, fech, usu.getId_usu(), id_pre, usu.getClave(), usu.getToken())){
                                 response.sendRedirect("Doctor/respuestasPregunta.jsp?id="+id_pre);
                                 
                             }else{

@@ -45,13 +45,14 @@ public class ModificarDoctor extends HttpServlet {
                             if(Validar.Validarcorreo(correo)&& Validar.Validarfecha(fecha) && Validar.Validarnombre(nombre)){
                                     MUsuario usu = new MUsuario();
                                     usu.setClave(usua.getClave());
-                                    usu.setId_rol(2);
+                                    usu.setId_rol(usua.getId_rol());
                                     usu.setId_usu(id);
                                     usu.setEmail(correo);
                                     usu.setFecha_nac(fecha);
                                     usu.setNom_usu(nombre);
                                     usu.setId_gen(genero);
-                                if(GestionarUsuario.ModificarUsuario(usu)){
+                                    usu.setToken(usua.getToken());
+                                if(GestionarUsuario.ModificarUsuarioDoctor(usu)){
                                     response.sendRedirect("./Administrador/adminDoctores.jsp");
                                 }else{
                                     response.sendRedirect("./Administrador/adminDoctores.jsp?correo=1");

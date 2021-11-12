@@ -27,13 +27,13 @@
     }catch(Exception e){
         response.sendRedirect("./adminDoctores.jsp");
     }
-    MUsuario usu = GestionarUsuario.consultarDoctor(id, usua.getClave());
+    MUsuario usu = GestionarUsuario.consultarDoctor(id, usua.getClave(), usua.getToken());
     String nombre = usu.getNom_usu();
     
     if(nombre.equals("no encontrado")){
         response.sendRedirect("./adminDoctores.jsp");
     }
-    List<MPublicacion> publi= GestionarPregunta.ConsultatHistoricoDoc(id, usua.getClave());
+    List<MPublicacion> publi= GestionarPregunta.ConsultatHistoricoDoc(id, usua.getClave(), usua.getToken());
     int fil = 0;
     try{
         fil = Integer.valueOf(request.getParameter("fil"));
@@ -71,9 +71,9 @@
     <div class="filtro">
         <select name="filtro" id="filtro" onchange="javascript:location.href = this.value;">
             <option selected disabled hidden>Selecciona el filtro de preguntas</option>
-            <option value="consultarHistorico.jsp?fil=0&&id=<%=id%>">Todas Las Preguntas</option>
-            <option value="consultarHistorico.jsp?fil=3&&id=<%=id%>">Preguntas Rechazadas</option>
-            <option value="consultarHistorico.jsp?fil=2&&id=<%=id%>">Preguntas Respondidas</option>
+            <option value="consultarHistorico.jsp?fil=0&&id=<%=id%>"  <%if(fil == 0){%>selected <%} %>>Todas Las Preguntas</option>
+            <option value="consultarHistorico.jsp?fil=3&&id=<%=id%>"  <%if(fil == 3){%>selected <%} %>>Preguntas Rechazadas</option>
+            <option value="consultarHistorico.jsp?fil=2&&id=<%=id%>"  <%if(fil == 2){%>selected <%} %>>Preguntas Respondidas</option>
         </select>
     </div>
     <% 

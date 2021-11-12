@@ -19,8 +19,8 @@
 <%
     }
     MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
-    List<MPublicacion> lista = GestionarPregunta.ConsultarPreRecUsu(usu.getId_usu(), usu.getClave());
-    System.out.println("preguntas recgazadas" +lista.size());
+    List<MPublicacion> lista = GestionarPregunta.ConsultarPreRecUsu(usu.getId_usu(), usu.getClave(), usu.getToken());
+   
     
 %>
 <!DOCTYPE html>
@@ -64,7 +64,7 @@
             <option selected disabled hidden>Selecciona el filtro de preguntas</option>
             <option value="./hacerPregunta.jsp">Hacer pregunta</option>
             <option value="./preguntasRespondidas.jsp">Preguntas Respondidas</option>
-            <option value="./preguntasRechazadas.jsp">Preguntas rechazadas</option>
+            <option value="./preguntasRechazadas.jsp" selected>Preguntas rechazadas</option>
             <option value="./preguntasPendientes.jsp">Preguntas pendientes</option>
         </select>
     </div>

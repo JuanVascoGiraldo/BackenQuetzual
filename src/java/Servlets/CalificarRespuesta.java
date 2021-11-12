@@ -36,7 +36,7 @@ public class CalificarRespuesta extends HttpServlet {
                         int res = Integer.valueOf(request.getParameter("id_res"));
                         int cal  = Integer.valueOf(request.getParameter("cal"));
                         int re  = Integer.valueOf(request.getParameter("re"));
-                        if(GestionarPregunta.calificarres(usu.getId_usu(), res, cal)){
+                        if(GestionarPregunta.calificarres(usu.getId_usu(), res, cal, usu.getToken())){
                             response.sendRedirect("respuestasPregunta.jsp?id="+pre+"&&re="+re);
                         }else{
                             response.sendRedirect("paginaError2.html");

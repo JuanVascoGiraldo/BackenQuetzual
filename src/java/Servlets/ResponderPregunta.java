@@ -57,7 +57,7 @@ public class ResponderPregunta extends HttpServlet {
                             res.setDes_res(des_res);
                             res.setId_cat(id_cat);
                             pre.setFecha_pre(fecha_pre);
-                            if(GestionarPregunta.ResponderPre(pre, res, usu.getClave())){
+                            if(GestionarPregunta.ResponderPre(pre, res, usu.getClave(), usu.getToken())){
                                 response.sendRedirect("./Doctor/preguntasPendientes.jsp");
                             }else{
                                 response.sendRedirect("./Doctor/responderPregunta.jsp?id="+id_pre);

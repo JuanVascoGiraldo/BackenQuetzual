@@ -1,6 +1,7 @@
 
 package Control;
 
+import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,9 +35,24 @@ public class Validar {
         return matcher.matches();
       }
     public static boolean Validarfecha(String fecha){
+        boolean seguir = false;
         Pattern pattern = Pattern.compile(ExpFecha);
         Matcher matcher = pattern.matcher(fecha);
-        return matcher.matches();
+        if(matcher.matches()){
+            Calendar fechas = java.util.Calendar.getInstance();
+            int year  = fechas.get(java.util.Calendar.YEAR);
+            int month = fechas.get(java.util.Calendar.MONTH);
+            int day   = fechas.get(java.util.Calendar.DATE);
+            String[] valores = fecha.split("-");
+            int yearnaci = Integer.valueOf(valores[0]);
+            int monthnaci = Integer.valueOf(valores[1]);
+            int daynaci = Integer.valueOf(valores[2]);
+            int difyear = year - yearnaci;
+            if(difyear>1){
+                return true;
+            }
+        }
+        return seguir;
       }
     
     public static boolean ValidarfechaPre(String fecha){

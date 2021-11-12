@@ -14,7 +14,7 @@ import org.json.JSONObject;
 
 public class GestionarPregunta {
     
-    public static boolean RealizarPre(MPregunta pre, String clave){
+    public static boolean RealizarPre(MPregunta pre, String clave, String token){
         boolean guardar = false;
         try{
             //pregunta, clave, fecha, usu, estado
@@ -25,7 +25,7 @@ public class GestionarPregunta {
             jo.put("usu", pre.getId_usup());
             jo.put("estado", 1);
             String url = "/quetzual/pregunta/Realizar/Pregunta";
-            JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
+            JSONObject jr = ConexionAPI.peticionPostJSONObjectcontoken(url, jo, token);
             String status = jr.getString("status");
             if(status.equals("Guardado")){
                 guardar = true;
@@ -37,7 +37,7 @@ public class GestionarPregunta {
         return guardar;
     }
     
-    public static boolean ModificarPre(MPregunta pre, String clave){
+    public static boolean ModificarPre(MPregunta pre, String clave, String token){
         boolean Modi = false;
         try{
             //pregunta, clave, fecha, usu, id_pre
@@ -48,7 +48,7 @@ public class GestionarPregunta {
             jo.put("usu", pre.getId_usup());
             jo.put("id_pre", pre.getId_pre());
             String url = "/quetzual/pregunta/Modificar/Pregunta/Pendiente";
-            JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
+            JSONObject jr = ConexionAPI.peticionPostJSONObjectcontoken(url, jo, token);
             String status = jr.getString("status");
             if(status.equals("Actualizado")){
                 Modi = true;
@@ -60,7 +60,7 @@ public class GestionarPregunta {
         return Modi;
     }
     
-    public static boolean ElimiarPre (int pre, int id, String clave){
+    public static boolean ElimiarPre (int pre, int id, String clave, String token){
         boolean eli =  false;
         try{
             //clave, pregunta, id_usu
@@ -69,7 +69,7 @@ public class GestionarPregunta {
             jo.put("pregunta", pre);
             jo.put("id_usu", id);
             String url = "/quetzual/pregunta/Eliminar/Pregunta";
-            JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
+            JSONObject jr = ConexionAPI.peticionPostJSONObjectcontoken(url, jo, token);
             String status = jr.getString("status");
             if(status.equals("Eliminada")){
                 eli = true;
@@ -81,7 +81,7 @@ public class GestionarPregunta {
         return eli;
     }
     
-    public static List<MPublicacion> ConsultarPreRecUsu(int id, String clave){
+    public static List<MPublicacion> ConsultarPreRecUsu(int id, String clave, String token){
         List<MPublicacion> lista = new ArrayList<MPublicacion>();
         try{
             JSONObject jo = new JSONObject();
@@ -89,7 +89,7 @@ public class GestionarPregunta {
             jo.put("id_usu", id);
             jo.put("estado", 3);
             String url = "/quetzual/pregunta/Usuario/Preguntas";
-            JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
+            JSONObject jr = ConexionAPI.peticionPostJSONObjectcontoken(url, jo, token);
             String status = jr.getString("status");
             if(status.equals("Encontradas")){
                 JSONArray ja= jr.getJSONArray("datos");
@@ -113,7 +113,7 @@ public class GestionarPregunta {
         return lista;
     }
     
-    public static List<MPregunta> ConsultarPrePenUsu(int id,  String clave){
+    public static List<MPregunta> ConsultarPrePenUsu(int id,  String clave, String token){
         List<MPregunta> lista = new ArrayList<MPregunta>();
         try{
             JSONObject jo = new JSONObject();
@@ -121,11 +121,11 @@ public class GestionarPregunta {
             jo.put("id_usu", id);
             jo.put("estado", 1);
             String url = "/quetzual/pregunta/Usuario/Preguntas";
-            JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
+            JSONObject jr = ConexionAPI.peticionPostJSONObjectcontoken(url, jo, token);
             String status = jr.getString("status");
             if(status.equals("Encontradas")){
                 JSONArray ja= jr.getJSONArray("datos");
-                System.out.println(ja.length());
+                
                 for(int i= 0; i<ja.length(); i++){
                     JSONObject jason = ja.getJSONObject(i);
                     MPregunta pre = new MPregunta();
@@ -138,11 +138,11 @@ public class GestionarPregunta {
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
-        System.out.println(lista.size());
+      
         return lista;
     }
     
-    public static List<MPregunta> ConsultarPreResUsu(int id, String clave, String fechas){
+    public static List<MPregunta> ConsultarPreResUsu(int id, String clave, String fechas, String token){
         List<MPregunta> lista = new ArrayList<MPregunta>();
         try{
             JSONObject jo = new JSONObject();
@@ -150,7 +150,7 @@ public class GestionarPregunta {
             jo.put("id_usu", id);
             jo.put("estado", 2);
             String url = "/quetzual/pregunta/Usuario/Preguntas";
-            JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
+            JSONObject jr = ConexionAPI.peticionPostJSONObjectcontoken(url, jo, token);
             String status = jr.getString("status");
             if(status.equals("Encontradas")){
                 JSONArray ja= jr.getJSONArray("datos");
@@ -174,11 +174,10 @@ public class GestionarPregunta {
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
-        System.out.println("tamaño lista:" + lista.size());
         return lista;
     }
     
-    public static boolean ResponderPre (MPregunta pre, MRespuesta res, String clave){
+    public static boolean ResponderPre (MPregunta pre, MRespuesta res, String clave, String token){
         boolean resp = false;
         try{
             int puntos = 0;
@@ -217,7 +216,7 @@ public class GestionarPregunta {
             jo.put("categoria", res.getId_cat());
             jo.put("puntos", puntos);
             String url = "/quetzual/respuesta/Pregunta/Responder";
-            JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
+            JSONObject jr = ConexionAPI.peticionPostJSONObjectcontoken(url, jo, token);
             String status = jr.getString("status");
             if(status.equals("Pregunta Guardada")){
                 resp = true;
@@ -229,7 +228,7 @@ public class GestionarPregunta {
         return resp;
     }
     
-     public static boolean ResponderPreRes (String res, String fecha, int usu, int pre, String clave){
+     public static boolean ResponderPreRes (String res, String fecha, int usu, int pre, String clave, String token){
         boolean resp = false;
         try{
             //clave, id_doc, respuesta, id_pre, fecha
@@ -240,7 +239,7 @@ public class GestionarPregunta {
             jo.put("id_pre",pre);
             jo.put("fecha", fecha);
             String url = "/quetzual/respuesta/Responder/Pregunta/Respondida";
-            JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
+            JSONObject jr = ConexionAPI.peticionPostJSONObjectcontoken(url, jo, token);
             String status = jr.getString("status");
             if(status.equals("Pregunta Guardada")){
                 resp = true;
@@ -252,7 +251,7 @@ public class GestionarPregunta {
         return resp;
     }
      
-    public static boolean RechazarPre (int pre, MRespuesta res, String clave){
+    public static boolean RechazarPre (int pre, MRespuesta res, String clave, String token){
         boolean resp = false;
         try{
             //id_pre, id_doc, fecha, razon, pregunta, clave
@@ -263,7 +262,7 @@ public class GestionarPregunta {
             jo.put("razon", res.getDes_res());
             jo.put("clave", clave);
             String url = "/quetzual/respuesta/Pregunta/Rechazar";
-            JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
+            JSONObject jr = ConexionAPI.peticionPostJSONObjectcontoken(url, jo, token);
             String status = jr.getString("status");
             if(status.equals("Rechazada")){
                 resp = true;
@@ -303,13 +302,13 @@ public class GestionarPregunta {
         return lista;
     }
     
-    public static List<MPregunta> ConsultarallPrePen(String clave){
+    public static List<MPregunta> ConsultarallPrePen(String clave, String token){
         List<MPregunta> lista = new ArrayList<MPregunta>();
         try{
             JSONObject jo = new JSONObject();
             jo.put("clave", clave);
             String url = "/quetzual/pregunta/Pendientes";
-            JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
+            JSONObject jr = ConexionAPI.peticionPostJSONObjectcontoken(url, jo, token);
             String status = jr.getString("status");
             if(status.equals("Encontradas")){
                 JSONArray ja = jr.getJSONArray("datos");
@@ -328,14 +327,14 @@ public class GestionarPregunta {
         return lista;
     }
     
-    public static List<MPublicacion> ConsultatHistoricoDoc(int id, String clave){
+    public static List<MPublicacion> ConsultatHistoricoDoc(int id, String clave, String token){
         List<MPublicacion> lista = new ArrayList<MPublicacion>();
         try{
             JSONObject jo = new JSONObject();
             jo.put("id", id);
             jo.put("clave", clave);
             String url = "/quetzual/respuesta/Historico/Doctor";
-            JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
+            JSONObject jr = ConexionAPI.peticionPostJSONObjectcontoken(url, jo, token);
             String status = jr.getString("status");
             if(status.equals("Encontradas")){
                 JSONArray ja= jr.getJSONArray("datos");
@@ -364,7 +363,7 @@ public class GestionarPregunta {
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
-        System.out.println("lista tam" + lista.size());
+        
         return lista;
     }
     
@@ -460,7 +459,7 @@ public class GestionarPregunta {
         return lista;
     }
     
-    public static boolean calificarres(int id, int res, int cal){
+    public static boolean calificarres(int id, int res, int cal, String token){
         boolean seguir = false;
         try{
             JSONObject jo = new JSONObject();
@@ -468,7 +467,7 @@ public class GestionarPregunta {
             jo.put("calif", cal);
             jo.put("resp", res);
             String url = "/quetzual/respuesta/Calificar/Respuesta/Usuario";
-            JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
+            JSONObject jr = ConexionAPI.peticionPostJSONObjectcontoken(url, jo, token);
             String status = jr.getString("status");
             if(status.equals("Eliminada")||status.equals("Calificada")){
                 seguir = true;
@@ -480,7 +479,7 @@ public class GestionarPregunta {
         return seguir;
     }
     
-    public static int caliRes(int id, int res, String clave){
+    public static int caliRes(int id, int res, String clave, String token){
         int total = 0;
         try{
             //{clave, usu, resp}
@@ -489,7 +488,7 @@ public class GestionarPregunta {
             jo.put("usu", id);
             jo.put("resp", res);
             String url = "/quetzual/respuesta/Calificada/Respuesta";
-            JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
+            JSONObject jr = ConexionAPI.peticionPostJSONObjectcontoken(url, jo, token);
             String status = jr.getString("status");
             if(status.equals("Encontrada")){
                 total = jr.getInt("cal");

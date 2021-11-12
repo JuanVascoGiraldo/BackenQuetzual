@@ -22,7 +22,7 @@
     if(usus.getNom_usu() == null){
         response.sendRedirect("../index.jsp");
     }
-    List<MUsuario> doctores = GestionarUsuario.BuscarDoctores(usus.getClave());
+    List<MUsuario> doctores = GestionarUsuario.BuscarDoctores(usus.getClave(), usus.getToken());
     
     
     int correo = 0;

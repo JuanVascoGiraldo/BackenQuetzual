@@ -18,7 +18,7 @@
 <%
     }
     MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
-    List<MPregunta> lista = GestionarPregunta.ConsultarallPrePen(usu.getClave());
+    List<MPregunta> lista = GestionarPregunta.ConsultarallPrePen(usu.getClave(), usu.getToken());
 %>
 <!DOCTYPE html>
 <html lang="es">

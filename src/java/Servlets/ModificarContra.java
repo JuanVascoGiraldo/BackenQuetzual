@@ -37,7 +37,7 @@ public class ModificarContra extends HttpServlet {
                     if(Validar.Validarcontra(pass)&&Validar.Validarcontra(newpass)){
                         MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
                         if(pass.equals(usu.getContra())){
-                            if(GestionarUsuario.ModificarContra(newpass, usu.getId_usu(), usu.getId_rol(), usu.getClave())){
+                            if(GestionarUsuario.ModificarContra(newpass, usu.getId_usu(), usu.getId_rol(), usu.getClave(), usu.getToken())){
                                 response.sendRedirect("CerrarSesion");
                             }else{
                                 if(usu.getId_rol() == 1){

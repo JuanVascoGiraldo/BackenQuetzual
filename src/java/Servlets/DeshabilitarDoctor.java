@@ -31,7 +31,7 @@ public class DeshabilitarDoctor extends HttpServlet {
             if(sesion.getAttribute("usuario")!= null){
                 MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
                 if(usu.getId_rol() == 3){
-                    if(GestionarUsuario.DeshabilitarDoctor(id, usu.getClave())){
+                    if(GestionarUsuario.DeshabilitarDoctor(id, usu.getToken())){
                         response.sendRedirect("./Administrador/adminDoctores.jsp");
                     }else{
                         response.sendRedirect("paginaError2.html");

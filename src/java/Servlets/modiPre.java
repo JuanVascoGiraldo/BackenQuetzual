@@ -51,7 +51,7 @@ public class modiPre extends HttpServlet {
                             preg.setDes_pre(pre);
                             preg.setId_usup(usu.getId_usu());
                             preg.setId_pre(id);
-                            if(GestionarPregunta.ModificarPre(preg, usu.getClave())){
+                            if(GestionarPregunta.ModificarPre(preg, usu.getClave(), usu.getToken())){
                                 response.sendRedirect("preguntasPendientes.jsp");
                             }else{
                                 response.sendRedirect("modificarPre.jsp?id="+id);

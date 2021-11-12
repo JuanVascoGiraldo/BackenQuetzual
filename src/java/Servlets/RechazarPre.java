@@ -45,7 +45,7 @@ public class RechazarPre extends HttpServlet {
                             res.setDes_res(razon);
                             res.setId_usuRes(usu.getId_usu());
                             res.setFecha_res(fecha_res);
-                            if(GestionarPregunta.RechazarPre(id, res, usu.getClave())){
+                            if(GestionarPregunta.RechazarPre(id, res, usu.getClave(), usu.getToken())){
                                  response.sendRedirect("./Doctor/preguntasPendientes.jsp");
                             }else{
                                 response.sendRedirect("paginaError2.html");

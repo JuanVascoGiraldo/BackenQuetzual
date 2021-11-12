@@ -26,7 +26,7 @@
         response.sendRedirect("preguntasDoctor.jsp");
     }
     List<MRespuesta> lista = GestionarPregunta.ConsultarRespuestas(id, usu.getClave());
-    System.out.println(lista.size());
+    
     if(lista.size() == 0){
         response.sendRedirect("preguntasDoctor.jsp");
     }

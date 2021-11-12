@@ -25,7 +25,7 @@
         response.sendRedirect("sesionUsuario.jsp");
     }
     List<MRespuesta> lista = GestionarPregunta.ConsultarRespuestas(id, usu.getClave());
-    System.out.println(lista.size());
+    
     if(lista.size() == 0){
         response.sendRedirect("sesionUsuario.jsp");
     }
@@ -84,7 +84,7 @@
         </div>
         <div class="sub_header">
                 <h2><% 
-                        int cal = GestionarPregunta.caliRes(usu.getId_usu(), res.getId_res(), usu.getClave());
+                        int cal = GestionarPregunta.caliRes(usu.getId_usu(), res.getId_res(), usu.getClave(), usu.getToken());
                         if(cal >0){
                 %> 
                         Calificada con <%=cal %><p class="star">★</p> </h2>
@@ -105,7 +105,7 @@
         </div>
         <div class="calificacion">
             <div class="contenedor">
-                <div class="p">¿Te ha resultado útil esta solución?</div>
+                <div class="p"><% if(cal == 0){ %>¿Te ha resultado útil esta solución? <% }else{%>Cambia la Calificación dada<%} %> </div>
                 <div class="Estrellas" id="Estrellas" onclick="calificar(<%=id%>,<%=res.getId_res()%>,<%=re%>)"></div>
             </div>
         </div>

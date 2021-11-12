@@ -87,7 +87,6 @@ public class GestionarUsuario {
                 usu.setNom_usu(Cifrado.decrypt(usuario.getString("nom_usu")));
                 usu.setId_gen(usuario.getInt("id_gen"));
                 usu.setToken(js.getString("token"));
-                System.out.println(usu.getToken());
             }else{
                 usu.setNom_usu("No se ha encontrado ningun usuario");
             }
@@ -110,7 +109,7 @@ public class GestionarUsuario {
             jo.put("rol",usu.getId_rol() );
             jo.put("clave", usu.getClave());
             String url = "/quetzual/usuario/Modificar/Usuario";
-            JSONObject js = ConexionAPI.peticionPostJSONObject(url, jo);
+            JSONObject js = ConexionAPI.peticionPostJSONObjectcontoken(url, jo, usu.getToken());
             String estatus = js.getString("status");
             if(estatus.equals("Cambio Guardado")){
                 cambio = true;
@@ -124,7 +123,33 @@ public class GestionarUsuario {
         return cambio;
     }
     
-    public static boolean ModificarContra(String contra, int id, int rol, String clave){
+    public static boolean ModificarUsuarioDoctor(MUsuario usu){
+        boolean cambio = false;
+        try{
+            JSONObject jo = new JSONObject();
+            jo.put("id", usu.getId_usu());
+            jo.put("correo", Cifrado.encrypt(usu.getEmail()));
+            jo.put("fecha",usu.getFecha_nac() );
+            jo.put("nombre",Cifrado.encrypt(usu.getNom_usu()));
+            jo.put("id_gen", usu.getId_gen());
+            jo.put("rol",usu.getId_rol() );
+            jo.put("clave", usu.getClave());
+            String url = "/quetzual/usuario/Modificar/Usuario/Doctor";
+            JSONObject js = ConexionAPI.peticionPostJSONObjectcontoken(url, jo, usu.getToken());
+            String estatus = js.getString("status");
+            if(estatus.equals("Cambio Guardado")){
+                cambio = true;
+            }else{
+                cambio = false;
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            cambio = false;
+        }
+        return cambio;
+    }
+    
+    public static boolean ModificarContra(String contra, int id, int rol, String clave, String token){
         boolean cambio = false;
         try{
             JSONObject jo = new JSONObject();
@@ -133,7 +158,7 @@ public class GestionarUsuario {
             jo.put("rol",rol);
             jo.put("clave", clave);
             String url = "/quetzual/usuario/Modificar/Password";
-            JSONObject js = ConexionAPI.peticionPostJSONObject(url, jo);
+            JSONObject js = ConexionAPI.peticionPostJSONObjectcontoken(url, jo, token);
             String estatus = js.getString("status");
             if(estatus.equals("Cambio Realizado")){
                 cambio = true;
@@ -147,13 +172,13 @@ public class GestionarUsuario {
         return cambio;
     }
     
-    public static List<MUsuario> BuscarDoctores(String clave){
+    public static List<MUsuario> BuscarDoctores(String clave, String token){
        List<MUsuario> docs = new ArrayList<MUsuario>();
        try{
            JSONObject jo = new JSONObject();
            jo.put("clave", clave);
            String url = "/quetzual/usuario/Obtener/Doctores";
-           JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
+           JSONObject jr = ConexionAPI.peticionPostJSONObjectcontoken(url, jo, token);
            String status = jr.getString("status");
            if(status.equals("Encontrados")){
                JSONArray ja  = jr.getJSONArray("datos");
@@ -174,13 +199,13 @@ public class GestionarUsuario {
        return docs;
     }
     
-    public static List<MUsuario> BuscarDoctoresrank(String clave){
+    public static List<MUsuario> BuscarDoctoresrank(String clave, String token){
        List<MUsuario> docs = new ArrayList<MUsuario>();
        try{
            JSONObject jo = new JSONObject();
            jo.put("clave", clave);
            String url = "/quetzual/usuario/Obtener/Doctores/rank";
-           JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
+           JSONObject jr = ConexionAPI.peticionPostJSONObjectcontoken(url, jo, token);
            String status = jr.getString("status");
            if(status.equals("Encontrados")){
                JSONArray ja  = jr.getJSONArray("datos");
@@ -223,10 +248,10 @@ public class GestionarUsuario {
         return docs;
     }
     
-    public static ArrayList<MUsuario> ObtenerRankingHistorico(String Clave){
+    public static ArrayList<MUsuario> ObtenerRankingHistorico(String Clave, String token){
         ArrayList<MUsuario> docs = new ArrayList<MUsuario>();
         try{
-            List<MUsuario> usua = BuscarDoctoresrank(Clave);
+            List<MUsuario> usua = BuscarDoctoresrank(Clave, token);
             String url = "/quetzual/usuario/Ranking/Historico";
             for(MUsuario u:usua){
                 JSONObject jo = new JSONObject();
@@ -257,7 +282,7 @@ public class GestionarUsuario {
         return docs;
     }
     
-    public static boolean EliminarUsuario(int id, int rol, String clave){
+    public static boolean EliminarUsuario(int id, int rol, String clave, String token){
         boolean cambio = false;
         try{
             JSONObject jo = new JSONObject();
@@ -265,7 +290,7 @@ public class GestionarUsuario {
             jo.put("id", id);
             jo.put("rol", rol);
             String url = "/quetzual/usuario/Eliminar/Estudiante";
-            JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
+            JSONObject jr = ConexionAPI.peticionPostJSONObjectcontoken(url, jo, token);
             String status = jr.getString("status");
             if(status.equals("Cuenta Eliminada")){
                 cambio = true;
@@ -277,14 +302,13 @@ public class GestionarUsuario {
         return cambio;
     }
     
-    public static boolean DeshabilitarDoctor(int id, String clave){
+    public static boolean DeshabilitarDoctor(int id, String token){
         boolean cambio = false;
         try{
             JSONObject jo = new JSONObject();
-            jo.put("clave", clave);
             jo.put("id", id);
             String url = "/quetzual/usuario/Deshabilitar/Doctor";
-            JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
+            JSONObject jr = ConexionAPI.peticionPostJSONObjectcontoken(url, jo, token);
             String status = jr.getString("status");
             if(status.equals("Cuenta Deshabilitada")){
                 cambio = true;
@@ -390,17 +414,40 @@ public class GestionarUsuario {
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
+        if(categorias.size() == 0){
+            CCategoria cat1 = new CCategoria();
+            CCategoria cat2 = new CCategoria();
+            CCategoria cat3 = new CCategoria();
+            CCategoria cat4 = new CCategoria();
+            CCategoria cat5 = new CCategoria();
+            cat1.setDes_cat("ETS");
+            cat2.setDes_cat("Embarazo");
+            cat3.setDes_cat("Salud sexual femenina");
+            cat4.setDes_cat("Salud sexual masculina");
+            cat5.setDes_cat("Anticonceptivos");
+            cat1.setPuntos(0.0);
+            cat2.setPuntos(0.0);
+            cat3.setPuntos(0.0);
+            cat4.setPuntos(0.0);
+            cat5.setPuntos(0.0);
+            categorias.add(cat1);
+            categorias.add(cat2);
+            categorias.add(cat3);
+            categorias.add(cat4);
+            categorias.add(cat5);
+        }
+        
         return categorias;
     }
     
-    public static List<CCategoria> ProgresoUSuario(int id, String clave){
+    public static List<CCategoria> ProgresoUSuario(int id, String clave, String token){
         List<CCategoria> categorias = new ArrayList<CCategoria>();
         try{
             JSONObject jo = new JSONObject();
             jo.put("clave", clave);
             jo.put("id", id);
             String url = "/quetzual/usuario/Progreso/Usuario/Calificaciones";
-            JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
+            JSONObject jr = ConexionAPI.peticionPostJSONObjectcontoken(url, jo, token);
             String status = jr.getString("status");
             if(status.equals("Encontrados")){
                 JSONArray ja = jr.getJSONArray("datos");
@@ -489,17 +536,39 @@ public class GestionarUsuario {
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
+        if(categorias.size() == 0){
+            CCategoria cat1 = new CCategoria();
+            CCategoria cat2 = new CCategoria();
+            CCategoria cat3 = new CCategoria();
+            CCategoria cat4 = new CCategoria();
+            CCategoria cat5 = new CCategoria();
+            cat1.setDes_cat("ETS");
+            cat2.setDes_cat("Embarazo");
+            cat3.setDes_cat("Salud sexual femenina");
+            cat4.setDes_cat("Salud sexual masculina");
+            cat5.setDes_cat("Anticonceptivos");
+            cat1.setPuntos(0.0);
+            cat2.setPuntos(0.0);
+            cat3.setPuntos(0.0);
+            cat4.setPuntos(0.0);
+            cat5.setPuntos(0.0);
+            categorias.add(cat1);
+            categorias.add(cat2);
+            categorias.add(cat3);
+            categorias.add(cat4);
+            categorias.add(cat5);
+        }
         return categorias;
     }
     
-    public static List<Integer> ProgresoPreguntas(int id, String clave){
+    public static List<Integer> ProgresoPreguntas(int id, String clave, String token){
         List<Integer> preguntas = new ArrayList<Integer>();
         try{
             JSONObject jo = new JSONObject();
             jo.put("clave", clave);
             jo.put("id", id);
             String url = "/quetzual/usuario/Progreso/Estudiante/Preguntas";
-            JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
+            JSONObject jr = ConexionAPI.peticionPostJSONObjectcontoken(url, jo, token);
             String status = jr.getString("status");
             if(status.equals("Preguntas encontradas")){
                 int respondidas = jr.getInt("respondidas");
@@ -510,17 +579,21 @@ public class GestionarUsuario {
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
+        if(preguntas.size() == 0){
+            preguntas.add(0);
+            preguntas.add(0);
+        }
         return preguntas;
     }
     
-    public static MUsuario consultarDoctor(int id, String clave){
+    public static MUsuario consultarDoctor(int id, String clave, String token){
         MUsuario usu = new MUsuario();
         try{
             JSONObject jo = new JSONObject();
             jo.put("clave", clave);
             jo.put("id", id);
             String url = "/quetzual/usuario/Consultar/Doctor";
-            JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
+            JSONObject jr = ConexionAPI.peticionPostJSONObjectcontoken(url, jo, token);
             String status = jr.getString("status");
             if(status.equals("Encontradas")){
                 JSONArray ja = jr.getJSONArray("datos");

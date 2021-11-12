@@ -20,7 +20,7 @@
 <%
     }
     MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
-    List<MPublicacion> publi= GestionarPregunta.ConsultatHistoricoDoc(usu.getId_usu(), usu.getClave());
+    List<MPublicacion> publi= GestionarPregunta.ConsultatHistoricoDoc(usu.getId_usu(), usu.getClave(), usu.getToken());
     int fil = 0;
     try{
         fil = Integer.valueOf(request.getParameter("fil"));
@@ -73,9 +73,9 @@
     <div class="filtro">
         <select name="filtro" id="filtro" onchange="javascript:location.href = this.value;">
             <option selected disabled hidden>Selecciona el filtro de preguntas</option>
-            <option value="cuentaDoctor.jsp?fil=0">Todas Las Preguntas</option>
-            <option value="cuentaDoctor.jsp?fil=3">Preguntas Rechazadas</option>
-            <option value="cuentaDoctor.jsp?fil=2">Preguntas Respondidas</option>
+            <option value="cuentaDoctor.jsp?fil=0" <%if(fil == 0){%>selected <%} %>>Todas Las Preguntas</option>
+            <option value="cuentaDoctor.jsp?fil=3" <%if(fil == 3){%>selected <%} %>>Preguntas Rechazadas</option>
+            <option value="cuentaDoctor.jsp?fil=2"  <%if(fil == 2){%>selected <%} %>>Preguntas Respondidas</option>
         </select>
     </div>
     <% 

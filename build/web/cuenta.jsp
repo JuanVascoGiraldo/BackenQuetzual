@@ -20,7 +20,7 @@
     }
     MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
     
-    List<CCategoria> lista = GestionarUsuario.ProgresoUSuario(usu.getId_usu(), usu.getClave());
+    List<CCategoria> lista = GestionarUsuario.ProgresoUSuario(usu.getId_usu(), usu.getClave(), usu.getToken());
     CCategoria cat1 = lista.get(0);
     CCategoria cat2 = lista.get(1);
     CCategoria cat3 = lista.get(2);
@@ -79,24 +79,6 @@
         <p>Sexo:<%if(usu.getId_gen() == 1){%>Prefiero no Decirlo <% }else if(usu.getId_gen() ==2 ){%>Femenino <% }else if(usu.getId_gen() ==3){%>Masculino<%} %> </p>
     </div>
     <div class="title">
-        <h1>Aprovechamiento del sistema</h1>
-        <hr>
-    </div>
-    <div class="explicación">
-        <p>
-            Las siguientes graficas muestran los resultados de acuerdo a las preguntas respondidas y las rechazadas, a su vez tambien se muestra la comparación de las preguntas que has calificado con respecto a la utilidad que te han dado al igual de estar clasificada
-            por categoria.
-        </p>
-    </div>
-    <div class="flex">
-        <div class="bar">
-            <canvas id="myChart"></canvas>
-        </div>
-        <div class="pie">
-            <canvas id="piechart"></canvas>
-        </div>
-    </div>
-    <div class="title">
         <h1>Modificar Cuenta</h1>
         <hr>
     </div>
@@ -128,6 +110,25 @@
             </form>
         </div>
     </div>
+    <div class="title">
+        <h1>Aprovechamiento del sistema</h1>
+        <hr>
+    </div>
+    <div class="explicación">
+        <p>
+            Las siguientes graficas muestran los resultados de acuerdo a las preguntas respondidas y las rechazadas, a su vez tambien se muestra la comparación de las preguntas que has calificado con respecto a la utilidad que te han dado al igual de estar clasificada
+            por categoria.
+        </p>
+    </div>
+    <div class="flex">
+        <div class="bar">
+            <canvas id="myChart"></canvas>
+        </div>
+        <div class="pie">
+            <canvas id="piechart"></canvas>
+        </div>
+    </div>
+    
     <div class="modal" id="modalR">
         <div class="card">
             <article>
@@ -188,7 +189,7 @@
 });
 var ctx = document.getElementById('piechart').getContext('2d');
 <% 
-    List<Integer> listas = GestionarUsuario.ProgresoPreguntas(usu.getId_usu(), usu.getClave());
+    List<Integer> listas = GestionarUsuario.ProgresoPreguntas(usu.getId_usu(), usu.getClave(), usu.getToken());
     int res = 0 ;
     int rech = 0;
     int i = 0;

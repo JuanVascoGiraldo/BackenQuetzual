@@ -84,12 +84,12 @@
     </div>
     <div class="filtro">
         <select name="filtro" id="filtro" onchange="javascript:location.href = this.value;">
-            <option selected disabled hidden>Selecciona el tema de tu interes</option>
-            <option value="sesionUsuario.jsp?fil=1">Enfermedades de transmisión sexual</option>
-            <option value="sesionUsuario.jsp?fil=5">Anticonceptivos</option>
-            <option value="sesionUsuario.jsp?fil=2">Embarazo</option>
-            <option value="sesionUsuario.jsp?fil=3">Salud sexual femenina</option>
-            <option value="sesionUsuario.jsp?fil=4">Salud sexual masculina</option>
+            <option <%if(fil == 0){%>selected <%} %> disabled hidden>Selecciona el tema de tu interes</option>
+            <option value="sesionUsuario.jsp?fil=1"  <%if(fil == 1){%>selected <%} %>>Enfermedades de transmisión sexual</option>
+            <option value="sesionUsuario.jsp?fil=5"  <%if(fil == 5){%>selected <%} %>>Anticonceptivos</option>
+            <option value="sesionUsuario.jsp?fil=2"  <%if(fil == 2){%>selected <%} %>>Embarazo</option>
+            <option value="sesionUsuario.jsp?fil=3"  <%if(fil == 3){%>selected <%} %>>Salud sexual femenina</option>
+            <option value="sesionUsuario.jsp?fil=4"  <%if(fil == 4){%>selected <%} %>>Salud sexual masculina</option>
         </select>
     </div>
     <% 

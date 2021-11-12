@@ -32,7 +32,7 @@ public class EliminarPre extends HttpServlet {
             if(sesion.getAttribute("usuario")!=null){
                 MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
                 if(usu.getId_rol() == 1){
-                    if(GestionarPregunta.ElimiarPre(id, usu.getId_usu(), usu.getClave())){
+                    if(GestionarPregunta.ElimiarPre(id, usu.getId_usu(), usu.getClave(), usu.getToken())){
                         response.sendRedirect("preguntasPendientes.jsp");
                     }else{
                         response.sendRedirect("preguntasPendientes.jsp");

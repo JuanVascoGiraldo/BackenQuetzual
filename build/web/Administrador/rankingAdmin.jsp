@@ -29,7 +29,7 @@
     }
     List<MUsuario> usuarios = new ArrayList<MUsuario>();
     if(fil == 0){
-        usuarios = GestionarUsuario.ObtenerRankingHistorico(usu.getClave());
+        usuarios = GestionarUsuario.ObtenerRankingHistorico(usu.getClave(), usu.getToken());
     }else if(fil == 1){
         Calendar fecha = java.util.Calendar.getInstance();
         String fech=(fecha.get(java.util.Calendar.MONTH)+1) + "/" 
@@ -57,8 +57,8 @@
     <div class="filtro">
         <select name="filtro" id="filtro" onchange="javascript:location.href = this.value;">
             <option selected disabled hidden>Filtrar por fecha</option>
-            <option value="rankingAdmin.jsp?fil=0">General</option>
-            <option value="rankingAdmin.jsp?fil=1">Mensual</option>
+            <option value="rankingAdmin.jsp?fil=0"  <%if(fil == 0){%>selected <%} %>>General</option>
+            <option value="rankingAdmin.jsp?fil=1"  <%if(fil == 1){%>selected <%} %>>Mensual</option>
         </select>
     </div>
     <div class="main_container">
