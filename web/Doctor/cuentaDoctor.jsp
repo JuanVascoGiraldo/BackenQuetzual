@@ -44,6 +44,7 @@
     <link rel="stylesheet" href="./CSS/normalize.css">
     <link rel="stylesheet" href="./CSS/cuentaDoctor.css">
     <link rel="stylesheet" href="./CSS/star-rating-svg.css">
+    <link rel="icon" type="image/png" href="./img/icono.png">
 </head>
 
 <body>

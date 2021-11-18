@@ -43,6 +43,7 @@
     <link rel="stylesheet" href="./CSS/normalize.css">
     <link rel="stylesheet" href="./CSS/modificarPregunta.css">
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="icon" type="image/png" href="./img/icono.png">
 </head>
 
 <body>

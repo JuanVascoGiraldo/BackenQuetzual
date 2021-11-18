@@ -40,6 +40,7 @@
     <link rel="stylesheet" href="./CSS/star-rating-svg.css">
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="./JS/jquery.star-rating-svg.js"></script>
+    <link rel="icon" type="image/png" href="./img/icono.png">
 </head>
 
 <body>

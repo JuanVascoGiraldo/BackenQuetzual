@@ -50,6 +50,7 @@
     <title>Ranking</title>
     <link rel="stylesheet" href="./CSS/normalize.css">
     <link rel="stylesheet" href="./CSS/ranking.css">
+    <link rel="icon" type="image/png" href="./img/icono.png">
 </head>
 
 <body>

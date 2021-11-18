@@ -39,6 +39,7 @@
     <title>Administrador</title>
     <link rel="stylesheet" href="./CSS/normalize.css">
     <link rel="stylesheet" href="./CSS/sesionAdmin.css">
+    <link rel="icon" type="image/png" href="./img/icono.png">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
 </head>
 

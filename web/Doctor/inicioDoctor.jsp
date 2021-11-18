@@ -38,6 +38,7 @@
     <link rel="stylesheet" href="./CSS/normalize.css">
     <link rel="stylesheet" href="./CSS/inicioDoctor.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+    <link rel="icon" type="image/png" href="./img/icono.png">
 </head>
 
 <body>

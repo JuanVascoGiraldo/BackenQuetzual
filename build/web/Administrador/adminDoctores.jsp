@@ -53,6 +53,7 @@
     <link rel="stylesheet" href="./CSS/normalize.css">
     <link rel="stylesheet" href="./CSS/adminDoctores.css">
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="icon" type="image/png" href="./img/icono.png">
 </head>
 <body>
     <button class="menu" data-open="modalR"><img src="./img/bx-menu (2).svg"></button>
@@ -71,7 +72,6 @@
                 <div class="text">
                     <h2><%=usu.getNom_usu() %></h2>
                     <hr>
-                    <h4><%=usu.getId_usu() %></h4>
                     <h3><%=usu.getEmail() %></h3>
                     <h3><%=usu.getFecha_nac() %></h3>
                     <h3><%if(usu.getId_gen() == 1){%>Prefiero no Decirlo<%}else if(usu.getId_gen() == 2){%>Femenino<%}else if(usu.getId_gen() == 3){%>Masculino<%} %></h3>

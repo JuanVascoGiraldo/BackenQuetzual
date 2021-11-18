@@ -49,6 +49,7 @@
     <link rel="stylesheet" href="./CSS/star-rating-svg.css">
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="./JS/jquery.star-rating-svg.js"></script>
+    <link rel="icon" type="image/png" href="./img/icono.png">
 </head>
 
 <body>
@@ -65,7 +66,7 @@
             <a href="./cuenta.jsp">
                 <img src="./img/bx-user-circle.svg" width="40" alt="Signo de pregunta" class="svg"> Mi cuenta
             </a>
-            <a href="./preguntasRespondidas.jsp">
+            <a href="./preguntasPendientes.jsp">
                 <img src="./img/bx-question-mark.svg" alt="Imagen "> Mis preguntas
             </a>
             <a href="./hacerPregunta.jsp">
