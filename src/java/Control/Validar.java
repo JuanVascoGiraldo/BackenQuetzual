@@ -41,14 +41,10 @@ public class Validar {
         if(matcher.matches()){
             Calendar fechas = java.util.Calendar.getInstance();
             int year  = fechas.get(java.util.Calendar.YEAR);
-            int month = fechas.get(java.util.Calendar.MONTH);
-            int day   = fechas.get(java.util.Calendar.DATE);
             String[] valores = fecha.split("-");
             int yearnaci = Integer.valueOf(valores[0]);
-            int monthnaci = Integer.valueOf(valores[1]);
-            int daynaci = Integer.valueOf(valores[2]);
             int difyear = year - yearnaci;
-            if(difyear>1){
+            if(difyear>10 && difyear<100){
                 return true;
             }
         }
