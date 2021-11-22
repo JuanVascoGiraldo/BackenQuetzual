@@ -17,14 +17,9 @@ function validarIS() {
     var correo = document.getElementById('IScorreo').value;
     var contra = document.getElementById('IScontra').value;
     if (validarcorreo(correo) && validarcontrasena(contra)) {
-        Swal.fire(
-            '¡Bienvenido!',
-            '¡Los datos coinciden!',
-            'success'
-        )
         setTimeout(function() {
             document.iniciar.submit();
-        }, 2000);
+        }, 1000);
     }
 }
 
@@ -48,6 +43,3 @@ function consultarPregunta() {
     location.href = './respuestasPregunta.html';
 }
 
-function cancelar() {
-    window.history.back();
-}

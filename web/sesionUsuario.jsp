@@ -60,9 +60,6 @@
             <button class="cs" onclick="cerrarSesion()">Cerrar sesión</button>
         </nav>
         <div class="menu">
-            <a href="./paginaError2.html">
-                <img src="./img/bxs-bar-chart-alt-2.svg" alt="Imagen "> Inducción
-            </a>
             <a href="./cuenta.jsp">
                 <img src="./img/bx-user-circle.svg" width="40" alt="Signo de pregunta" class="svg"> Mi cuenta
             </a>
@@ -81,7 +78,7 @@
         <p>En este espacio puedes consultar las preguntas que otros usuarios ya han realizado previamente.
         </p>
         <p>¡Tal vez tu duda ya ha sido contestada!</p>
-        <p>Puedes explorar este espacio usando el combobox para buscar preguntas que se relacionan directamente con tu duda.</p>
+        <p>Puedes explorar este espacio usando el Menu desplegable para buscar preguntas que se relacionan directamente con tu duda.</p>
     </div>
     <div class="filtro">
         <select name="filtro" id="filtro" onchange="javascript:location.href = this.value;">

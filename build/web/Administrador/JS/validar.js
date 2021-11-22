@@ -1,4 +1,4 @@
-let expresioncorreo = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
+let expresioncorreo = /^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$/;
 let expresiontextnumber = /^[a-zA-Z0-9àáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ?¿,.]+$/;
 let expresioncontra = /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/;
 let expresionfecha = /^(\d{4})(\/|-)(\d{1,2})(\/|-)(\d{1,2})$/;
@@ -59,6 +59,21 @@ function validarfecha(fecha) {
             title: 'Oops...',
             text: 'Ingrese una fecha valida'
         });
+    }else{
+        var fechas = fecha.split('-');
+        const hoy = new Date();
+        var ano = hoy.getFullYear();
+        console.log(fechas[0])
+        var diferencia = ano-parseInt(fechas[0]);
+        console.log(diferencia)
+        if(diferencia < 11 || diferencia > 100){
+            validar = false;
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Tienes que tener al menos 11 años para utilizar la aplicacion'
+            });
+        }
     }
     return validar;
 }
@@ -70,11 +85,7 @@ function registrardr() {
     var pass = document.getElementById("password1").value;
     var confpass = document.getElementById("passwordConfirm1").value;
     if (validarnombre(nombre) && validarfecha(fecha) && validarcorreo(email) && validarcontrasena(pass) && (pass = confpass)) {
-        Swal.fire({
-            icon: 'success',
-            title: 'Felicidades',
-            text: 'Has registrado una cuenta'
-        });
+        
         setTimeout(function() {
             document.registrarDoc.submit();
         }, 1000);
@@ -120,11 +131,7 @@ function modificarContra() {
     var pass = document.getElementById("newpassword").value;
     var confpass = document.getElementById("newpasswordconfirm").value;
     if (validarcontrasena(pass) && validarcontrasena(antpass) && (pass = confpass)) {
-        Swal.fire({
-            icon: 'success',
-            title: 'Perfecto',
-            text: 'Se ha modificado la contraseña correctamente'
-        });
+        
         //
         setTimeout(function() {
             document.ModiContraAdmin.submit();

@@ -1,4 +1,4 @@
-let expresioncorreo = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
+let expresioncorreo = /^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$/;
 let expresiontextnumber = /^[a-zA-Z0-9àáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.]+$/;
 let expresioncontra = /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/;
 let expresionfecha = /^(\d{4})(\/|-)(\d{1,2})(\/|-)(\d{1,2})$/;
@@ -57,6 +57,21 @@ function validarfecha(fecha) {
             title: 'Oops...',
             text: 'Ingrese una fecha valida'
         });
+    }else{
+        var fechas = fecha.split('-');
+        const hoy = new Date();
+        var ano = hoy.getFullYear();
+        console.log(fechas[0])
+        var diferencia = ano-parseInt(fechas[0]);
+        console.log(diferencia)
+        if(diferencia < 11 || diferencia > 100){
+            validar = false;
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Tienes que tener al menos 11 años para utilizar la aplicacion'
+            });
+        }
     }
     return validar;
 }
@@ -95,11 +110,6 @@ function registrarr() {
             text: 'Las contraseñas no coinciden'
         });
     } else if (validarfecha(fecha) && validarnombre(nombre) && validarcorreo(email) && validarcontrasena(pass)) {
-        Swal.fire({
-            icon: 'success',
-            title: 'Felicidades',
-            text: 'Has registrado una cuenta'
-        });
         document.registrar.submit();
     }
 }
@@ -108,11 +118,6 @@ function iniciars() {
     var email = document.iniciar.email.value;
     var pass = document.iniciar.pass.value;
     if (validarcorreo(email) && validarcontrasena(pass)) {
-        Swal.fire({
-            icon: 'success',
-            title: 'Bien hecho',
-            text: 'Se ha iniciado Sesión'
-        });
         document.iniciar.submit();
     }
 }
@@ -122,11 +127,7 @@ function modificarcuenta() {
     var email = document.getElementById('correo').value;
     var nombre = document.getElementById('nombre').value;
     if (validarfecha(fecha) && validarnombre(nombre) && validarcorreo(email)) {
-        Swal.fire({
-            icon: 'success',
-            title: 'Perfecto',
-            text: 'has modificado tu cuenta'
-        });
+        
         //document.modcuenta.submit;
         setTimeout(function() {
             document.modicuenta.submit();
@@ -145,11 +146,7 @@ function modificarContra() {
             text: 'No coinciden las nuevas contraseñas'
         });
     } else if (validarcontrasena(pass) && validarcontrasena(antpass)) {
-        Swal.fire({
-            icon: 'success',
-            title: 'Perfecto',
-            text: 'Se ha modificado la contraseña correctamente'
-        });
+       
         //document.modcontra.submit;
         setTimeout(function() {
             document.ModContra.submit();

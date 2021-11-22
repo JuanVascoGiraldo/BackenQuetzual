@@ -79,7 +79,6 @@
             <h2><%=pres.getFecha_pre() %> - Respondido: Por definir</h2>
             <h2>Dr. Por Definir</h2>
         </div>
-        <div class="flex">
             <div class="pregunta">
                 <div class="preguntas">
                     <p class="text"><%=pres.getDes_pre() %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
@@ -89,15 +88,6 @@
                 <button class="cs" onclick="redeliminar(<%=pres.getId_pre()%>)">Eliminar pregunta</button>
                 <button class="question" data-open="modalR" onclick="redModi(<%=pres.getId_pre() %>)" >Modificar Pregunta</button>
             </div>
-        </div>
-        <div class="pregunta2">
-            <div class="preguntas2">
-                <p class="text">
-                    ...
-                </p>
-            </div>
-            <img src="./img/bx-plus-medical.svg" alt="">
-        </div>
     </div>
     <%
         }

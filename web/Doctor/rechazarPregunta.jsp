@@ -81,7 +81,7 @@
             <h1>Pregunta</h1>
         </div>
         <div class="pregunta">
-            <%=pre.getDes_pre() %>
+            <h3><%=pre.getDes_pre() %></h3>
         </div>
         <div class="pregunta2">
             <h1>¿Cuál es el motivo del rechazo?</h1>
