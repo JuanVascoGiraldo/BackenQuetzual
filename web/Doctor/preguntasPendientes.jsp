@@ -71,7 +71,7 @@
         </div>
         <div class="pregunta">
             <img src="./img/bxs-user.svg" alt="">
-            <textarea name="" id="" class="area" placeholder="Escribe aquí tu pregunta" disabled><%=pre.getDes_pre() %></textarea>
+            <textarea name="" id="" class="area" placeholder="Escribe aquí tu pregunta" disabled>¿<%=pre.getDes_pre() %>?</textarea>
         </div>
         <div class="flex">
             <button class="question" onclick="responder(<%=pre.getId_pre() %>)">Responder pregunta</button>

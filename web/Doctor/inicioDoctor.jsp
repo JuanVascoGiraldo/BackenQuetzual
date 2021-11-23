@@ -49,9 +49,6 @@
             <button class="cs" onclick="cerrarSesion()">Cerrar sesión</button>
         </nav>
         <div class="menu">
-            <a href="./paginaError1.html">
-                <img src="./img/bxs-bar-chart-alt-2.svg" alt="Imagen "> Inducción
-            </a>
             <a href="./cuentaDoctor.jsp">
                 <img src="./img/bx-user-circle.svg" width="40" alt="Signo de pregunta" class="svg"> Mi cuenta
             </a>

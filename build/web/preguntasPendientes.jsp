@@ -81,7 +81,7 @@
         </div>
             <div class="pregunta">
                 <div class="preguntas">
-                    <p class="text"><%=pres.getDes_pre() %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                    <p class="text">¿<%=pres.getDes_pre() %>?</p>
                 </div>
             </div>
             <div class="pregunta">

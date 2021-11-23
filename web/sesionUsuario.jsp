@@ -117,11 +117,11 @@
         <div class="pregunta">
             <img src="./img/bxs-user.svg">
             <div class="preguntas">
-                <h3><%=res.getDes_pre() %></h3>
+                <h3>¿<%=res.getDes_pre() %>?</h3>
             </div>
         </div>
         <div class="respuesta">
-            <a href="./respuestasPregunta.jsp?id=<%=res.getId_pre() %>&&re=0">Ver respuestas</a>
+            <a href="./respuestasPregunta.jsp?id=<%=res.getId_pre()%>&&re=0">Ver respuestas</a>
         </div>
     </div>
     <% 

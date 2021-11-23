@@ -92,7 +92,7 @@
         <div class="pregunta">
             <img src="./img/bxs-user.svg">
             <div class="preguntas">
-                <h3><%=res.getDes_pre() %></h3>
+                <h3>¿<%=res.getDes_pre() %>?</h3>
             </div>
         </div>
         <div class="respuesta">

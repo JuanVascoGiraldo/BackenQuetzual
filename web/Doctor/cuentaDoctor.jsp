@@ -116,7 +116,7 @@
             <div class="pregunta">
                 <img src="./img/bxs-user.svg" class="img">
                 <div class="preguntas">
-                    <h3><%=pre.getDes_pre()%></h3>
+                    <h3>¿<%=pre.getDes_pre()%>?</h3>
                 </div>
             </div>
             <div class="respuesta">
@@ -138,7 +138,7 @@
         <div class="pregunta2">
             <img src="./img/bxs-user.svg" alt="">
             <div class="preguntas2">
-                <h3><%=pre.getDes_pre()%></h3>
+                <h3>¿<%=pre.getDes_pre()%>?</h3>
             </div>
             <h1 class="h1">Razón del rechazo</h1>
             <div class="preguntas2">
