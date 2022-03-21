@@ -30,8 +30,11 @@ public class HacerPregunta extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String pre = request.getParameter("pre");
+            request.setCharacterEncoding("UTF-8");
             HttpSession sesion = request.getSession(true);
+            String pre = (String)sesion.getAttribute("pre");
+            System.out.println(pre);
+            
             if(sesion.getAttribute("usuario") != null){
                 MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
                 if(usu.getId_rol() == 1){

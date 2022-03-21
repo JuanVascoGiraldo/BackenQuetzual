@@ -3,73 +3,23 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/Administrador/CSS/adminDoctores.css</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/Doctor/paginaError1.html</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/Doctor/respuestasPregunta.jsp</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/JS/graficas.js</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/Administrador/paginaError2.html</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/Administrador/JS/redirigir.js</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Servlets/RegistrarDoctor.java</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Servlets/RechazarPre.java</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/Administrador/JS/validar.js</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Servlets/Respre.java</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/politicas.html</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Servlets/modiPre.java</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/JS/sweetAlert.js</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/Administrador/sesionAdmin.jsp</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/modificarPregunta.jsp</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/index.jsp</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/respuestasPregunta.jsp</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Servlets/ResponderPregunta.java</file>
+            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Control/Validar.java</file>
+            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Servlets/RecuperarContra.java</file>
+            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Servlets/ValidarToken.java</file>
+            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Servlets/HacerPregunta.java</file>
+            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Control/GestionarUsuario.java</file>
             <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Servlets/RegistrarUsuario.java</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/Doctor/cuentaDoctor.jsp</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/Doctor/preguntasDoctor.jsp</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/Doctor/inicioDoctor.jsp</file>
+            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Servlets/CambiarPass.java</file>
+            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Servlets/ModiCorreo.java</file>
             <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Servlets/PreguntasSimilares.java</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/preguntasPendientes.jsp</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/Administrador/JS/funcionModal2.js</file>
+            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Servlets/IniciarSesion.java</file>
             <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Control/Cifrado.java</file>
             <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Control/ConexionAPI.java</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Servlets/ModificarDoctor.java</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/Administrador/adminDoctores.jsp</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/paginaError2.html</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Servlets/EliminarPre.java</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Modelo/MRespuesta.java</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/JS/validar.js</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Modelo/CCategoria.java</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/preguntasSimilares.jsp</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/Doctor/rechazarPregunta.jsp</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/preguntasRechazadas.jsp</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/Administrador/consultarHistorico.jsp</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Servlets/HacerPregunta.java</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/Doctor/CSS/responderPregunta.css</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/sesionUsuario.jsp</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/confirmacionUsuario.jsp</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Modelo/MUsuario.java</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Servlets/CalificarRespuesta.java</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/cuenta.jsp</file>
+            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Servlets/Confirmar.java</file>
+            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Servlets/ConfModi.java</file>
             <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/hacerPregunta.jsp</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/JS/funcionModal.js</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Servlets/EliminarCuenta.java</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Control/Validar.java</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Control/GestionarUsuario.java</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Servlets/CerrarSesion.java</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/JS/funcionModal2.js</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Control/GestionarPregunta.java</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/JS/jquery.star-rating-svg.js</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/preguntasRespondidas.jsp</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Servlets/ModificarContra.java</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Servlets/IniciarSesion.java</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/Administrador/cuentaAdmin.jsp</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/Doctor/ranking.jsp</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/Doctor/responderPregunta.jsp</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/Doctor/preguntasPendientes.jsp</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/Administrador/JS/graficas.js</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Modelo/MPublicacion.java</file>
             <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Servlets/ModifcarCuenta.java</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/Administrador/rankingAdmin.jsp</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/Doctor/JS/graficas.js</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Servlets/DeshabilitarDoctor.java</file>
+            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/preguntasSimilares.jsp</file>
         </group>
     </open-files>
 </project-private>

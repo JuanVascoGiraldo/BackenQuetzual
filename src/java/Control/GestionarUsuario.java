@@ -26,10 +26,11 @@ public class GestionarUsuario {
             jo.put("fecha", usu.getFecha_nac());
             jo.put("genero",usu.getId_gen());
             jo.put("Clave", "As7cnuLSSGkw85A8SdrDJmqLHsSJAfqd");
-            String url = "/quetzual/usuario/Registrar/Usuario/Estudiante";
+            jo.put("enviar", usu.getEmail());
+            String url = "/quetzual/usuario/Registrar/Token";
             JSONObject js = ConexionAPI.peticionPostJSONObject(url, jo);
             String estatus = js.getString("status");
-            if(estatus.equals("Se ha guardado el Usuario")){
+            if(estatus.equals("Enviado")){
                 funciono = true;
             }else{
                 funciono = false;
@@ -39,6 +40,28 @@ public class GestionarUsuario {
             funciono = false;
         }
         return funciono;
+    }
+    
+    public static List<String> ConfirmarUsuario(String token){
+        List<String> respuesta = new ArrayList<String>();
+        try{
+            JSONObject jo = new JSONObject();
+            jo.put("status", "enviado");
+            String url = "/quetzual/usuario/Registrar/Usuario/Estudiante";
+            JSONObject js = ConexionAPI.peticionPostJSONObjectcontoken(url, jo, token);
+            String estatus = js.getString("status");
+            if(estatus.equals("Se ha guardado el Usuario")){
+                respuesta.add(0, "registrado");
+                respuesta.add(1, js.getString("Correo"));
+                respuesta.add(2, js.getString("Contra"));
+            }else{
+                respuesta.add(0, "error");
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            respuesta.add(0, "error");
+        }
+        return respuesta;
     }
     
     public static boolean CrearDoctor(MUsuario usu, MUsuario us){
@@ -102,7 +125,6 @@ public class GestionarUsuario {
         try{
             JSONObject jo = new JSONObject();
             jo.put("id", usu.getId_usu());
-            jo.put("correo", Cifrado.encrypt(usu.getEmail()));
             jo.put("fecha",usu.getFecha_nac() );
             jo.put("nombre",Cifrado.encrypt(usu.getNom_usu()));
             jo.put("id_gen", usu.getId_gen());
@@ -319,6 +341,7 @@ public class GestionarUsuario {
         }
         return cambio;
     }
+    
     public static List<CCategoria> ProgresoGenerar(String clave){
         List<CCategoria> categorias = new ArrayList<CCategoria>();
         try{
@@ -615,4 +638,113 @@ public class GestionarUsuario {
         }
         return usu;
     }
+    
+    public static boolean GenerarTokenPass(String correo){
+        boolean seguir = false;
+        try{
+            JSONObject jo = new JSONObject();
+            //email, sendemail
+            jo.put("email", Cifrado.encrypt(correo));
+            jo.put("sendemail", correo);
+            String url = "/quetzual/usuario/Recuperar/Password/Token";
+            JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
+            String status = jr.getString("status");
+            if(status.equals("Enviado")){
+                seguir = true;
+            }else{
+                seguir = false;
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            seguir = false;
+        }
+        return seguir;
+    }
+    
+    public static boolean ComprobarTokenPass(String token){
+        boolean seguir = false;
+        try{
+            JSONObject jo = new JSONObject();
+            jo.put("token", token);
+            String url = "/quetzual/usuario/Vericar/Token/Pass";
+            JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
+            String status = jr.getString("status");
+            if(status.equals("Valido")){
+                seguir = true;
+            }else{
+                seguir = false;
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            seguir = false;
+        }
+        return seguir;
+    }
+    
+    public static boolean RecupearPass(String token, String pass){
+        boolean seguir = false;
+        try{
+            JSONObject jo = new JSONObject();
+            jo.put("pass", pass);
+            String url = "/quetzual/usuario/Recuperar/Password";
+            JSONObject jr = ConexionAPI.peticionPostJSONObjectcontoken(url, jo, token);
+            String status = jr.getString("status");
+            if(status.equals("Cambio Guardado")){
+                seguir = true;
+            }else{
+                seguir = false;
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            seguir = false;
+        }
+        return seguir;
+    }
+    
+    public static boolean GenerarTokenEmail(MUsuario usu, String email){
+        boolean seguir = false;
+        try{
+            JSONObject jo = new JSONObject();
+            jo.put("email", email);
+            jo.put("newemail", Cifrado.encrypt(email));
+            jo.put("id", usu.getId_usu());
+            jo.put("clave", usu.getClave());
+            String url = "/quetzual/usuario/Cambiar/Email";
+            JSONObject jr = ConexionAPI.peticionPostJSONObjectcontoken(url, jo, usu.getToken());
+            String status = jr.getString("status");
+            if(status.equals("Enviado")){
+                seguir = true;
+            }else{
+                seguir = false;
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            seguir = false;
+        }
+        return seguir;
+    }
+    
+    public static boolean ConfirmarCorreo(String token){
+        boolean funciono = true;
+        try{
+            JSONObject jo = new JSONObject();
+            jo.put("status", "enviado");
+            String url = "/quetzual/usuario/Confirmar/Email";
+            JSONObject js = ConexionAPI.peticionPostJSONObjectcontoken(url, jo, token);
+            String estatus = js.getString("status");
+            if(estatus.equals("Cambio Guardado")){
+                funciono = true;
+            }else{
+                funciono = false;
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            funciono = false;
+        }
+        return funciono;
+    }
+    
+    
+    
+    
 }

@@ -25,7 +25,7 @@ public class RegistrarUsuario extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try{
+        try (PrintWriter out = response.getWriter()){
             String nombre, correo, contra, fecha;
             int genero;
             nombre = request.getParameter("nombre");
@@ -45,15 +45,15 @@ public class RegistrarUsuario extends HttpServlet {
                             usu.setNom_usu(nombre);
                             usu.setId_gen(genero);
                         if(GestionarUsuario.CrearUsuario(usu)){
-                            response.sendRedirect("IniciarSesion?email="+correo+"&&contra="+contra);
+                            out.println("<div class=\"conf\"> Se envio un correo de confirmación</div>");
                         }else{
-                            response.sendRedirect("index.jsp?res=1");
+                            out.println("<div class=\"rech\">El correo ya ha sido Registrado</div>");
                         }
                     }else{
-                        response.sendRedirect("paginaError2.html");
+                        out.println("<div class=\"rech\">Ingresa Caracteres validos</div>");
                     }
                 }else{
-                    response.sendRedirect("paginaError2.html");
+                   out.println("<div class=\"rech\">Rellena todos los campos</div>");
                 }
             }else{
                 MUsuario usu = (MUsuario)sesion.getAttribute("usuario");

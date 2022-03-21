@@ -20,7 +20,7 @@
 <%
     }
     MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
-    List<MPregunta> pre = GestionarPregunta.ConsultarAllPreRes(usu.getClave() );
+    List<MPregunta> pre = GestionarPregunta.ConsultarAllPreRes(usu.getClave(),0 );
     
     
     int fil = 0;

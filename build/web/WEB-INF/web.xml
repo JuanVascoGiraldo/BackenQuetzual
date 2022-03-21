@@ -68,6 +68,30 @@
         <servlet-name>CalificarRespuesta</servlet-name>
         <servlet-class>Servlets.CalificarRespuesta</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Confirmar</servlet-name>
+        <servlet-class>Servlets.Confirmar</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RecuperarContra</servlet-name>
+        <servlet-class>Servlets.RecuperarContra</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ValidarToken</servlet-name>
+        <servlet-class>Servlets.ValidarToken</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CambiarPass</servlet-name>
+        <servlet-class>Servlets.CambiarPass</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ModiCorreo</servlet-name>
+        <servlet-class>Servlets.ModiCorreo</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ConfModi</servlet-name>
+        <servlet-class>Servlets.ConfModi</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistrarUsuario</servlet-name>
         <url-pattern>/RegistrarUsuario</url-pattern>
@@ -135,6 +159,30 @@
     <servlet-mapping>
         <servlet-name>CalificarRespuesta</servlet-name>
         <url-pattern>/CalificarRespuesta</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Confirmar</servlet-name>
+        <url-pattern>/Confirmar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RecuperarContra</servlet-name>
+        <url-pattern>/RecuperarContra</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ValidarToken</servlet-name>
+        <url-pattern>/ValidarToken</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CambiarPass</servlet-name>
+        <url-pattern>/CambiarPass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModiCorreo</servlet-name>
+        <url-pattern>/ModiCorreo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConfModi</servlet-name>
+        <url-pattern>/ConfModi</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

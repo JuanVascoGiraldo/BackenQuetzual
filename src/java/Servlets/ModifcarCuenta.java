@@ -32,19 +32,16 @@ public class ModifcarCuenta extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String nombre, correo, contra, fecha;
+            String nombre, fecha;
             int genero;
             nombre = request.getParameter("nombre");
-            correo = request.getParameter("correo");
             fecha = request.getParameter("fecha");
             genero = Integer.parseInt(request.getParameter("sexo"));
             HttpSession sesion = request.getSession(true);
             if(sesion.getAttribute("usuario")!= null){
-                if(nombre != null && correo != null && fecha != null){
-                    if(Validar.Validarcorreo(correo)&& Validar.Validarfecha(fecha) && Validar.Validarnombre(nombre)){
+                if(nombre != null &&  fecha != null){
+                    if(Validar.Validarfecha(fecha) && Validar.Validarnombre(nombre)){
                             MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
-                            String corrr = usu.getEmail();
-                            usu.setEmail(correo);
                             usu.setFecha_nac(fecha);
                             usu.setNom_usu(nombre);
                             usu.setId_gen(genero);
@@ -52,10 +49,8 @@ public class ModifcarCuenta extends HttpServlet {
                             response.sendRedirect("CerrarSesion");
                         }else{
                             if(usu.getId_rol() == 1){
-                                usu.setEmail(corrr);
                                 response.sendRedirect("cuenta.jsp?correo=1");
                             }else if(usu.getId_rol() == 3){
-                                usu.setEmail(corrr);
                                 response.sendRedirect("./Administrador/cuentaAdmin.jsp?correo=1");
                             }
                         }

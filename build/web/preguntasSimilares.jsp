@@ -1,3 +1,4 @@
+<%@page import="Control.Cifrado"%>
 <%@page import="java.util.List"%>
 <%@page import="Control.GestionarPregunta"%>
 <%@page import="Control.GestionarPregunta"%>
@@ -18,13 +19,14 @@
          </jsp:forward>
 <%
     }
-    
+    request.setCharacterEncoding("UTF-8");
     MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
-    String pre = request.getParameter("pre");
+    String pre = (String)sesion.getAttribute("pre");
     if(pre == null){
          response.sendRedirect("hacerPregunta.jsp");
     }
     List<MPregunta> simi = GestionarPregunta.PreguntasSimilares(pre, usu.getClave());
+    
 %>
 
 <!DOCTYPE html>

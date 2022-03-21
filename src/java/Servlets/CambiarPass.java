@@ -5,22 +5,22 @@
  */
 package Servlets;
 
-import Control.Cifrado;
-import Control.GestionarPregunta;
+import Control.GestionarUsuario;
 import Control.Validar;
-import Modelo.MPregunta;
 import Modelo.MUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
-public class PreguntasSimilares extends HttpServlet {
+/**
+ *
+ * @author Juanv
+ */
+public class CambiarPass extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,33 +33,36 @@ public class PreguntasSimilares extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         response.setContentType("text/html;charset=UTF-8");
-        try {
-            String pregunta = request.getParameter("pregunta");
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            String token, contra;
+            token = request.getParameter("token");
+            contra = request.getParameter("contra");
             HttpSession sesion = request.getSession(true);
-            if(sesion.getAttribute("usuario") != null){
-                MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
-                if(usu.getId_rol() == 1){
-                    if(pregunta != null){
-                        if(Validar.Validarpregunta(pregunta)){
-                            List<MPregunta> simi = GestionarPregunta.PreguntasSimilares(pregunta, usu.getClave());
-                            sesion.setAttribute("pre", pregunta);
-                            if(simi.size()>0){
-                                response.sendRedirect("preguntasSimilares.jsp?pre="+pregunta);
-                            }else{
-                                response.sendRedirect("HacerPregunta?pre="+pregunta);
-                            }
+            if(sesion.getAttribute("usuario")== null){
+                if(token != null || contra != null){
+                    if(Validar.Validarcontra(contra)){
+                        if(GestionarUsuario.RecupearPass(token, contra)){
+                            response.sendRedirect("index.jsp");
                         }else{
-                            response.sendRedirect("hacerPregunta.jsp");
+                            response.sendRedirect("paginaError2.html");
                         }
                     }else{
                         response.sendRedirect("paginaError2.html");
                     }
                 }else{
-                    response.sendRedirect("index.jsp");
+                    response.sendRedirect("paginaError2.html");
                 }
             }else{
-                response.sendRedirect("index.jsp");
+                MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
+                int id = usu.getId_rol();
+                if(id == 1){
+                    response.sendRedirect("sesionUsuario.jsp");
+                }else if( id== 2){
+                    response.sendRedirect("./Doctor/inicioDoctor.jsp");
+                }else if (id == 3){
+                    response.sendRedirect("./Administrador/sesionAdmin.jsp");
+                }
             }
         }catch(Exception e){
             System.out.println(e.getMessage());

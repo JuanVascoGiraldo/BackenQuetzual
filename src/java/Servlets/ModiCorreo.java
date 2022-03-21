@@ -5,22 +5,22 @@
  */
 package Servlets;
 
-import Control.Cifrado;
-import Control.GestionarPregunta;
+import Control.GestionarUsuario;
 import Control.Validar;
-import Modelo.MPregunta;
 import Modelo.MUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
-public class PreguntasSimilares extends HttpServlet {
+/**
+ *
+ * @author Juanv
+ */
+public class ModiCorreo extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,34 +33,35 @@ public class PreguntasSimilares extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         response.setContentType("text/html;charset=UTF-8");
-        try {
-            String pregunta = request.getParameter("pregunta");
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            String correo;
             HttpSession sesion = request.getSession(true);
-            if(sesion.getAttribute("usuario") != null){
+            correo = request.getParameter("correo");
+            if(sesion.getAttribute("usuario")!= null){
                 MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
-                if(usu.getId_rol() == 1){
-                    if(pregunta != null){
-                        if(Validar.Validarpregunta(pregunta)){
-                            List<MPregunta> simi = GestionarPregunta.PreguntasSimilares(pregunta, usu.getClave());
-                            sesion.setAttribute("pre", pregunta);
-                            if(simi.size()>0){
-                                response.sendRedirect("preguntasSimilares.jsp?pre="+pregunta);
+                int id = usu.getId_rol();
+                if(id == 1){
+                    if(correo != null){
+                        if(Validar.Validarcorreo(correo)){
+                            if(GestionarUsuario.GenerarTokenEmail(usu, correo)){
+                                out.println("<div class=\"conf\"> Se envio un correo de confirmación</div>");
                             }else{
-                                response.sendRedirect("HacerPregunta?pre="+pregunta);
+                                out.println("<div class=\"rech\">El Correo ingresado ya está registrado</div>");
                             }
                         }else{
-                            response.sendRedirect("hacerPregunta.jsp");
+                            out.println("<div class=\"rech\">Correo no valido</div>");
                         }
                     }else{
-                        response.sendRedirect("paginaError2.html");
+                        out.println("<div class=\"rech\">Rellena todos los campos</div>");
                     }
                 }else{
                     response.sendRedirect("index.jsp");
                 }
             }else{
-                response.sendRedirect("index.jsp");
+               response.sendRedirect("paginaError2.html");
             }
+            
         }catch(Exception e){
             System.out.println(e.getMessage());
             response.sendRedirect("paginaError2.html");

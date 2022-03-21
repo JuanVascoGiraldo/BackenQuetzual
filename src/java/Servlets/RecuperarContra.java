@@ -1,18 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Servlets;
 
-import Control.Cifrado;
-import Control.GestionarPregunta;
+import Control.GestionarUsuario;
 import Control.Validar;
-import Modelo.MPregunta;
 import Modelo.MUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-public class PreguntasSimilares extends HttpServlet {
+public class RecuperarContra extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,33 +26,35 @@ public class PreguntasSimilares extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         response.setContentType("text/html;charset=UTF-8");
-        try {
-            String pregunta = request.getParameter("pregunta");
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            String correo;
+            correo = request.getParameter("email");
             HttpSession sesion = request.getSession(true);
-            if(sesion.getAttribute("usuario") != null){
-                MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
-                if(usu.getId_rol() == 1){
-                    if(pregunta != null){
-                        if(Validar.Validarpregunta(pregunta)){
-                            List<MPregunta> simi = GestionarPregunta.PreguntasSimilares(pregunta, usu.getClave());
-                            sesion.setAttribute("pre", pregunta);
-                            if(simi.size()>0){
-                                response.sendRedirect("preguntasSimilares.jsp?pre="+pregunta);
-                            }else{
-                                response.sendRedirect("HacerPregunta?pre="+pregunta);
-                            }
-                        }else{
-                            response.sendRedirect("hacerPregunta.jsp");
-                        }
-                    }else{
-                        response.sendRedirect("paginaError2.html");
-                    }
+            if(sesion.getAttribute("usuario")== null){
+                if(correo!= null){
+                   if(Validar.Validarcorreo(correo)){
+                       if(GestionarUsuario.GenerarTokenPass(correo)){
+                           out.println("<div class=\"conf\"> Se envio un correo de confirmación</div>");
+                       }else{
+                           out.println("<div class=\"rech\">El Correo ingresado no está registrado</div>");
+                       }
+                   }else{
+                       out.println("<div class=\"rech\">Correo no valido</div>");
+                   }
                 }else{
-                    response.sendRedirect("index.jsp");
+                   out.println("<div class=\"rech\">Rellena todos los campos</div>");
                 }
             }else{
-                response.sendRedirect("index.jsp");
+                MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
+                int id = usu.getId_rol();
+                if(id == 1){
+                    response.sendRedirect("sesionUsuario.jsp");
+                }else if( id== 2){
+                    response.sendRedirect("./Doctor/inicioDoctor.jsp");
+                }else if (id == 3){
+                    response.sendRedirect("./Administrador/sesionAdmin.jsp");
+                }
             }
         }catch(Exception e){
             System.out.println(e.getMessage());

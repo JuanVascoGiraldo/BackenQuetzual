@@ -274,11 +274,12 @@ public class GestionarPregunta {
         return resp;
     }
     
-    public static List<MPregunta> ConsultarAllPreRes(String clave){
+    public static List<MPregunta> ConsultarAllPreRes(String clave, int clasi){
         List<MPregunta> lista = new ArrayList<MPregunta>();
         try{
             JSONObject jo = new JSONObject();
             jo.put("Clave", clave);
+            jo.put("clasi", clasi);
             String url = "/quetzual/pregunta/Respondidas/Actuales";
             JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
             String status = jr.getString("status");

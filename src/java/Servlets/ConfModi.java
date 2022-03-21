@@ -5,22 +5,20 @@
  */
 package Servlets;
 
-import Control.Cifrado;
-import Control.GestionarPregunta;
-import Control.Validar;
-import Modelo.MPregunta;
-import Modelo.MUsuario;
+import Control.GestionarUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
-public class PreguntasSimilares extends HttpServlet {
+/**
+ *
+ * @author Juanv
+ */
+public class ConfModi extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,33 +31,19 @@ public class PreguntasSimilares extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         response.setContentType("text/html;charset=UTF-8");
-        try {
-            String pregunta = request.getParameter("pregunta");
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            String token;
+            token = request.getParameter("token");
             HttpSession sesion = request.getSession(true);
-            if(sesion.getAttribute("usuario") != null){
-                MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
-                if(usu.getId_rol() == 1){
-                    if(pregunta != null){
-                        if(Validar.Validarpregunta(pregunta)){
-                            List<MPregunta> simi = GestionarPregunta.PreguntasSimilares(pregunta, usu.getClave());
-                            sesion.setAttribute("pre", pregunta);
-                            if(simi.size()>0){
-                                response.sendRedirect("preguntasSimilares.jsp?pre="+pregunta);
-                            }else{
-                                response.sendRedirect("HacerPregunta?pre="+pregunta);
-                            }
-                        }else{
-                            response.sendRedirect("hacerPregunta.jsp");
-                        }
-                    }else{
-                        response.sendRedirect("paginaError2.html");
-                    }
+            if(token != null){
+                if(GestionarUsuario.ConfirmarCorreo(token)){
+                    response.sendRedirect("CerrarSesion");
                 }else{
-                    response.sendRedirect("index.jsp");
+                   response.sendRedirect("paginaError2.html");
                 }
             }else{
-                response.sendRedirect("index.jsp");
+                response.sendRedirect("paginaError2.html");
             }
         }catch(Exception e){
             System.out.println(e.getMessage());
