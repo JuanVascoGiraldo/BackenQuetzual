@@ -212,6 +212,7 @@ public class GestionarUsuario {
                    usu.setId_gen(doc.getInt("id_gen"));
                    usu.setNom_usu(Cifrado.decrypt(doc.getString("nom_usu")));
                    usu.setId_usu(doc.getInt("id_usu"));
+                   usu.setHabilitada(doc.getInt("habilitada"));
                    docs.add(usu);
                }
            }

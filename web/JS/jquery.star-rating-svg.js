@@ -1,7 +1,7 @@
 
 var id_pre = 0;
 var id_res = 0;
-var re = 0;
+var re = 1;
 
 /*
  *  jQuery StarRatingSvg v1.2.0

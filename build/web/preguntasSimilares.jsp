@@ -1,3 +1,4 @@
+
 <%@page import="Control.Cifrado"%>
 <%@page import="java.util.List"%>
 <%@page import="Control.GestionarPregunta"%>
@@ -14,7 +15,7 @@
         }
     }else{
         %> 
-        <jsp:forward page="paginaError2.html">
+        <jsp:forward page="index.jsp">
         <jsp:param name="Error" value="Es obligatorio identificarse" />
          </jsp:forward>
 <%
@@ -28,7 +29,6 @@
     List<MPregunta> simi = GestionarPregunta.PreguntasSimilares(pre, usu.getClave());
     
 %>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,7 +36,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
+    <% 
+        response.setHeader("Cache-Control", "no-store");
+        response.setHeader("Pragma","no-cache");
+        response.setDateHeader("Expires", 0);
+    %>
+    <title>Preguntas Similares</title>
     <link rel="stylesheet" href="./CSS/normalize.css">
     <link rel="stylesheet" href="./CSS/sesionUsuario.css">
     <link rel="stylesheet" href="./CSS/star-rating-svg.css">
@@ -48,29 +53,35 @@
 <body>
     <header class="header">
         <nav class="navegacion">
-            <img src="./img/logotipo.png" alt="Logotipo oficial de Quetzual" class="logo">
-            <article>Preguntas Similares</article>
-            <button class="cs" onclick="cerrarSesion()">Cerrar sesión</button>
+            <img src="./img//Logo.png" alt="Logotipo oficial de Quetzual" class="logo">
+            <article><b>QUETZUAL</b></article>
+            <div class="menu">
+                <a href="./sesionUsuario.jsp">
+                    <img src="./img/bx-home.png" alt="Imagen ">
+                </a>
+                <a href="./preguntasPendientes.jsp">
+                    <img src="./img/bx-question-mark.png" alt="Signo de pregunta" class="svg">
+                </a>
+                <a href="./cuenta.jsp">
+                    <img src="./img/bx-user-circle.png" width="40" alt="Signo de pregunta" class="svg">
+                </a>
+                <a href="./CerrarSesion">
+                    <img src="./img/salir.png" alt="Signo de pregunta" class="svg">
+                </a>
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                &nbsp;
+
+            </div>
         </nav>
-        <div class="menu">
-            <a href="./sesionUsuario.jsp">
-                <img src="./img/bx-home.svg" alt="Imagen inicio"> Inicio
-            </a>
-            <a href="./cuenta.jsp">
-                <img src="./img/bx-user-circle.svg" width="40" alt="Signo de pregunta" class="svg"> Mi cuenta
-            </a>
-            <a href="./hacerPregunta.jsp">
-                <img src="./img/bx-edit-alt.svg" alt="Signo de editar" class="svg"> Quiero preguntar
-            </a>
-        </div>
     </header>
 
     <div class="title">
         <h1>Preguntas Similares</h1>
         <hr>
     </div>
-    <a href="HacerPregunta?pre=<%=pre%>">Hacer Pregunta</a>
-    
+    <a href="HacerPregunta" class="hacer">Hacer Pregunta</a>
     <% 
             for(MPregunta pres: simi){
         %>

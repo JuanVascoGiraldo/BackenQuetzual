@@ -1,5 +1,3 @@
-
-
 <%@page import="Modelo.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8" session="true" language="java"%>
 
@@ -12,7 +10,7 @@
         }
     }else{
         %> 
-        <jsp:forward page="paginaError2.html">
+        <jsp:forward page="index.jsp">
         <jsp:param name="Error" value="Es obligatorio identificarse" />
          </jsp:forward>
 <%
@@ -32,8 +30,6 @@
         contra = 0;
     }
 %>
-
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -41,6 +37,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <% 
+        response.setHeader("Cache-Control", "no-store");
+        response.setHeader("Pragma","no-cache");
+        response.setDateHeader("Expires", 0);
+    %>
     <title>Administrador</title>
     <link rel="stylesheet" href="./CSS/normalize.css">
     <link rel="stylesheet" href="./CSS/cuentaAdmin.css">
@@ -50,7 +51,7 @@
 
 <body>
     <aside>
-        <img src="./img/logotipo.png">
+        <img src="./img/LogoBlancoLetrasSinFondo.png">
         <button onclick="enviarSesionAdmin()">Inicio</button>
         <button onclick="enviarAdminDoctores()">Administrar doctores</button>
         <button onclick="enviarRankingAdmin()">Ranking</button>
@@ -61,7 +62,6 @@
         <div class="card">
             <form action="../ModifcarCuenta" name="ModCuentaAdmin">
                 <input type="text" name="nombre" id="nombreadmin" placeholder="Nombre de Usuario" class="input" value="<%=usu.getNom_usu() %>">
-                <input type="text" name="correo" id="correoadmin" placeholder="Correo electronico" class="input" value="<%=usu.getEmail() %>">
                 <br>
                 <label for="" class="article">Fecha de nacimiento</label><br>
                 <input type="date" name="fecha" id="fechaAdmin" class="input" value="<%=usu.getFecha_nac() %>">
@@ -69,10 +69,10 @@
                 <label for="" class="article">Sexo</label>
                 <br>
                 <select name="sexo" id="" class="select">
-                <option value="3" <% if(usu.getId_gen() == 3){%>selected <%}%>>Masculino</option>
-                <option value="2" <% if(usu.getId_gen() == 2){%>selected <%}%>>Femenino</option>
-                <option value="1" <% if(usu.getId_gen() == 1){%>selected <%}%>>Prefiero no decirlo</option>
-            </select>
+                    <option value="3" <% if(usu.getId_gen() == 3){%>selected <%}%>>Masculino</option>
+                    <option value="2" <% if(usu.getId_gen() == 2){%>selected <%}%>>Femenino</option>
+                    <option value="1" <% if(usu.getId_gen() == 1){%>selected <%}%>>Prefiero no decirlo</option>
+                </select>
                 <button type="button" class="submit" onclick="modificarcuentaAdmin()">Modificar Cuenta</button>
             </form>
         </div>
@@ -96,7 +96,7 @@
     <script src="./JS/redirigir.js"></script>
     <script src="./JS/funcionModal.js"></script>
     <script src="./JS/validar.js"></script>
-    
+    <!--
      <% 
         if(contra == 1){
             %> 
@@ -105,22 +105,6 @@
                     icon: 'error',
                     title: 'No se Modificado la cuenta',
                     text: 'No coincide la contraseña de la cuenta '
-                });
-            </script>
-    
-    
-    <%
-        }
-    %>
-    
-    <% 
-        if(correo == 1){
-            %> 
-            <script>
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Correo ya registrado',
-                    text: 'El correo ya ha sido Registrado Intente de nuevo'
                 });
             </script>
     

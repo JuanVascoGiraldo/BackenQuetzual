@@ -2,7 +2,7 @@
 package Modelo;
 
 public class MUsuario implements Comparable<MUsuario>  {
-    int id_usu, id_gen, id_rol, puntos, enc_usu;
+    int id_usu, id_gen, id_rol, puntos, enc_usu, habilitada;
     String email, contra, fecha_nac, nom_usu, clave, token;
 
     public MUsuario() {
@@ -95,6 +95,15 @@ public class MUsuario implements Comparable<MUsuario>  {
     public String getToken() {
         return token;
     }
+
+    public int getHabilitada() {
+        return habilitada;
+    }
+
+    public void setHabilitada(int habilitada) {
+        this.habilitada = habilitada;
+    }
+    
     
     
 

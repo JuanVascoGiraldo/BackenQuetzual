@@ -245,7 +245,7 @@ function agregarRespuestares() {
     } else {
         document.getElementById('modalR').classList.add(isVisible);
         setTimeout(function() {
-          document.responder.submit();  
+          document.responder.submit();
         }, 1000);
         
     }

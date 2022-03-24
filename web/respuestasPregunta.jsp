@@ -12,7 +12,7 @@
         }
     }else{
         %> 
-        <jsp:forward page="paginaError2.html">
+        <jsp:forward page="index.jsp">
         <jsp:param name="Error" value="Es obligatorio identificarse" />
          </jsp:forward>
 <%
@@ -40,18 +40,20 @@
     if(re == 0){
         redireccionar = "sesionUsuario.jsp";
     }else{
-        redireccionar = "preguntasRespondidas.jsp";
+        redireccionar = "preguntasPendientes.jsp";
     }
 %>
-
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <% 
+        response.setHeader("Cache-Control", "no-store");
+        response.setHeader("Pragma","no-cache");
+        response.setDateHeader("Expires", 0);
+    %>
     <title>Respuestas</title>
     <link rel="stylesheet" href="./CSS/normalize.css">
     <link rel="stylesheet" href="./CSS/sesionUsuario.css">
@@ -64,17 +66,31 @@
 <body>
     <header class="header">
         <nav class="navegacion">
-            <img src="./img/logotipo.png" alt="Logotipo oficial de Quetzual" class="logo">
-            <article>Respuestas</article>
-            <button class="cs" onclick="cerrarSesion()">Cerrar sesión</button>
+            <img src="./img//Logo.png" alt="Logotipo oficial de Quetzual" class="logo">
+            <article><b>QUETZUAL</b></article>
+            <div class="menu">
+                <a href="./preguntasPendientes.jsp">
+                    <img src="./img/bx-question-mark.png" alt="Signo de pregunta" class="svg">
+                </a>
+                <a href="./hacerPregunta.jsp">
+                    <img src="./img/bx-edit-alt.png" alt="Signo de editar" class="svg">
+                </a>
+                <a href="./CerrarSesion">
+                    <img src="./img/salir.png" alt="Signo de pregunta" class="svg">
+                </a>
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                &nbsp;
+
+            </div>
         </nav>
-        <div class="menu">
-            <a href="./<%=redireccionar %>">
-                <img src="./img/bxs-left-arrow.svg" alt="Imagen"> Volver
-            </a>
-        </div>
     </header>
-    
+    <h1 style="text-align:center">Respuesta preguntas</h1>
+    <a href="./<%=redireccionar %>">
+                <img src="./img/bxs-left-arrow.svg" alt="Imagen"> Volver
+    </a>
+
     <% 
         for(MRespuesta res:lista){
     %>
@@ -116,7 +132,7 @@
     %>
     <div class="modal" id="modalR">
         <div class="card">
-            <article>
+            <article style="color: black">
                 <b>Tu Calificación ha sido registrada</b>
             </article>
             <img src="./img/check-square-solid-240.png" alt="" onclick="crm()" class="cubitoVerde">

@@ -1,5 +1,3 @@
-
-
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="Control.GestionarUsuario"%>
@@ -17,7 +15,7 @@
         }
     }else{
         %> 
-        <jsp:forward page="paginaError1.html">
+        <jsp:forward page="index.jsp">
         <jsp:param name="Error" value="Es obligatorio identificarse" />
          </jsp:forward>
 <%
@@ -39,7 +37,6 @@
         usuarios = GestionarUsuario.ObtenerRankingMensual(fech, usu.getClave());
     }
 %>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -56,22 +53,30 @@
 <body>
     <header class="header">
         <nav class="navegacion">
-            <img src="./img/logotipo.png" alt="Logotipo oficial de Quetzual" class="logo">
-            <article>Ranking</article>
-            <button class="cs" onclick="cerrarSesion()">Cerrar sesión</button>
+            <img src="./img//Logo.png" alt="Logotipo oficial de Quetzual" class="logo">
+            <article><b>QUETZUAL</b></article>
+            <div class="menu">
+                <a href="./inicioDoctor.jsp">
+                    <img src="./img/bx-home.png" alt="Simbolo de usuario " class="svg ">
+                </a>
+                <a href="./cuentaDoctor.jsp">
+                    <img src="./img/bx-user-circle.png" width="40" alt="Signo de pregunta" class="svg">
+                </a>
+                <a href="./preguntasPendientes.jsp">
+                    <img src="./img/bx-edit.png" alt="Imagen ">
+                </a>
+                <a href="../CerrarSesion">
+                    <img src="./img/salir.png" alt="Signo de pregunta" class="svg">
+                </a>
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                &nbsp;
+
+            </div>
         </nav>
-        <div class="menu">
-            <a href="./inicioDoctor.jsp">
-                <img src="./img/bx-home.svg" alt="Simbolo de usuario " class="svg "> Inicio
-            </a>
-            <a href="./cuentaDoctor.jsp">
-                <img src="./img/bx-user-circle.svg" width="40" alt="Signo de pregunta" class="svg"> Mi cuenta
-            </a>
-            <a href="./preguntasPendientes.jsp">
-                <img src="./img/bx-edit.svg" alt="Imagen "> Gestionar preguntas
-            </a>
-        </div>
     </header>
+
 
     <div class="title">
         <h1>Mejores desempeños</h1>
@@ -82,8 +87,8 @@
     <div class="filtro">
         <select name="filtro" id="filtro" onchange="javascript:location.href = this.value;">
             <option selected disabled hidden>Filtrar por fecha</option>
-            <option value="ranking.jsp?fil=0"  <%if(fil == 0){%>selected <%} %>>General</option>
-            <option value="ranking.jsp?fil=1"  <%if(fil == 1){%>selected <%} %>>Mensual</option>
+            <option value="1"  >General</option>
+            <option value="2"  >Mensual</option>
         </select>
     </div>
     <div class="main_container">
@@ -92,57 +97,29 @@
                 <div class="doctores">Doctores</div>
                 <div class="puntos">Puntos</div>
             </div>
-            <% 
-                int total = 0;
-                int i = 0;
-                for(MUsuario usua:usuarios){
-                    i++;
-                    total++;
-                    if(i > 3){ 
-                        %>
-                        <div class="participante">
-                            <div class="doctores"><%=i%>. <%=usua.getNom_usu() %></div>
-                            <div class="puntos"><%=usua.getPuntos() %> 🏆</div>
-                        </div>
-            <%
-                    }else if(i == 3){
-                    %>
-                    <div class="tercero">
-                        <div class="doctores"><%=i%>. <%=usua.getNom_usu() %></div>
-                        <div class="puntos"><%=usua.getPuntos() %> 🏆</div>
-                    </div>
-            
-            <%
-                    }else if(i == 2){
-                    %>
-                    <div class="segundo">
-                        <div class="doctores"><%=i%>. <%=usua.getNom_usu() %></div>
-                        <div class="puntos"><%=usua.getPuntos() %> 🏆</div>
-                    </div>
-            
-            <%
-                    }else if(i == 1){
-                    
-                    
-            %>
-                    <div class="primero">
-                        <div class="doctores"><%=i%>. <%=usua.getNom_usu() %></div>
-                        <div class="puntos"><%=usua.getPuntos() %> 🏆</div>
-                    </div>
-            <% }}
-                %>
-        </div>
-               <% 
-                if(total == 0){
-        %> 
-        <div class="vacio">
-            <p>No hay Ranking <%if(fil==0){%>Historico <% }else if(fil==1){%>Mensual <% } %>Actualmente</p>
-            <img src="./img/sinrakmen.svg">
-        </div>
-    <%
-        }
-    %>
-    </div>
+            <div id="cambiar">
+                <div class="primero">
+                    <div class="doctores">Dr.Gutierrez Bueno</div>
+                    <div class="puntos">20 🏆</div>
+                </div>
+                <div class="segundo">
+                    <div class="doctores">Dr.Maya Caltenco</div>
+                    <div class="puntos">19 🏆</div>
+                </div>
+                <div class="tercero">
+                    <div class="doctores">Dr.Giron Flores</div>
+                    <div class="puntos">18 🏆</div>
+                </div>
+                <div class="participante">
+                    <div class="doctores">Dr.Salvador Campos</div>
+                    <div class="puntos">17 🏆</div>
+                </div>
+                <div class="participante">
+                    <div class="doctores">Dr.Vasco Giraldo</div>
+                    <div class="puntos">1 🏆</div>
+                </div>
+            </div>
+           
     <div class="main_container">
         <script src="./JS/redirigir.js"></script>
 </body>

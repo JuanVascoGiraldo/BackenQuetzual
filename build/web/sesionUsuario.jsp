@@ -1,4 +1,3 @@
-
 <%@page import="java.util.List"%>
 <%@page import="Control.GestionarPregunta"%>
 <%@page import="Control.GestionarPregunta"%>
@@ -14,27 +13,13 @@
         }
     }else{
         %> 
-        <jsp:forward page="paginaError2.html">
-        <jsp:param name="Error" value="Es obligatorio identificarse" />
-         </jsp:forward>
+        <jsp:forward page="index.jsp">
+            <jsp:param name="Error" value="Es obligatorio identificarse" />
+        </jsp:forward>
 <%
     }
     MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
-    List<MPregunta> pre = GestionarPregunta.ConsultarAllPreRes(usu.getClave(),0 );
-    
-    
-    int fil = 0;
-    try{
-        fil = Integer.valueOf(request.getParameter("fil"));
-        if(fil > 5){
-            fil = 0;
-        }
-    }catch(Exception e){
-        fil = 0;
-    }
-    int tota = 0;
-    
-    
+    List<MPregunta> pre = GestionarPregunta.ConsultarAllPreRes(usu.getClave() );
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,6 +28,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <% 
+        response.setHeader("Cache-Control", "no-store");
+        response.setHeader("Pragma","no-cache");
+        response.setDateHeader("Expires", 0);
+    %>
     <title>Inicio</title>
     <link rel="stylesheet" href="./CSS/normalize.css">
     <link rel="stylesheet" href="./CSS/sesionUsuario.css">
@@ -55,21 +45,28 @@
 <body>
     <header class="header">
         <nav class="navegacion">
-            <img src="./img/logotipo.png" alt="Logotipo oficial de Quetzual" class="logo">
-            <article>Inicio</article>
-            <button class="cs" onclick="cerrarSesion()">Cerrar sesión</button>
+            <img src="./img//Logo.png" alt="Logotipo oficial de Quetzual" class="logo">
+            <article><b>QUETZUAL</b></article>
+            <div class="menu">
+                <a href="./cuenta.jsp">
+                    <img src="./img/bx-user-circle.png" width="40" alt="Signo de pregunta" class="svg">
+                </a>
+                <a href="./preguntasPendientes.jsp">
+                    <img src="./img/bx-question-mark.png" alt="Signo de pregunta" class="svg">
+                </a>
+                <a href="./hacerPregunta.jsp">
+                    <img src="./img/bx-edit-alt.png" alt="Signo de editar" class="svg">
+                </a>
+                <a href="CerrarSesion">
+                    <img src="./img/salir.png" alt="Signo de pregunta" class="svg">
+                </a>
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                &nbsp;
+
+            </div>
         </nav>
-        <div class="menu">
-            <a href="./cuenta.jsp">
-                <img src="./img/bx-user-circle.svg" width="40" alt="Signo de pregunta" class="svg"> Mi cuenta
-            </a>
-            <a href="./preguntasPendientes.jsp">
-                <img src="./img/bx-question-mark.svg" alt="Imagen "> Mis preguntas
-            </a>
-            <a href="./hacerPregunta.jsp">
-                <img src="./img/bx-edit-alt.svg" alt="Signo de editar" class="svg"> Quiero preguntar
-            </a>
-        </div>
     </header>
 
     <div class="title">
@@ -81,60 +78,39 @@
         <p>Puedes explorar este espacio usando el Menu desplegable para buscar preguntas que se relacionan directamente con tu duda.</p>
     </div>
     <div class="filtro">
-        <select name="filtro" id="filtro" onchange="javascript:location.href = this.value;">
-            <option <%if(fil == 0){%>selected <%} %> disabled hidden>Selecciona el tema de tu interes</option>
-            <option value="sesionUsuario.jsp?fil=1"  <%if(fil == 1){%>selected <%} %>>Enfermedades de transmisión sexual</option>
-            <option value="sesionUsuario.jsp?fil=5"  <%if(fil == 5){%>selected <%} %>>Anticonceptivos</option>
-            <option value="sesionUsuario.jsp?fil=2"  <%if(fil == 2){%>selected <%} %>>Embarazo</option>
-            <option value="sesionUsuario.jsp?fil=3"  <%if(fil == 3){%>selected <%} %>>Salud sexual femenina</option>
-            <option value="sesionUsuario.jsp?fil=4"  <%if(fil == 4){%>selected <%} %>>Salud sexual masculina</option>
+        <select name="filtro" id="filtro" onchange="javascript:console.log(this.value)">
+            <option disabled hidden>Selecciona el tema de tu interes</option>
+            <!--Aqui se va a ocupar ajax para los filtros-->
+            <option value="0" >Todos</option>
+            <option value="1" >Enfermedades de transmisión sexual</option>
+            <option value="5" >Anticonceptivos</option>
+            <option value="2" >Embarazo</option>
+            <option value="3" >Salud sexual femenina</option>
+            <option value="4" >Salud sexual masculina</option>
         </select>
     </div>
-    <% 
-        for(MPregunta res: pre){
-            if(fil == 0 || fil == res.getId_catgen() ){
-                tota++;
-    %>
-    <div class="main_container">
-        <div class="mini_header">
-            <h2><%=res.getEdad_usu() %> años</h2>
-            <h2><% 
-                 if(res.getId_catgen() == 1){
-                 %>Enfermedades de transmisión sexual<%
-                 }else if(res.getId_catgen() == 2){
-                 %>Embarazo<%
-                 }else if(res.getId_catgen() == 3){
-                 %>Salud sexual femenina<%
-                 }else if(res.getId_catgen() == 4){
-                 %> Salud sexual masculina<%
-                 }else if(res.getId_catgen() == 5){
-                 %>Anticonceptivos <%
-                 }
-               
-                %></h2>
-            <h2><%=res.getCantidadRes() %> Respuestas</h2>
-        </div>
-        <div class="pregunta">
-            <img src="./img/bxs-user.svg">
-            <div class="preguntas">
-                <h3>¿<%=res.getDes_pre() %>?</h3>
+    <div id="cambiar">
+        <div class="main_container">
+            <div class="mini_header">
+                <h2>18 años</h2>
+                <h2>Metodos Anticonceptivos</h2>
+                <h2>2 Respuestas</h2>
+            </div>
+            <div class="pregunta">
+                <img src="./img/bxs-user.svg">
+                <div class="preguntas">
+                    <h3>¿Que metodos Anticonceptivos existen?</h3>
+                </div>
+            </div>
+            <div class="respuesta">
+                <a href="./respuestasPregunta.jsp?id=<%=res.getId_pre()%>&&re=0">Ver respuestas</a>
             </div>
         </div>
-        <div class="respuesta">
-            <a href="./respuestasPregunta.jsp?id=<%=res.getId_pre()%>&&re=0">Ver respuestas</a>
-        </div>
-    </div>
-    <% 
-        }}
-        if(tota == 0){
-        %> 
         <div class="vacio">
             <p>No hay Preguntas Actualmente</p>
             <img src="./img/sinprepuusu.svg">
         </div>
-    <%
-        }
-    %>
+    </div>
     <script src="./JS/validar.js"></script>
     <script src="./JS/sweetAlert.js"></script>
     <script src="./JS/funcionModal.js"></script>

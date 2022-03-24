@@ -87,7 +87,7 @@ function registrardr() {
     if (validarnombre(nombre) && validarfecha(fecha) && validarcorreo(email) && validarcontrasena(pass) && (pass = confpass)) {
         
         setTimeout(function() {
-            document.registrarDoc.submit();
+           document.registrarDoc.submit();
         }, 1000);
     } else if (pass != confpass) {
         Swal.fire({
@@ -113,9 +113,8 @@ function modificarcuentadr() {
 
 function modificarcuentaAdmin() {
     var fecha = document.getElementById("fechaAdmin").value;
-    var email = document.getElementById("correoadmin").value;
     var nombre = document.getElementById("nombreadmin").value;
-    if (validarnombre(nombre) && validarfecha(fecha) && validarcorreo(email)) {
+    if (validarnombre(nombre) && validarfecha(fecha)) {
         document.getElementById("modalR").classList.add(isVisible);
         setTimeout(function() {
             document.ModCuentaAdmin.submit();

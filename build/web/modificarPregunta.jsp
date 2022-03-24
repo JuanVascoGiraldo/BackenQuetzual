@@ -11,7 +11,7 @@
         }
     }else{
         %> 
-        <jsp:forward page="paginaError2.html">
+        <jsp:forward page="index.jsp">
         <jsp:param name="Error" value="Es obligatorio identificarse" />
          </jsp:forward>
 <%
@@ -31,7 +31,6 @@
     }
 
 %>
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -39,6 +38,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <% 
+        response.setHeader("Cache-Control", "no-store");
+        response.setHeader("Pragma","no-cache");
+        response.setDateHeader("Expires", 0);
+    %>
     <title>Modificar Pregunta</title>
     <link rel="stylesheet" href="./CSS/normalize.css">
     <link rel="stylesheet" href="./CSS/modificarPregunta.css">
@@ -47,24 +51,31 @@
 </head>
 
 <body>
-    <header class=" header ">
-        <nav class="navegacion ">
-            <img src="./img/logotipo.png " alt="Logotipo oficial de Quetzual " class="logo ">
-            <article>Mis preguntas</article>
-            <button class="cs" onclick="cerrarSesion()">Cerrar sesión</button>
+    <header class="header">
+        <nav class="navegacion">
+            <img src="./img//Logo.png" alt="Logotipo oficial de Quetzual" class="logo">
+            <article><b>QUETZUAL</b></article>
+            <div class="menu">
+                <a href="./sesionUsuario.jsp">
+                    <img src="./img/bx-home.png" alt="Imagen ">
+                </a>
+                <a href="./cuenta.jsp">
+                    <img src="./img/bx-user-circle.png" width="40" alt="Signo de pregunta" class="svg">
+                </a>
+                <a href="./hacerPregunta.jsp">
+                    <img src="./img/bx-edit-alt.png" alt="Signo de editar" class="svg">
+                </a>
+                <a href="CerrarSesion">
+                    <img src="./img/salir.png" alt="Signo de pregunta" class="svg">
+                </a>
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                &nbsp;
+            </div>
         </nav>
-        <div class="menu">
-            <a href="./sesionUsuario.jsp">
-                <img src="./img/bx-home.svg" alt="Imagen inicio"> Inicio
-            </a>
-            <a href="./cuenta.jsp">
-                <img src="./img/bx-user-circle.svg" width="40" alt="Signo de pregunta" class="svg"> Mi cuenta
-            </a>
-            <a href="./hacerPregunta.jsp">
-                <img src="./img/bx-edit-alt.svg" alt="Signo de editar" class="svg"> Quiero preguntar
-            </a>
-        </div>
     </header>
+
     <div class="title">
         <h1>Modificar Pregunta</h1>
         <hr>
@@ -102,20 +113,12 @@
             <button class="question" onclick="crm()">No, quiero volver</button>
         </div>
     </div>
-    <div class="modal" id="modalG">
-        <div class="card">
-            <article>
-                <b>Su pregunta ha sido modificada con exito</b>
-            </article>
-            <img src="./img/check-square-solid-240.png" onclick="crm2()">
-        </div>
-    </div>
     <script src="./JS/validar.js"></script>
     <script src="./JS/sweetAlert.js"></script>
     <script src="./JS/funcionModal.js"></script>
     <script>
         function redeliminar(id){
-                    location.href='./EliminarPre?id='+id 
+                    location.href='./EliminarPre?id='+id
                 }      
     </script>
 </body>

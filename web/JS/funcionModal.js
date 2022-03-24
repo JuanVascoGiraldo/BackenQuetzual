@@ -32,10 +32,3 @@ $('.Estrellas').starRating({
 function crm() {
     document.getElementById('modalR').classList.remove(isVisible);
 }
-
-function crm2() {
-    document.getElementById('modalG').classList.remove(isVisible);
-    setTimeout(function() {
-        location.href = '../preguntasPendientes.jsp';
-    }, 1500);
-}

@@ -49,9 +49,9 @@ public class ModifcarCuenta extends HttpServlet {
                             response.sendRedirect("CerrarSesion");
                         }else{
                             if(usu.getId_rol() == 1){
-                                response.sendRedirect("cuenta.jsp?correo=1");
+                                response.sendRedirect("cuenta.jsp?correo");
                             }else if(usu.getId_rol() == 3){
-                                response.sendRedirect("./Administrador/cuentaAdmin.jsp?correo=1");
+                                response.sendRedirect("./Administrador/cuentaAdmin.jsp");
                             }
                         }
                     }else{

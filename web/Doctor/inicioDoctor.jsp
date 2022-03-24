@@ -1,4 +1,4 @@
-<%@page import="java.util.List"%>
+%@page import="java.util.List"%>
 <%@page import="Control.GestionarUsuario"%>
 <%@page import="Modelo.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8" session="true" language="java"%>
@@ -12,7 +12,7 @@
         }
     }else{
         %> 
-        <jsp:forward page="paginaError1.html">
+        <jsp:forward page="index.jsp">
         <jsp:param name="Error" value="Es obligatorio identificarse" />
          </jsp:forward>
 <%
@@ -24,9 +24,7 @@
     CCategoria cat3 = lista.get(2);
     CCategoria cat4 = lista.get(3);
     CCategoria cat5 = lista.get(4);
-
 %>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,6 +32,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <% 
+        response.setHeader("Cache-Control", "no-store");
+        response.setHeader("Pragma","no-cache");
+        response.setDateHeader("Expires", 0);
+    %>
     <title>Inicio</title>
     <link rel="stylesheet" href="./CSS/normalize.css">
     <link rel="stylesheet" href="./CSS/inicioDoctor.css">
@@ -44,22 +47,31 @@
 <body>
     <header class="header">
         <nav class="navegacion">
-            <img src="../img/logotipo.png" alt="Logotipo oficial de Quetzual" class="logo">
-            <article>Estadisticas</article>
-            <button class="cs" onclick="cerrarSesion()">Cerrar sesión</button>
+            <img src="./img//Logo.png" alt="Logotipo oficial de Quetzual" class="logo">
+            <article><b>QUETZUAL</b></article>
+            <div class="menu">
+                <a href="./cuentaDoctor.jsp">
+                    <img src="./img/bx-user-circle.png" width="40" alt="Signo de pregunta" class="svg">
+                </a>
+                <a href="./preguntasPendientes.jsp">
+                    <img src="./img/bx-edit.png" alt="Imagen ">
+                </a>
+                <a href="./ranking.jsp">
+                    <img src="./img/bx-line-chart.png" alt="Signo de editar" class="svg">
+                </a>
+                <a href="../CerrarSesion">
+                    <img src="./img/salir.png" alt="Signo de pregunta" class="svg">
+                </a>
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                &nbsp;
+
+            </div>
         </nav>
-        <div class="menu">
-            <a href="./cuentaDoctor.jsp">
-                <img src="./img/bx-user-circle.svg" width="40" alt="Signo de pregunta" class="svg"> Mi cuenta
-            </a>
-            <a href="./preguntasPendientes.jsp">
-                <img src="./img/bx-edit.svg" alt="Imagen "> Gestionar preguntas
-            </a>
-            <a href="./ranking.jsp">
-                <img src="./img/bx-line-chart.svg" alt="Signo de editar" class="svg"> Ranking
-            </a>
-        </div>
     </header>
+
+
     <div>
         <h1>Bienvenido Doctor</h1>
         <p>Estos son los datos más recientes desde la ultima vez</p>

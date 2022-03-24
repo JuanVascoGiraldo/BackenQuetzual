@@ -35,9 +35,6 @@ function enviarModificarPregunta() {
     location.href = './modificarPregunta.html';
 }
 
-function cerrarSesion() {
-    location.href = 'CerrarSesion';
-}
 
 function consultarPregunta() {
     location.href = './respuestasPregunta.html';

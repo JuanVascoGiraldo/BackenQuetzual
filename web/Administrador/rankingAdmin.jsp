@@ -15,7 +15,7 @@
         }
     }else{
        %> 
-        <jsp:forward page="paginaError2.html">
+        <jsp:forward page="index.jsp">
         <jsp:param name="Error" value="Es obligatorio identificarse" />
          </jsp:forward>
 <%
@@ -37,8 +37,6 @@
         usuarios = GestionarUsuario.ObtenerRankingMensual(fech, usu.getClave());
     }
 %>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,6 +44,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <% 
+        response.setHeader("Cache-Control", "no-store");
+        response.setHeader("Pragma","no-cache");
+        response.setDateHeader("Expires", 0);
+    %>
     <title>Ranking</title>
     <link rel="stylesheet" href="./CSS/normalize.css">
     <link rel="stylesheet" href="./CSS/rankingAdmin.css">
@@ -58,8 +61,8 @@
     <div class="filtro">
         <select name="filtro" id="filtro" onchange="javascript:location.href = this.value;">
             <option selected disabled hidden>Filtrar por fecha</option>
-            <option value="rankingAdmin.jsp?fil=0"  <%if(fil == 0){%>selected <%} %>>General</option>
-            <option value="rankingAdmin.jsp?fil=1"  <%if(fil == 1){%>selected <%} %>>Mensual</option>
+            <option value="1" >General</option>
+            <option value="2" >Mensual</option>
         </select>
     </div>
     <div class="main_container">
@@ -68,7 +71,29 @@
                 <div class="doctores">Doctores</div>
                 <div class="puntos">Puntos</div>
             </div>
-            <% 
+            <div id="cambiar">
+                <div class="primero">
+                    <div class="doctores">Dr.Gutierrez Bueno</div>
+                    <div class="puntos">20 🏆</div>
+                </div>
+                <div class="segundo">
+                    <div class="doctores">Dr.Maya Caltenco</div>
+                    <div class="puntos">19 🏆</div>
+                </div>
+                <div class="tercero">
+                    <div class="doctores">Dr.Giron Flores</div>
+                    <div class="puntos">18 🏆</div>
+                </div>
+                <div class="participante">
+                    <div class="doctores">Dr.Salvador Campos</div>
+                    <div class="puntos">17 🏆</div>
+                </div>
+                <div class="participante">
+                    <div class="doctores">Dr.Vasco Giraldo</div>
+                    <div class="puntos">1 🏆</div>
+                </div>
+            </div>
+            <!--<% 
                 int total = 0;
                 int i = 0;
                 for(MUsuario usua:usuarios){
@@ -111,7 +136,8 @@
         %>
         </div>
         <% 
-        
+    -->
+    <!--
         if(total == 0){
         %> 
         <div class="vacio">
@@ -121,10 +147,11 @@
         <%
             }
         %>
+        -->
     </div>
     <div class="modal" id="modalR">
         <aside class="modal-dialog">
-            <img src="./img/logotipo.png">
+            <img src="./img/LogoBlancoLetrasSinFondo.png">
             <button onclick="enviarSesionAdmin()">Inicio</button>
             <button onclick="enviarCuentaAdmin()">Cuenta</button>
             <button onclick="enviarAdminDoctores()">Administrar Doctores</button>

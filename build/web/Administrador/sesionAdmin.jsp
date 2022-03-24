@@ -13,9 +13,9 @@
         }
     }else{
         %> 
-        <jsp:forward page="paginaError2.html">
-        <jsp:param name="Error" value="Es obligatorio identificarse" />
-         </jsp:forward>
+        <jsp:forward page="index.jsp">
+            <jsp:param name="Error" value="Es obligatorio identificarse" />
+        </jsp:forward>
         <%
     }
     MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
@@ -27,8 +27,6 @@
     CCategoria cat5 = lista.get(4);
 
 %>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,7 +43,7 @@
 
 <body>
     <aside>
-        <img src="./img/logotipo.png">
+        <img src="./img/LogoBlancoLetrasSinFondo.png">
         <button onclick="enviarAdminDoctores()">Administrar doctores</button>
         <button onclick="enviarCuentaAdmin()">Cuenta</button>
         <button onclick="enviarRankingAdmin()">Ranking</button>

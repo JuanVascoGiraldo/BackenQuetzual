@@ -1,5 +1,5 @@
 let expresioncorreo = /^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$/;
-let expresiontextnumber = /^[a-zA-Z0-9àáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪÑ \?\¿,\.]+$/;
+let expresiontextnumber = /^[a-zA-Z0-9àáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.]+$/;
 let expresioncontra = /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/;
 let expresionfecha = /^(\d{4})(\/|-)(\d{1,2})(\/|-)(\d{1,2})$/;
 let expresiononlytext = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð]+$/u;
@@ -110,7 +110,8 @@ function registrarr() {
             text: 'Las contraseñas no coinciden'
         });
     } else if (validarfecha(fecha) && validarnombre(nombre) && validarcorreo(email) && validarcontrasena(pass)) {
-        document.registrar.submit();
+        //document.registrar.submit();
+        location.href = 'index.html'
     }
 }
 
@@ -124,11 +125,8 @@ function iniciars() {
 
 function modificarcuenta() {
     var fecha = document.getElementById('fecha').value;
-    var email = document.getElementById('correo').value;
     var nombre = document.getElementById('nombre').value;
-    if (validarfecha(fecha) && validarnombre(nombre) && validarcorreo(email)) {
-        
-        //document.modcuenta.submit;
+    if (validarfecha(fecha) && validarnombre(nombre)) {
         setTimeout(function() {
             document.modicuenta.submit();
         }, 2000);
@@ -147,7 +145,6 @@ function modificarContra() {
         });
     } else if (validarcontrasena(pass) && validarcontrasena(antpass)) {
        
-        //document.modcontra.submit;
         setTimeout(function() {
             document.ModContra.submit();
         }, 2000);
@@ -176,7 +173,7 @@ function RechaPregunta() {
             title: 'Correcto',
             text: 'Se ha rechazado la pregunta con exito'
         });
-        document.rechapre.submit;
+        //document.rechapre.submit;
     }
 }
 
@@ -189,6 +186,48 @@ function ResPregunta() {
             title: 'Correcto',
             text: 'Se ha respondido la pregunta con exito'
         });
-        document.repre.submit;
+        //document.repre.submit;
+    }
+}
+
+function ReContra(){
+    var correo = document.recuperar.email.value;
+    if(validarcorreo(correo)){
+        Swal.fire({
+            icon: 'success',
+            title: 'Correcto',
+            text: 'Se ha enviado el correo para recuperar la contraseña con exito'
+        })
+        setTimeout(function (){
+            location.href = 'recuperarcontra.html'
+        }, 1000)
+    }
+}
+
+function ModCorreo(){
+    var correo = document.modemail.correo.value;
+    if(validarcorreo(correo)){
+        Swal.fire({
+            icon: 'success',
+            title: 'Correcto',
+            text: 'Se ha enviado el correo para modificarlo con exito con exito'
+        })
+    }
+
+}
+
+function RecuperarContra(){
+    var pass = document.getElementById('contra').value;
+    var confpas = document.getElementById('confcontra').value;
+    if (pass != confpas) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'No coinciden las nuevas contraseñas'
+        });
+    } else if (validarcontrasena(pass) && validarcontrasena(confpass)) {
+        setTimeout(function() {
+            location.href= 'index.html'
+        }, 2000);
     }
 }
