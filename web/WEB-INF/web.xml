@@ -92,6 +92,10 @@
         <servlet-name>ConfModi</servlet-name>
         <servlet-class>Servlets.ConfModi</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FiltroPreguntasUsu</servlet-name>
+        <servlet-class>Filtro.FiltroPreguntasUsu</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistrarUsuario</servlet-name>
         <url-pattern>/RegistrarUsuario</url-pattern>
@@ -183,6 +187,10 @@
     <servlet-mapping>
         <servlet-name>ConfModi</servlet-name>
         <url-pattern>/ConfModi</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FiltroPreguntasUsu</servlet-name>
+        <url-pattern>/FiltroPreguntasUsu</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

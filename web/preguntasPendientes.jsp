@@ -39,6 +39,7 @@
     <link rel="stylesheet" href="./CSS/preguntasRechazadas.css">
     <link rel="stylesheet" href="./CSS/preguntasRespondidas.css">
     <link rel="icon" type="image/png" href="./img/icono.png">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
 
 <body>
@@ -69,7 +70,7 @@
     </header>
     <h1 style="text-align:center">Mis Preguntas</h1>
     <div class="filtro">
-        <select name="filtro" id="filtro" onchange="javascript:location.href = this.value;">
+        <select name="filtro" id="filtro" onchange="javascript:filtrar(this.value)">
             <option selected disabled hidden>Selecciona el filtro de preguntas</option>
             <option value="1">Preguntas Respondidas</option>
             <option value="2">Preguntas rechazadas</option>
@@ -77,85 +78,8 @@
         </select>
     </div>
     <div id="cambiar">
-    <!--Preguntas pendientes-->
-        <div class="title">
-            <h1>Preguntas Pendientes</h1>
-            <hr>
-            <p>En este espacio puedes consultar tus preguntas que están en espera de recibir respuesta</p>
-        </div>
-        <div class="main_container">
-            <div class="mini_header">
-                <h2>Pendiente</h2>
-            </div>
-            <div class="sub_header">
-                <h2>12-02-2022 - Respondido: Por definir</h2>
-                <h2>Dr. Por Definir</h2>
-            </div>
-                <div class="pregunta">
-                    <div class="preguntas">
-                        <p class="text">¿que son los metodos anticonceptivos?</p>
-                    </div>
-                </div>
-                <div class="pregunta">
-                    <button class="cs" onclick="redeliminar('')">Eliminar pregunta</button>
-                    <button class="question" data-open="modalR" onclick="redModi('')" >Modificar Pregunta</button>
-                </div>
-        </div>
-        <div class="vacio">
-            <p>No Tienes Preguntas Pendientes Actualmente</p>
-            <img src="./img/sinprepenusu.svg">
-        </div>
-    <!--Preguntas Rechazadas-->
-        <div class="title">
-            <h1>Preguntas rechazadas</h1>
-            <hr>
-            <p>En este espacio puedes consultar las preguntas que han sido rechazadas por los doctores.</p>
-        </div>
-        <div class="cardR">
-            <div class="mini_headerR">
-                <h2 class="h2">12-02-2022</h2>
-            </div>
-            <div class="preguntaR">
-                <img src="./img/bxs-user.svg" alt="">
-                <div class="preguntasR">
-                    <h3>¿Que metodos anticonceptivos existen?</h3>
-                </div>
-                <h1 class="h1R">Razón del rechazo</h1>
-                <div class="preguntasR">
-                    <h3>Pregunta ya respondida</h3>
-                </div>
-            </div>
-        </div>
-        <div class="vacio">
-            <p>No Tienes Preguntas Rechazadas Actualmente</p>
-            <img src="./img/sinprerechusu.svg">
-        </div>
-    <!--Preguntas Respondidas-->
-        <div class="title">
-            <h1>Preguntas Respondidas</h1>
-            <hr>
-        </div>
-        <div class="main_containerRe">
-            <div class="mini_headerRe">
-                <h2 class="h2">18 Años</h2>
-                <h2 class="h2">Embarazo</h2>
-                <h2 class="h2">2 Respuestas</h2>
-            </div>
-            <div class="preguntaRe">
-                <img src="./img/bxs-user.svg" alt="">
-                <div class="preguntasRe">
-                    <h3 class="h3">¿Que metodos anticonceptivos existen?</h3>
-                </div>
-            </div>
-            <div class="respuestaRe">
-                <a href="./respuestasPregunta.jsp?id=<%=pre.getId_pre() %>&&re=1" class="aRe">Ver respuestas</a>
-            </div>
-
-        </div>
-        <div class="vacio">
-            <p>No Tienes Preguntas Respondidas Actualmente</p>
-            <img src="./img/sinpreresusu.svg">
-        </div>
+    
+        
     </div>
 
     <script src="./JS/validar.js"></script>
@@ -166,7 +90,17 @@
                 }
         function redModi(id){
             location.href='./modificarPregunta.jsp?id='+id
-        }        
+        }    
+        
+        function filtrar(valor){
+            $.post('FiltroPreguntasUsu', {
+				filtro : valor
+			}, function(responseText) {
+				$('#cambiar').html(responseText);
+			});
+        }
+        
+        filtrar(3);
     </script>
 </body>
 
