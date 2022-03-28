@@ -63,31 +63,40 @@
     <h1>Administrar Doctores</h1>
     <div class="card2">
         <button class="ac" data-open="modal2">Agregar Cuenta</button>
-        <div class="alinear">
-            <div class="flex">
-                <div class="m">
-                    <img src="./img/bx-plus-medical.svg">
+        <%
+            for(MUsuario usu:doctores){
+                if(usu.getHabilitada() == 1){
+        %>
+            <div class="alinear">
+                <div class="flex">
+                    <div class="m">
+                        <img src="./img/bx-plus-medical.svg">
+                    </div>
+                    <div></div>
+                    <div class="text">
+                        <h2><%=usu.getNom_usu() %></h2>
+                        <hr>
+                        <h3><%=usu.getEmail() %></h3>
+                        <h3><%=usu.getFecha_nac() %></h3>
+                        <h3><%if(usu.getId_gen() == 1){%>Prefiero no Decirlo<%}else if(usu.getId_gen() == 2){%>Femenino<%}else if(usu.getId_gen() == 3){%>Masculino<%} %></h3>
+                    </div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
                 </div>
-                <div></div>
-                <div class="text">
-                    <h2>Dr Giron</h2>
-                    <hr>
-                    <h3>giron@gmail.com</h3>
-                    <h3>12-02-2000</h3>
-                    <h3>Prefiero no Decirlo</h3>
+                <div class="btn">
+                    <button onclick="mandar('<%=usu.getId_usu()%>')" class="cs" data-open="modal3">Inhabilitar cuenta</button>
+                    <button onclick="mandardatos('<%=usu.getId_usu()%>','<%=usu.getNom_usu()%>','<%=usu.getEmail()%>','<%=usu.getId_gen()%>','<%=usu.getFecha_nac()%>')" class="mc" data-open="modal4">Modificar cuenta</button>
+                    <button class="ch" onclick="modi('<%=usu.getId_usu()%>')">Consultar historico</button>
                 </div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
             </div>
-            <div class="btn">
-                <button onclick="mandar('<%=usu.getId_usu()%>')" class="cs" data-open="modal3">Inhabilitar cuenta</button>
-                <button onclick="mandardatos('<%=usu.getId_usu()%>','<%=usu.getNom_usu()%>','<%=usu.getEmail()%>','<%=usu.getId_gen()%>','<%=usu.getFecha_nac()%>')" class="mc" data-open="modal4">Modificar cuenta</button>
-                <button class="ch" onclick="modi('<%=usu.getId_usu()%>')">Consultar historico</button>
-            </div>
-        </div>
+        <% 
+            }else if(usu.getHabilitada()==0){
+        %>
+        
         <!--Cuenta deshabilitada-->
+        
         <div class="alinear">
             <div class="flex2">
                 <div class="m">
@@ -95,11 +104,11 @@
                 </div>
                 <div></div>
                 <div class="text">
-                    <h2>Dr Giron (Deshabilitado)</h2>
+                    <h2>Dr. <%=usu.getNom_usu() %> (Deshabilitado)</h2>
                     <hr>
-                    <h3>giron@gmail.com</h3>
-                    <h3>12-02-2000</h3>
-                    <h3>Prefiero no Decirlo</h3>
+                    <h3><%=usu.getEmail() %></h3>
+                    <h3><%=usu.getFecha_nac() %></h3>
+                    <h3><%if(usu.getId_gen() == 1){%>Prefiero no Decirlo<%}else if(usu.getId_gen() == 2){%>Femenino<%}else if(usu.getId_gen() == 3){%>Masculino<%} %></h3>
                 </div>
                 <div></div>
                 <div></div>
@@ -110,11 +119,18 @@
                 <button class="ch" onclick="modi('<%=usu.getId_usu()%>')">Consultar historico</button>
             </div>
         </div>
-           <!-- <div class="vacio">
+        
+        <%
+                }
+            }
+            if(doctores.isEmpty()){
+        %>
+           <div class="vacio">
                 <p>No hay Doctores Registrados Actualmente</p>
                 <img src="./img/sindoc.svg">
-            </div>-->
+            </div>
         
+        <% } %>
     </div>
     <div class="modal" id="modalR">
         <aside class="modal-dialog">

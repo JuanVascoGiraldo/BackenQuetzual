@@ -96,6 +96,26 @@
         <servlet-name>FiltroPreguntasUsu</servlet-name>
         <servlet-class>Filtro.FiltroPreguntasUsu</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FiltroCat</servlet-name>
+        <servlet-class>Filtro.FiltroCat</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FiltroRanking</servlet-name>
+        <servlet-class>Filtro.FiltroRanking</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Filtropre</servlet-name>
+        <servlet-class>Filtro.Filtropre</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FilHist</servlet-name>
+        <servlet-class>Filtro.FilHist</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FilHistAdm</servlet-name>
+        <servlet-class>Filtro.FilHistAdm</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistrarUsuario</servlet-name>
         <url-pattern>/RegistrarUsuario</url-pattern>
@@ -191,6 +211,26 @@
     <servlet-mapping>
         <servlet-name>FiltroPreguntasUsu</servlet-name>
         <url-pattern>/FiltroPreguntasUsu</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FiltroCat</servlet-name>
+        <url-pattern>/FiltroCat</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FiltroRanking</servlet-name>
+        <url-pattern>/FiltroRanking</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Filtropre</servlet-name>
+        <url-pattern>/Filtropre</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FilHist</servlet-name>
+        <url-pattern>/FilHist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FilHistAdm</servlet-name>
+        <url-pattern>/FilHistAdm</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

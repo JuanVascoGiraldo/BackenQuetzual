@@ -11,7 +11,7 @@ body {
 aside {
     width: 100%;
     max-width: 320px;
-    background: linear-gradient(180deg, #FFBFC3 0%, #FFCDD0 28.13%, #AEE3E2 64.06%, #AFDBF5 87.5%);
+    background: linear-gradient(90deg, rgba(36,228,164,1) 0%, rgba(26,225,137,1) 50%, rgba(36,228,164,1) 100%);
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -30,22 +30,30 @@ h1 {
 }
 
 .bar {
-    padding: 15px;
-    display: inline-block;
-    width: 90%;
+    width: 100%;
+    margin: auto;
+    min-width: 200px;
+    max-width: 500px;
+}
+
+.pie {
+    width: 100%;
+    min-width: 200px;
+    max-width: 500px;
+    margin: auto;
 }
 
 button {
-    background-color: #968DF8;
+    background-color: #AFDBF5;
     padding: 15px 20px;
     border-radius: 5px;
-    border: 1px solid #968DF8;
+    border: 1px solid #AFDBF5;
     cursor: pointer;
     font-size: 1.35rem;
     width: 90%;
     max-width: 300px;
     margin: 10px;
-    color: white;
+    color: rgb(0, 0, 0);
 }
 
 .submit {
@@ -424,4 +432,90 @@ select {
     max-width: 500px;
     width: 90%;
     margin: 0 auto;
+}
+
+.linea{
+    background-color: black;
+    border: 2px solid black;
+    width: 50%;
+    margin-left:25%;
+}
+
+.fil{
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 10px;
+    margin-bottom: 100px;
+    
+}
+
+.alinearD {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 15px auto;
+    height: auto;
+}
+
+.flexD {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    text-align: left;
+    background-color: #99E7D9;
+    border-radius: 10px;
+    box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.5);
+    margin: 0 50px;
+    width: 50%;
+    min-width: 300px;
+}
+
+.mD {
+    width: 10%;
+    background-color: #ffffff;
+    border-radius: 50%;
+    padding: 10px;
+    margin: 0 15px;
+    display: inline;
+}
+
+.mD>img {
+    width: 100%;
+}
+
+.fil1{
+    margin-left: 15%;
+    width: 25%;
+    border-bottom: 2px solid #0066FF;
+    display: inline-block;
+    cursor: pointer;
+    margin-right:5%;
+}
+
+.fil1:hover{
+    border-bottom: 2px solid #ff00bfd7;
+}
+
+.fil2{
+    margin-left: 5%;
+    margin-right: 15%;
+    width: 25%;
+    border-bottom: none;
+    display: inline-block;
+    cursor: pointer
+}
+
+.fil2:hover{
+    border-bottom: 2px solid #ff00bfd7;
+}
+
+.preg , .esta{
+    display: inline;
+    width: 100%;
+}
+
+.preg{
+    display:none;
 }

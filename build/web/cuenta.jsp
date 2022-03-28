@@ -161,7 +161,7 @@
     
     <div class="modal" id="modalR">
         <div class="card">
-            <article>
+            <article style="color:black">
                 <b>
                     Cuidado, esta acción será permanente, una ver eliminada la cuenta, tus datos y todo el progreso no podrán recuperarse ¿Desea continuar?
                 </b>
@@ -174,7 +174,7 @@
     <button class="cs" data-open="modalR"><b>Eliminar cuenta</b></button>
     <script>
         function eliminar(){
-            location.href = './index.html';
+            location.href = './EliminarCuenta';
         }
     </script>
     <script src="./JS/funcionModal.js"></script>

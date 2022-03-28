@@ -3,10 +3,13 @@ package Control;
 
 import Modelo.MUsuario;
 import Modelo.CCategoria;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -75,6 +78,8 @@ public class GestionarUsuario {
             jo.put("genero",usu.getId_gen());
             jo.put("Clave", us.getClave());
             jo.put("id", us.getId_usu());
+            jo.put("email", usu.getEmail());
+            jo.put("pass", usu.getContra());
             String url = "/quetzual/usuario/Registrar/Usuario/Doctor";
             JSONObject js = ConexionAPI.peticionPostJSONObjectcontoken(url, jo, us.getToken());
             String estatus = js.getString("status");
@@ -305,6 +310,81 @@ public class GestionarUsuario {
         return docs;
     }
     
+    public static List<MUsuario> puntdoc(int id){
+        List<MUsuario> usu = new ArrayList<MUsuario>();
+        List<String> meses = new ArrayList<String>();
+        meses.add("Enero");
+        meses.add("Febrero");
+        meses.add("Marzo");
+        meses.add("Abril");
+        meses.add("Mayo");
+        meses.add("Junio");
+        meses.add("Julio");
+        meses.add("Agosto");
+        meses.add("Septiembre");
+        meses.add("Octubre");
+        meses.add("Noviembre");
+        meses.add("Diciembre");
+        try{
+            String url = "/quetzual/usuario/Obtener/Punt";
+            JSONObject jo = new JSONObject();
+            jo.put("id", id);
+            JSONObject js = ConexionAPI.peticionPostJSONObject(url, jo);
+            String status = js.getString("status");
+            if(status.equals("Encontrado")){
+                JSONArray ja = js.getJSONArray("datos");
+                Calendar fecha = java.util.Calendar.getInstance();
+                int m1 = fecha.get(java.util.Calendar.MONTH)+1;
+                int m2 = fecha.get(java.util.Calendar.MONTH);
+                int m3 = fecha.get(java.util.Calendar.MONTH)-1;
+                int pu1=0, pu2=0, pu3=0;
+                String mm1 = m1+ "/" + fecha.get(java.util.Calendar.YEAR);
+                String mm2 = m2+ "/" + fecha.get(java.util.Calendar.YEAR);
+                String mm3 = m3+ "/" + fecha.get(java.util.Calendar.YEAR);
+                if(m2<1){
+                    m2+=12;
+                    mm2 = m2+ "/" + (fecha.get(java.util.Calendar.YEAR)-1);
+                }
+                if(m3<1){
+                    m3+=12;
+                    mm3 = m3+ "/" + (fecha.get(java.util.Calendar.YEAR)-1);
+                }
+
+                for(int i=0; i< ja.length(); i++){
+                    JSONObject doc = ja.getJSONObject(i);
+                    if(mm1.equals(doc.getString("mes_punt")))pu1=doc.getInt("cant_punt");
+                    if(mm2.equals(doc.getString("mes_punt")))pu2=doc.getInt("cant_punt");
+                    if(mm3.equals(doc.getString("mes_punt")))pu3=doc.getInt("cant_punt");
+                }
+                m1--;
+                m2--;
+                m3--;
+                if(m2<0){
+                    m2+=12;
+                }
+                if(m3<0){
+                    m3+=12;
+                }
+                MUsuario us = new MUsuario();
+                us.setMes(meses.get(m1));
+                us.setPuntos(pu1);
+                usu.add(us);
+                MUsuario us1 = new MUsuario();
+                us1.setMes(meses.get(m2));
+                us1.setPuntos(pu2);
+                usu.add(us1);
+                MUsuario us2 = new MUsuario();
+                us2.setMes(meses.get(m3));
+                us2.setPuntos(pu3);
+                usu.add(us2);
+            }
+        
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return usu;
+    }
+    
     public static boolean EliminarUsuario(int id, int rol, String clave, String token){
         boolean cambio = false;
         try{
@@ -330,6 +410,7 @@ public class GestionarUsuario {
         try{
             JSONObject jo = new JSONObject();
             jo.put("id", id);
+            jo.put("nom", Cifrado.encrypt("Doctor Deshabilitado"));
             String url = "/quetzual/usuario/Deshabilitar/Doctor";
             JSONObject jr = ConexionAPI.peticionPostJSONObjectcontoken(url, jo, token);
             String status = jr.getString("status");
@@ -686,7 +767,7 @@ public class GestionarUsuario {
         boolean seguir = false;
         try{
             JSONObject jo = new JSONObject();
-            jo.put("pass", pass);
+            jo.put("pass", Cifrado.encrypt(pass));
             String url = "/quetzual/usuario/Recuperar/Password";
             JSONObject jr = ConexionAPI.peticionPostJSONObjectcontoken(url, jo, token);
             String status = jr.getString("status");
@@ -745,7 +826,18 @@ public class GestionarUsuario {
         return funciono;
     }
     
-    
+    public static int Calculardia(String inicio, String fin){
+        int dias = 0;
+        try{
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date fechaInicial=dateFormat.parse(inicio);
+            Date fechaFinal=dateFormat.parse(fin);
+            dias=(int) ((fechaFinal.getTime()-fechaInicial.getTime())/86400000);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return dias;
+    }
     
     
 }

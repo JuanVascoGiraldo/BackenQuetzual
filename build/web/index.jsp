@@ -13,6 +13,13 @@
             response.sendRedirect("./Administrador/sesionAdmin.jsp");
         }
     }
+    int fil = 0;
+    try{
+        fil = Integer.valueOf(request.getParameter("fil"));
+    }catch(Exception e){
+        fil = 0;
+    }
+
 %>  
 <!DOCTYPE html>
 <html lang="es">
@@ -20,9 +27,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <% 
+        response.setHeader("Cache-Control", "no-store");
+        response.setHeader("Pragma","no-cache");
+        response.setDateHeader("Expires", 0);
+    %>
     <title>Inicio</title>
     <link rel="stylesheet" href="./CSS/normalize.css">
     <link rel="stylesheet" href="./CSS/estilos.css">
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <link rel="icon" type="image/png" href="./img/icono.png">
 </head>
 <body>
@@ -98,5 +111,21 @@
     <script src="./JS/validar.js"></script>
     <script src="./JS/sweetAlert.js"></script>
     <script src="./JS/funcionModal.js"></script>
+    <% 
+        if(fil == 1){
+            %> 
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'No se ha iniciado Sesión',
+                    text: 'El correo o contraseña no coinciden con ningun usuario intente de nuevo'
+                });
+            </script>
+    
+    
+    <%
+        }
+    %>
+    
 </body>
 </html>

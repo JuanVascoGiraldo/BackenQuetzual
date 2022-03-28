@@ -38,6 +38,7 @@ public class ValidarToken extends HttpServlet {
                     if(GestionarUsuario.ComprobarTokenPass(token)){
                         out.println("<form action=\"CambiarPass\" name=\"reccontra\" style=\"background-color: rgba(252, 252, 252, 0);;\">");
                         out.println("<h4>Modificar Contraseña</h4>");
+                        out.println("<input type=\"hidden\" name=\"token\" id=\"token\" value=\""+token+"\">");
                         out.println("<input type=\"password\" name=\"contra\" id=\"contra\" class=\"texto\" placeholder=\"Contraseña\">");
                         out.println("<input type=\"password\" name=\"confcontra\" id=\"confcontra\" class=\"texto\" placeholder=\" Confirma la Contraseña\">");
                         out.println("<button type=\"button\" id=\"IniciarSesion\" class=\"submit button\" onclick=\" RecuperarContra()\" style=\"border: 1px solid black;\">Modificar Contraseña</button>");
@@ -61,9 +62,6 @@ public class ValidarToken extends HttpServlet {
                     response.sendRedirect("./Administrador/sesionAdmin.jsp");
                 }
             }
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-            response.sendRedirect("paginaError2.html");
         }
     }
 

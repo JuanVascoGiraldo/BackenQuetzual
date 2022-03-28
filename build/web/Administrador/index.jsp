@@ -13,6 +13,12 @@
             response.sendRedirect("./sesionAdmin.jsp");
         }
     }
+     int fil = 0;
+    try{
+        fil = Integer.valueOf(request.getParameter("fil"));
+    }catch(Exception e){
+        fil = 0;
+    }
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -40,7 +46,7 @@
                 <form action="../IniciarSesion" name="iniciar">
                     <input type="text" name="email" id="IScorreo" class="texto" placeholder="Correo">
                     <input type="password" name="contra" id="IScontra" class="texto" placeholder="Contraseña">
-                    <button type="button" id="IniciarSesion" class="submit button" onclick="validarIS()">Iniciar sesión</button>
+                    <button type="button" id="IniciarSesion" class="submit button" onclick="iniciars()">Iniciar sesión</button>
                 </form>
                 <a data-open="modalR1" class="recuperar">¿has perdido tu contraseña?</a>
                 <hr width="90%">
@@ -95,8 +101,23 @@
         Tecnologia administrativa creativa y operadora de software
     </footer>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../JS/validar.js"></script>
+    <script src="./JS/validar.js"></script>
     <script src="../JS/sweetAlert.js"></script>
     <script src="../JS/funcionModal.js"></script>
+    <% 
+        if(fil == 1){
+            %> 
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'No se ha iniciado Sesión',
+                    text: 'El correo o contraseña no coinciden con ningun usuario intente de nuevo'
+                });
+            </script>
+    
+    
+    <%
+        }
+    %>
 </body>
 </html>

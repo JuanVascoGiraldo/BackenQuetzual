@@ -33,7 +33,6 @@ public class HacerPregunta extends HttpServlet {
             request.setCharacterEncoding("UTF-8");
             HttpSession sesion = request.getSession(true);
             String pre = (String)sesion.getAttribute("pre");
-            System.out.println(pre);
             
             if(sesion.getAttribute("usuario") != null){
                 MUsuario usu = (MUsuario)sesion.getAttribute("usuario");

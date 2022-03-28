@@ -12,12 +12,12 @@ body {
 /*Header*/
 
 .header {
-    background: linear-gradient(180deg, #FFBFC3 15%, #FFCDD0 45%, #AEE3E2 65%, #afdbf5d2 90%, #FFF9ED 100%);
+    background: linear-gradient(90deg, rgba(36,228,164,1) 0%, rgba(26,225,137,1) 50%, rgba(36,228,164,1) 100%);
 }
 
 .logo {
-    height: 100px;
-    padding: 10px;
+    height: 80px;
+    padding: 5px;
     width: auto;
     margin-left: 15px;
 }
@@ -53,7 +53,6 @@ header {
 .menu {
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
     align-items: center;
     padding: 15px 20px;
     margin-bottom: 10px;
@@ -73,6 +72,7 @@ header {
 
 article {
     font-size: 50px;
+    color: white;
 }
 
 @media (max-width: 619px) {
@@ -87,10 +87,10 @@ article {
         font-weight: 700;
     }
     .logo {
-        width: 250px;
+        width: 90px;
         height: auto;
         margin: auto;
-        padding: 15px;
+        padding: 10px;
     }
     .cs {
         margin: 10px auto;
@@ -270,7 +270,7 @@ select {
 }
 
 .menu>a:hover {
-    border-bottom: 5px solid #1C6EA4;
+    border-bottom: 5px solid #ffffff;
 }
 
 button {

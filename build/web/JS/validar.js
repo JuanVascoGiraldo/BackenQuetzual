@@ -1,5 +1,5 @@
 let expresioncorreo = /^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$/;
-let expresiontextnumber = /^[a-zA-Z0-9àáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.]+$/;
+let expresiontextnumber = /^[a-zA-Z0-9àáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,\. \? \¿]+$/;
 let expresioncontra = /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/;
 let expresionfecha = /^(\d{4})(\/|-)(\d{1,2})(\/|-)(\d{1,2})$/;
 let expresiononlytext = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð]+$/u;
@@ -45,6 +45,20 @@ function validarnombre(nombre) {
         });
         return false;
     } else {
+        return true;
+    }
+}
+
+function validarsexo(sexo){
+    var sexo1 = parseInt(sexo);
+    if(sexo1<1 || sexo1 >3){
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Sexo Invalido'
+        });
+        return false;
+    }else{
         return true;
     }
 }
@@ -103,15 +117,23 @@ function registrarr() {
     var nombre = document.getElementById('nombre').value;
     var pass = document.getElementById('password').value;
     var confpas = document.getElementById('confpass').value;
+    var sexo = document.getElementById("sexo").value;
     if (pass != confpas) {
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: 'Las contraseñas no coinciden'
         });
-    } else if (validarfecha(fecha) && validarnombre(nombre) && validarcorreo(email) && validarcontrasena(pass)) {
-        //document.registrar.submit();
-        location.href = 'index.html'
+    } else if (validarsexo(sexo) && validarfecha(fecha) && validarnombre(nombre) && validarcorreo(email) && validarcontrasena(pass)) {
+        $.post('RegistrarUsuario', {
+                nombre: nombre,
+                correo: email,
+                contra: pass,
+                fecha: fecha,
+                sexo: sexo 
+        }, function(responseText) {
+                $('#cambiar1').html(responseText);
+        });
     }
 }
 
@@ -193,14 +215,11 @@ function ResPregunta() {
 function ReContra(){
     var correo = document.recuperar.email.value;
     if(validarcorreo(correo)){
-        Swal.fire({
-            icon: 'success',
-            title: 'Correcto',
-            text: 'Se ha enviado el correo para recuperar la contraseña con exito'
-        })
-        setTimeout(function (){
-            location.href = 'recuperarcontra.html'
-        }, 1000)
+        $.post('RecuperarContra', {
+                email: correo
+        }, function(responseText) {
+                $('#cambiar2').html(responseText);
+        });
     }
 }
 
@@ -212,6 +231,11 @@ function ModCorreo(){
             title: 'Correcto',
             text: 'Se ha enviado el correo para modificarlo con exito con exito'
         })
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Esta función aun esta en desarrollo'
+        });
     }
 
 }
@@ -225,9 +249,9 @@ function RecuperarContra(){
             title: 'Oops...',
             text: 'No coinciden las nuevas contraseñas'
         });
-    } else if (validarcontrasena(pass) && validarcontrasena(confpass)) {
+    } else if (validarcontrasena(pass) && validarcontrasena(confpas)) {
         setTimeout(function() {
-            location.href= 'index.html'
+            document.reccontra.submit();
         }, 2000);
     }
 }

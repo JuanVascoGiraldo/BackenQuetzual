@@ -17,9 +17,7 @@
          </jsp:forward>
 <%
     }
-    MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
-    List<MPregunta> pre = GestionarPregunta.ConsultarAllPreRes(usu.getClave() );
-   
+
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -28,9 +26,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Preguntas pendientes</title>
+    <% 
+        response.setHeader("Cache-Control", "no-store");
+        response.setHeader("Pragma","no-cache");
+        response.setDateHeader("Expires", 0);
+    %>
+    <title>Preguntas Usuario</title>
     <link rel="stylesheet" href="./CSS/normalize.css">
     <link rel="stylesheet" href="./CSS/preguntasPendientes.css">
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <link rel="icon" type="image/png" href="./img/icono.png">
 </head>
 
@@ -67,62 +71,13 @@
         <hr>
     </div>
     <div class="filtro">
-        <select name="filtro" id="filtro" onchange="javascript:location.href = this.value;">
+        <select name="filtro" id="filtro" onchange="javascript: filtrar(this.value);">
             <option value="1">Preguntas pendientes</option>
             <option value="2">Preguntas respondidas</option>
         </select>
     </div>
     <div id="cambiar">
-    <!--preguntas pendientes-->
-        <div class="main_container">
-            <div class="mini_header2">
-                <h2>12-10-2022</h2>
-            </div>
-            <div class="pregunta">
-                <img src="./img/bxs-user.svg" alt="">
-                <textarea name="" id="" class="area" placeholder="Escribe aquí tu pregunta" disabled>¿Que metodos anticonceptivos existes?</textarea>
-            </div>
-            <div class="flex">
-                <button class="question" onclick="responder('<%=pre.getId_pre() %>')">Responder pregunta</button>
-                <button class="cs" onclick="rechazar('<%=pre.getId_pre() %>')">Rechazar pregunta</button>
-            </div>
-        </div>
-    <!--Preguntas Respondidas-->
-        <div class="main_containerR">
-            <div class="mini_headerR">
-                <h2>18 años</h2>
-                <h2><!--<% 
-                    if(res.getId_catgen() == 1){
-                    %>Enfermedades de transmisión sexual<%
-                    }else if(res.getId_catgen() == 2){
-                    %>Embarazo<%
-                    }else if(res.getId_catgen() == 3){
-                    %>Salud sexual femenina<%
-                    }else if(res.getId_catgen() == 4){
-                    %> Salud sexual masculina<%
-                    }else if(res.getId_catgen() == 5){
-                    %>Anticonceptivos <%
-                    }
-                
-                    %>-->
-                    Enfermedades de transmisión sexual
-                </h2>
-                <h2>2 Respuestas</h2>
-            </div>
-            <div class="preguntaR">
-                <img src="./img/bxs-user.svg">
-                <div class="preguntasR">
-                    <h3>¿Que metodos anticonceptivos se usan comunmente?</h3>
-                </div>
-            </div>
-            <div class="respuestaR">
-                <a href="./respuestasPregunta.jsp?id=<%=res.getId_pre() %>">Ver respuestas</a>
-            </div>
-        </div>
-            <div class="vacio">
-                <p>No hay Preguntas Pendientes Actualmente</p>
-                <img src="./img/sinprependoc.svg">
-            </div>
+        
         </div>
     <script src="./JS/redirigir.js"></script>
     <script>
@@ -132,6 +87,14 @@
         function rechazar(id){
             location.href='./rechazarPregunta.jsp?id='+id 
         }
+        function filtrar(filtro){
+            $.post('../Filtropre', {
+                    filtro: filtro
+            }, function(responseText) {
+                    $('#cambiar').html(responseText);
+            });
+        }
+        filtrar(1)
     </script>
 </body>
 

@@ -32,12 +32,13 @@ public class RegistrarUsuario extends HttpServlet {
             correo = request.getParameter("correo");
             contra = request.getParameter("contra");
             fecha = request.getParameter("fecha");
-            genero = Integer.parseInt(request.getParameter("sexo"));
+            String gen=  request.getParameter("sexo");
             HttpSession sesion = request.getSession(true);
             if(sesion.getAttribute("usuario")== null){
-                if(nombre != null && correo != null && contra != null && fecha != null){
+                if(nombre != null && correo != null && contra != null && fecha != null && gen != null){
                     if(Validar.Validarcorreo(correo)&& Validar.Validarcontra(contra) &&
-                            Validar.Validarfecha(fecha) && Validar.Validarnombre(nombre)){
+                            Validar.Validarfecha(fecha) && Validar.Validarnombre(nombre) && Validar.ValidarGenero(gen)){
+                            genero = Integer.parseInt(request.getParameter("sexo"));
                             MUsuario usu = new MUsuario();
                             usu.setContra(contra);
                             usu.setEmail(correo);
@@ -45,15 +46,39 @@ public class RegistrarUsuario extends HttpServlet {
                             usu.setNom_usu(nombre);
                             usu.setId_gen(genero);
                         if(GestionarUsuario.CrearUsuario(usu)){
-                            out.println("<div class=\"conf\"> Se envio un correo de confirmación</div>");
+                            out.println("<script>");
+                                out.println("Swal.fire({");
+                                    out.println("icon: 'success',");
+                                    out.println("title: 'Correcto',");
+                                    out.println("text: 'Se ha enviado el correo de confimación'");
+                                out.println(" });");
+                            out.println("</script>");
                         }else{
-                            out.println("<div class=\"rech\">El correo ya ha sido Registrado</div>");
+                            out.println("<script>");
+                            out.println("Swal.fire({");
+                                  out.println("icon: 'error',");
+                                 out.println("title: 'Oops...',");
+                                 out.println("text: 'Correo ya registrado'");
+                            out.println(" });");
+                            out.println("</script>");
                         }
                     }else{
-                        out.println("<div class=\"rech\">Ingresa Caracteres validos</div>");
+                        out.println("<script>");
+                            out.println("Swal.fire({");
+                                  out.println("icon: 'error',");
+                                 out.println("title: 'Oops...',");
+                                 out.println("text: 'Ingresa Caracteres validos'");
+                            out.println(" });");
+                        out.println("</script>");
                     }
                 }else{
-                   out.println("<div class=\"rech\">Rellena todos los campos</div>");
+                   out.println("<script>");
+                        out.println("Swal.fire({");
+                              out.println("icon: 'error',");
+                             out.println("title: 'Oops...',");
+                             out.println("text: 'Rellena Todos los Campos'");
+                        out.println(" });");
+                    out.println("</script>");
                 }
             }else{
                 MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
@@ -66,9 +91,6 @@ public class RegistrarUsuario extends HttpServlet {
                     response.sendRedirect("./Administrador/sesionAdmin.jsp");
                 }
             }
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-            response.sendRedirect("paginaError2.html");
         }
     }
 

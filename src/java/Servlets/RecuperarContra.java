@@ -35,15 +35,39 @@ public class RecuperarContra extends HttpServlet {
                 if(correo!= null){
                    if(Validar.Validarcorreo(correo)){
                        if(GestionarUsuario.GenerarTokenPass(correo)){
-                           out.println("<div class=\"conf\"> Se envio un correo de confirmación</div>");
+                           out.println("<script>");
+                                out.println("Swal.fire({");
+                                    out.println("icon: 'success',");
+                                    out.println("title: 'Correcto',");
+                                    out.println("text: 'Se ha enviado el correo de Recuperación'");
+                                out.println(" });");
+                            out.println("</script>");
                        }else{
-                           out.println("<div class=\"rech\">El Correo ingresado no está registrado</div>");
+                            out.println("<script>");
+                                out.println("Swal.fire({");
+                                      out.println("icon: 'error',");
+                                     out.println("title: 'Oops...',");
+                                     out.println("text: 'Correo no se encuentra registrado'");
+                                out.println(" });");
+                            out.println("</script>");
                        }
                    }else{
-                       out.println("<div class=\"rech\">Correo no valido</div>");
+                       out.println("<script>");
+                            out.println("Swal.fire({");
+                                  out.println("icon: 'error',");
+                                 out.println("title: 'Oops...',");
+                                 out.println("text: 'Ingresa Caracteres validos'");
+                            out.println(" });");
+                        out.println("</script>");
                    }
                 }else{
-                   out.println("<div class=\"rech\">Rellena todos los campos</div>");
+                   out.println("<script>");
+                        out.println("Swal.fire({");
+                              out.println("icon: 'error',");
+                             out.println("title: 'Oops...',");
+                             out.println("text: 'Rellena Todos los Campos'");
+                        out.println(" });");
+                    out.println("</script>");
                 }
             }else{
                 MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
@@ -56,9 +80,6 @@ public class RecuperarContra extends HttpServlet {
                     response.sendRedirect("./Administrador/sesionAdmin.jsp");
                 }
             }
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-            response.sendRedirect("paginaError2.html");
         }
     }
 

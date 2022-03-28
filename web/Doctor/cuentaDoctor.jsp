@@ -1,3 +1,4 @@
+<%@page import="Control.GestionarUsuario"%>
 <%@page import="java.util.List"%>
 <%@page import="Control.GestionarPregunta"%>
 <%@page import="Modelo.*"%>
@@ -39,6 +40,7 @@
     <link rel="stylesheet" href="./CSS/star-rating-svg.css">
     <link rel="icon" type="image/png" href="./img/icono.png">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 </head>
 
 <body>
@@ -79,77 +81,109 @@
         <h3>Preguntas</h3>
         <hr class="linea">
         <br>
-        <div class="title">
-            <h1>Todas las Preguntas</h1>
-            <hr>
-        </div>
+        
         <div class="filtro">
-            <select name="filtro" id="filtro" onchange="javascript:location.href = this.value;">
+            <select name="filtro" id="filtro" onchange="javascript:filtrar(this.value)">
                 <option selected disabled hidden>Selecciona el filtro de preguntas</option>
                 <option value="0" selected >Todas Las Preguntas</option>
                 <option value="1" >Preguntas Rechazadas</option>
                 <option value="2" >Preguntas Respondidas</option>
             </select>
         </div>
+        <div class="title">
+            <h1>Todas las Preguntas</h1>
+            <hr>
+        </div>
         <div id="cambiar">
-            <div class="main_container">
-                <div class="mini_header">
-                    <h2>12 años</h2>
-                    <h2>Salud sexual masculina
-                        <!--<% 
-                    if(res.getId_cat() == 1){
-                    %>Enfermedades de transmisión sexual<%
-                    }else if(res.getId_cat() == 2){
-                    %>Embarazo<%
-                    }else if(res.getId_cat() == 3){
-                    %>Salud sexual femenina<%
-                    }else if(res.getId_cat() == 4){
-                    %> Salud sexual masculina<%
-                    }else if(res.getId_cat() == 5){
-                    %>Anticonceptivos <%
-                    }
+            <% 
+                int totalp= 0;
+                double totalcali = 0;
+                int pri=0,dos=0,tre=0,cua=0,cin=0;
+                int totald=0;
                 
-                    %>--></h2>
-                    <h2>2.5
-                        <p class="star">★</p>
-                    </h2>
-                </div>
-                <div class="sub_header">
-                    <h2>12-02-2022 - Respondido: 12-02-2022 </h2>
-                    <h2>Dr. JuanVasco</h2>
-                </div>
-                <div class="pregunta">
-                    <img src="./img/bxs-user.svg" class="img">
-                    <div class="preguntas">
-                        <h3>¿Que tipos de metodos anticonceptivos Existen?</h3>
+                for(MPublicacion pu: publi){
+                MPregunta pre = pu.getPregunta();
+                MRespuesta res = pu.getRespuesta();
+                if(pre.getId_estado() == 2){
+                    totalp++;
+                    totalcali += res.getCali_pro();
+                    totalp = GestionarUsuario.Calculardia(pre.getFecha_pre(), res.getFecha_res());
+            
+            %>
+                <div class="main_container">
+                    <div class="mini_header">
+                        <h2><%=pre.getEdad_usu() %> años</h2>
+                        <h2>
+                            <%
+                            if(res.getId_cat() == 1){
+                                pri++;
+                                %>Enfermedades de transmisión sexual<%
+                                }else if(res.getId_cat() == 2){
+                                tre++;
+                                %>Embarazo<%
+                                }else if(res.getId_cat() == 3){
+                                cua++;
+                                %>Salud sexual femenina<%
+                                }else if(res.getId_cat() == 4){
+                                cin++;
+                                %> Salud sexual masculina<%
+                                }else if(res.getId_cat() == 5){
+                                dos++;
+                                %>Anticonceptivos <%
+                                }
+                            %>
+                        </h2>
+                        <h2><%=res.getCali_pro() %>
+                            <p class="star">★</p>
+                        </h2>
+                    </div>
+                    <div class="sub_header">
+                        <h2><%=pre.getFecha_pre() %> - Respondido: <%=res.getFecha_res() %></h2>
+                        <h2>Dr. <%=usu.getNom_usu()%></h2>
+                    </div>
+                    <div class="pregunta">
+                        <img src="./img/bxs-user.svg" class="img">
+                        <div class="preguntas">
+                            <h3><%=pre.getDes_pre()%></h3>
+                        </div>
+                    </div>
+                    <div class="respuesta">
+                        <div class="respuestas">
+                            <h3><%=res.getDes_res() %></h3>
+                        </div>
+                        <img src="./img/bx-plus-medical.svg" class="img">
                     </div>
                 </div>
-                <div class="respuesta">
-                    <div class="respuestas">
-                        <h3>El Diu y el condon</h3>
+            <% 
+                }else if(pre.getId_estado() == 3){
+            %>
+                <div class="card">
+                    <div class="mini_header2">
+                        <h2><%=res.getFecha_res() %></h2>
                     </div>
-                    <img src="./img/bx-plus-medical.svg" class="img">
-                </div>
-            </div>
-            <div class="card">
-                <div class="mini_header2">
-                    <h2>12-10-2022</h2>
-                </div>
-                <div class="pregunta2">
-                    <img src="./img/bxs-user.svg" alt="">
-                    <div class="preguntas2">
-                        <h3>¿Que tipos de metodos anticonceptivos existen?</h3>
-                    </div>
-                    <h1 class="h1">Razón del rechazo</h1>
-                    <div class="preguntas2">
-                        <h3>Pregunta ya respondida</h3>
+                    <div class="pregunta2">
+                        <img src="./img/bxs-user.svg" alt="">
+                        <div class="preguntas2">
+                            <h3><%=pre.getDes_pre()%></h3>
+                        </div>
+                        <h1 class="h1">Razón del rechazo</h1>
+                        <div class="preguntas2">
+                            <h3><%=res.getDes_res() %></h3>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="vacio">
-                <p>No hay Preguntas en el Historico</p>
-                <img src="./img/sinhis.svg">
-            </div>
+            <% 
+                }
+            }
+            if(publi.isEmpty()){
+            %>
+                <div class="vacio">
+                    <p>No hay Preguntas en el Historico</p>
+                    <img src="./img/sinhis.svg">
+                </div>
+            <% 
+                }
+            %>
         </div>
     </div>
 
@@ -163,10 +197,27 @@
                 </div>
                 <div></div>
                 <div class="text">
-                    <h2>Dr Giron</h2>
+                    <h2>Dr <%=usu.getNom_usu() %></h2>
                     <hr>
-                    <h3>Tiempo Promedio de respuesta:</h3>
-                    <h3>Calificación Promedio de respuestas:</h3>
+                    <%
+                        double totalca= 0;
+                        double totalpr = 0;
+                        if(totalp!=0){
+                            totalca = totalcali/totalp;
+                            totalpr = totald/totalp;
+                        } 
+                        String valor = "";
+                        if(totalpr <1){
+                            valor = "Menos de un dia";
+                        }else{
+                            valor = totalpr +" Dias";
+                        }
+                        
+                        List<MUsuario> us = GestionarUsuario.puntdoc(usu.getId_usu());
+
+                        %>
+                    <h3>Tiempo Promedio de respuesta:<%=valor%> </h3>
+                    <h3>Calificación Promedio de respuestas:<%=totalca %></h3>
                 </div>
                 <div></div>
                 <div></div>
@@ -201,10 +252,10 @@
         var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ["Mayo","Junio" ,"Julio"],
+            labels: ["<%=us.get(2).getMes() %>","<%=us.get(1).getMes() %>" ,"<%=us.get(0).getMes() %>"],
             datasets: [{
                 label: 'Puntos',
-                data: [5, 3, 2,],
+                data: [<%=us.get(2).getPuntos() %>, <%=us.get(1).getPuntos() %>, <%=us.get(0).getPuntos() %>],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -234,7 +285,7 @@
             labels: ["ETS","Anticonceptivos" ,"Embarazo" ,"Salud sexual femenina" ,"Salud sexual masculina" ],
             datasets: [{
                 label: 'Cantidad de Preguntas Contestadas por Categoria',
-                data: [5, 3, 2, 2, 5],
+                data: [<%=pri%>, <%=dos%>, <%=tre%>, <%=cua%>, <%=cin%>],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -283,6 +334,14 @@
             
         document.getElementById("fil").addEventListener("mouseout", function() {
             document.getElementById("fil").style.borderBottom = "2px solid #0066FF";
+        });
+    }
+    
+    function filtrar(valor){
+        $.post('../FilHist', {
+                filtro : valor
+        }, function(responseText) {
+                $('#cambiar').html(responseText);
         });
     }
 

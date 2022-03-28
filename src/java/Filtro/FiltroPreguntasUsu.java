@@ -33,8 +33,12 @@ public class FiltroPreguntasUsu extends HttpServlet {
                 if(usu.getId_rol() == 1){
                     int fil;
                     if(request.getParameter("filtro")!= null){
-                         fil = Integer.valueOf(request.getParameter("filtro"));
-                        if(fil < 0 || fil > 4){
+                        if(Validar.ValidarFiltro(request.getParameter("filtro"))){
+                            fil = Integer.valueOf(request.getParameter("filtro"));
+                            if(fil < 1 || fil > 3){
+                                fil = 3;
+                            }
+                        }else{
                             fil = 3;
                         }
                     }else{
@@ -121,7 +125,7 @@ public class FiltroPreguntasUsu extends HttpServlet {
                             out.println("<hr>");
                             out.println("<p>En este espacio puedes consultar tus preguntas que están en espera de recibir respuesta</p>");
                         out.println("</div>");
-                        List<MPregunta> pres = GestionarPregunta.ConsultarPreResUsu(usu.getId_usu(), usu.getClave(), usu.getFecha_nac(), usu.getToken());
+                        List<MPregunta> pres = GestionarPregunta.ConsultarPrePenUsu(usu.getId_usu(), usu.getClave(), usu.getToken());
                         for(MPregunta pre:pres){
                             out.println("<div class=\"main_container\">");
                                 out.println("<div class=\"mini_header\">");
@@ -144,12 +148,13 @@ public class FiltroPreguntasUsu extends HttpServlet {
                         }
                         if(pres.isEmpty()){
                             out.println("<div class=\"vacio\">");
-                                out.println("<p>No Tienes Preguntas Pendientes Actualmente</p>");
+                                out.println("<p>No Tienes Preguntas Actualmente</p>");
                                 out.println("<img src=\"./img/sinprepenusu.svg\">");
                             out.println("</div>");
                         }
                         
                     }
+                    
                 }else{
                     out.println("<script>location.href='index.jsp'</script>");
                 }

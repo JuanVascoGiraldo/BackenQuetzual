@@ -1,4 +1,4 @@
-%@page import="java.util.List"%>
+<%@page import="java.util.List"%>
 <%@page import="Control.GestionarUsuario"%>
 <%@page import="Modelo.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8" session="true" language="java"%>

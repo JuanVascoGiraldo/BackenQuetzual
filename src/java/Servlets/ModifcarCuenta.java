@@ -36,11 +36,12 @@ public class ModifcarCuenta extends HttpServlet {
             int genero;
             nombre = request.getParameter("nombre");
             fecha = request.getParameter("fecha");
-            genero = Integer.parseInt(request.getParameter("sexo"));
+            
             HttpSession sesion = request.getSession(true);
             if(sesion.getAttribute("usuario")!= null){
-                if(nombre != null &&  fecha != null){
-                    if(Validar.Validarfecha(fecha) && Validar.Validarnombre(nombre)){
+                if(nombre != null &&  fecha != null && request.getParameter("sexo") != null){
+                    if(Validar.Validarfecha(fecha) && Validar.Validarnombre(nombre) && Validar.ValidarGenero(request.getParameter("sexo"))){
+                            genero = Integer.parseInt(request.getParameter("sexo"));
                             MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
                             usu.setFecha_nac(fecha);
                             usu.setNom_usu(nombre);

@@ -45,26 +45,47 @@ public class ModiCorreo extends HttpServlet {
                     if(correo != null){
                         if(Validar.Validarcorreo(correo)){
                             if(GestionarUsuario.GenerarTokenEmail(usu, correo)){
-                                out.println("<div class=\"conf\"> Se envio un correo de confirmación</div>");
+                                out.println("<script>");
+                                    out.println("Swal.fire({");
+                                        out.println("icon: 'success',");
+                                        out.println("title: 'Correcto',");
+                                        out.println("text: 'Se ha enviado el correo de Confirmación'");
+                                    out.println(" });");
+                                out.println("</script>");
                             }else{
-                                out.println("<div class=\"rech\">El Correo ingresado ya está registrado</div>");
+                                out.println("<script>");
+                                    out.println("Swal.fire({");
+                                          out.println("icon: 'error',");
+                                         out.println("title: 'Oops...',");
+                                         out.println("text: 'Correo ya registrado'");
+                                    out.println(" });");
+                                out.println("</script>");
                             }
                         }else{
-                            out.println("<div class=\"rech\">Correo no valido</div>");
+                            out.println("<script>");
+                                out.println("Swal.fire({");
+                                      out.println("icon: 'error',");
+                                     out.println("title: 'Oops...',");
+                                     out.println("text: 'Ingresa Caracteres validos'");
+                                out.println(" });");
+                            out.println("</script>");
                         }
                     }else{
-                        out.println("<div class=\"rech\">Rellena todos los campos</div>");
+                        out.println("<script>");
+                            out.println("Swal.fire({");
+                                  out.println("icon: 'error',");
+                                 out.println("title: 'Oops...',");
+                                 out.println("text: 'Rellena Todos los Campos'");
+                            out.println(" });");
+                        out.println("</script>");
                     }
                 }else{
                     response.sendRedirect("index.jsp");
                 }
             }else{
-               response.sendRedirect("paginaError2.html");
+               response.sendRedirect("index.jsp");
             }
             
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-            response.sendRedirect("paginaError2.html");
         }
     }
 

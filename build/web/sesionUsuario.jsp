@@ -18,8 +18,6 @@
         </jsp:forward>
 <%
     }
-    MUsuario usu = (MUsuario)sesion.getAttribute("usuario");
-    List<MPregunta> pre = GestionarPregunta.ConsultarAllPreRes(usu.getClave() );
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -78,7 +76,7 @@
         <p>Puedes explorar este espacio usando el Menu desplegable para buscar preguntas que se relacionan directamente con tu duda.</p>
     </div>
     <div class="filtro">
-        <select name="filtro" id="filtro" onchange="javascript:console.log(this.value)">
+        <select name="filtro" id="filtro" onchange="javascript:filtrar(this.value)">
             <option disabled hidden>Selecciona el tema de tu interes</option>
             <!--Aqui se va a ocupar ajax para los filtros-->
             <option value="0" >Todos</option>
@@ -89,28 +87,21 @@
             <option value="4" >Salud sexual masculina</option>
         </select>
     </div>
+    
     <div id="cambiar">
-        <div class="main_container">
-            <div class="mini_header">
-                <h2>18 años</h2>
-                <h2>Metodos Anticonceptivos</h2>
-                <h2>2 Respuestas</h2>
-            </div>
-            <div class="pregunta">
-                <img src="./img/bxs-user.svg">
-                <div class="preguntas">
-                    <h3>¿Que metodos Anticonceptivos existen?</h3>
-                </div>
-            </div>
-            <div class="respuesta">
-                <a href="./respuestasPregunta.jsp?id=<%=res.getId_pre()%>&&re=0">Ver respuestas</a>
-            </div>
-        </div>
-        <div class="vacio">
-            <p>No hay Preguntas Actualmente</p>
-            <img src="./img/sinprepuusu.svg">
-        </div>
+        
     </div>
+    <script>
+        function filtrar(valor){
+            $.post('FiltroCat', {
+				filtro : valor
+			}, function(responseText) {
+				$('#cambiar').html(responseText);
+			});
+        }
+        filtrar(0);
+    </script>
+            
     <script src="./JS/validar.js"></script>
     <script src="./JS/sweetAlert.js"></script>
     <script src="./JS/funcionModal.js"></script>

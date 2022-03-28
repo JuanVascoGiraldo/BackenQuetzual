@@ -44,6 +44,20 @@ function validarfecha(fecha) {
     return validar;
 }
 
+function validarsexo(sexo){
+    var sexo1 = parseInt(sexo);
+    if(sexo1<1 || sexo1 >3){
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Sexo Invalido'
+        });
+        return false;
+    }else{
+        return true;
+    }
+}
+
 function validarPregunta(pregunta) {
     var validar = expresiontextnumber.test(pregunta);
     if (!validar) {
@@ -54,29 +68,6 @@ function validarPregunta(pregunta) {
         return false;
     } else {
         return true;
-    }
-}
-
-function registrarr() {
-    var fecha = document.registrar.fecha.value;
-    var email = document.registrar.email.value;
-    var nombre = document.registrar.nombre.value;
-    var pass = document.registrar.pass.value;
-    var confpas = document.registrar.confpass.value;
-    if (pass != confpas) {
-        alert("Las contraseñas no coinciden");
-    } else if (validarfecha(fecha) && validarnombre(nombre) && validarcorreo(email) && validarcontrasena(pass)) {
-        alert("has registrado una cuenta")
-        document.registrar.submit;
-    }
-}
-
-function iniciars() {
-    var email = document.iniciar.email.value;
-    var pass = document.iniciar.pass.value;
-    if (validarcorreo(email) && validarcontrasena(pass)) {
-        alert("Se ha iniciado Sesión")
-        document.iniciar.submit;
     }
 }
 
@@ -248,5 +239,50 @@ function agregarRespuestares() {
           document.responder.submit();
         }, 1000);
         
+    }
+}
+
+function ReContra(){
+    var correo = document.recuperar.email.value;
+    if(validarcorreo(correo)){
+        $.post('../RecuperarContra', {
+                email: correo
+        }, function(responseText) {
+                $('#cambiar2').html(responseText);
+        });
+    }
+}
+
+function iniciars() {
+    var email = document.iniciar.email.value;
+    var pass = document.iniciar.contra.value;
+    if (validarcorreo(email) && validarcontrasena(pass)) {
+        document.iniciar.submit();
+    }
+}
+
+function registrarr() {
+    var fecha = document.getElementById('fecha').value;
+    var email = document.getElementById('correo').value;
+    var nombre = document.getElementById('nombre').value;
+    var pass = document.getElementById('password').value;
+    var confpas = document.getElementById('confpass').value;
+    var sexo = document.getElementById("sexo").value;
+    if (pass != confpas) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Las contraseñas no coinciden'
+        });
+    } else if (validarsexo(sexo) && validarfecha(fecha) && validarnombre(nombre) && validarcorreo(email) && validarcontrasena(pass)) {
+        $.post('../RegistrarUsuario', {
+                nombre: nombre,
+                correo: email,
+                contra: pass,
+                fecha: fecha,
+                sexo: sexo 
+        }, function(responseText) {
+                $('#cambiar1').html(responseText);
+        });
     }
 }

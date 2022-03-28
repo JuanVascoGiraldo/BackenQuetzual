@@ -3,11 +3,20 @@ package Modelo;
 
 public class MUsuario implements Comparable<MUsuario>  {
     int id_usu, id_gen, id_rol, puntos, enc_usu, habilitada;
-    String email, contra, fecha_nac, nom_usu, clave, token;
+    String email, contra, fecha_nac, nom_usu, clave, token, mes;
 
     public MUsuario() {
     }
 
+    public String getMes() {
+        return mes;
+    }
+
+    public void setMes(String mes) {
+        this.mes = mes;
+    }
+    
+    
     public int getId_usu() {
         return id_usu;
     }

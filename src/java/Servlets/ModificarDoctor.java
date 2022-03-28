@@ -33,16 +33,17 @@ public class ModificarDoctor extends HttpServlet {
             nombre = request.getParameter("nombred");
             correo = request.getParameter("correod");
             fecha = request.getParameter("fechad");
-            genero = Integer.parseInt(request.getParameter("sexod"));
+            
             contra = request.getParameter("password");
             id = Integer.parseInt(request.getParameter("idd"));
             HttpSession sesion = request.getSession(true);
             if(sesion.getAttribute("usuario")!= null){
-                if(nombre != null && correo != null && fecha != null){
+                if(nombre != null && correo != null && fecha != null && request.getParameter("sexod")!= null){
                     MUsuario usua = (MUsuario)sesion.getAttribute("usuario");
                     if(usua.getId_rol() == 3){
                         if(contra.equals(usua.getContra())){
-                            if(Validar.Validarcorreo(correo)&& Validar.Validarfecha(fecha) && Validar.Validarnombre(nombre)){
+                            if(Validar.Validarcorreo(correo)&& Validar.Validarfecha(fecha) && Validar.Validarnombre(nombre) && Validar.ValidarGenero(request.getParameter("sexod"))){
+                                    genero = Integer.parseInt(request.getParameter("sexod"));
                                     MUsuario usu = new MUsuario();
                                     usu.setClave(usua.getClave());
                                     usu.setId_rol(usua.getId_rol());
