@@ -71,7 +71,7 @@
     <h1 style="text-align:center">Mis Preguntas</h1>
     <div class="filtro">
         <select name="filtro" id="filtro" onchange="javascript:filtrar(this.value)">
-            <option selected disabled hidden>Selecciona el filtro de preguntas</option>
+            <option disabled hidden>Selecciona el filtro de preguntas</option>
             <option value="1">Preguntas Respondidas</option>
             <option value="2">Preguntas rechazadas</option>
             <option value="3" selected>Preguntas pendientes</option>
@@ -90,9 +90,11 @@
                 }
         function redModi(id){
             location.href='./modificarPregunta.jsp?id='+id
-        }    
+        }
+        var va = 3;
         
         function filtrar(valor){
+            va = valor;
             $.post('FiltroPreguntasUsu', {
 				filtro : valor
 			}, function(responseText) {
@@ -101,6 +103,17 @@
         }
         
         filtrar(3);
+        console.log(va===3)
+        
+        var socket = new WebSocket("ws://quetzual.herokuapp.com/Responder");
+        socket.onmessage = function (event) {
+                if(va === 3){
+                    setTimeout(function() {
+                        filtrar(3);
+                    }, 1000);
+                }
+        }
+        
     </script>
 </body>
 

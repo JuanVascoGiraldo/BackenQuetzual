@@ -32,3 +32,7 @@ $('.Estrellas').starRating({
 function crm() {
     document.getElementById('modalR').classList.remove(isVisible);
 }
+
+function crm1() {
+    document.getElementById('modalR1').classList.remove(isVisible);
+}

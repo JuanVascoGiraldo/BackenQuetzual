@@ -46,7 +46,6 @@ public class Filtropre extends HttpServlet {
                     }else{
                         fil = 1;
                     }
-                    System.out.println("miau");
                     if(fil == 1){
                         List<MPregunta> lista = GestionarPregunta.ConsultarallPrePen(usu.getClave(), usu.getToken());
                         if(lista.isEmpty()){

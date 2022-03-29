@@ -41,6 +41,7 @@ public class RecuperarContra extends HttpServlet {
                                     out.println("title: 'Correcto',");
                                     out.println("text: 'Se ha enviado el correo de Recuperación'");
                                 out.println(" });");
+                                out.println("crm1()");
                             out.println("</script>");
                        }else{
                             out.println("<script>");

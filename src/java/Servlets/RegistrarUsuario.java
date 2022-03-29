@@ -52,6 +52,7 @@ public class RegistrarUsuario extends HttpServlet {
                                     out.println("title: 'Correcto',");
                                     out.println("text: 'Se ha enviado el correo de confimación'");
                                 out.println(" });");
+                                out.println("crm()");
                             out.println("</script>");
                         }else{
                             out.println("<script>");

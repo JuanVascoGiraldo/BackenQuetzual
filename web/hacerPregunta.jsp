@@ -47,10 +47,10 @@
             <img src="./img//Logo.png" alt="Logotipo oficial de Quetzual" class="logo">
             <article><b>QUETZUAL</b></article>
             <div class="menu">
-                <a href="./sesionUsuario.html">
+                <a href="./sesionUsuario.jsp">
                     <img src="./img/bx-home.png" alt="Imagen ">
                 </a>
-                <a href="./preguntasPendientes.html">
+                <a href="./preguntasPendientes.jsp">
                     <img src="./img/bx-question-mark.png" alt="Signo de pregunta" class="svg">
                 </a>
                 <a href="./cuenta.jsp">

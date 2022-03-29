@@ -4,6 +4,7 @@ let expresioncontra = /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/;
 let expresionfecha = /^(\d{4})(\/|-)(\d{1,2})(\/|-)(\d{1,2})$/;
 let expresiononlytext = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð]+$/u;
 
+
 function validarcorreo(correo) {
     var validar = expresioncorreo.test(correo);
     if (!validar) {
@@ -226,15 +227,10 @@ function ReContra(){
 function ModCorreo(){
     var correo = document.modemail.correo.value;
     if(validarcorreo(correo)){
-        Swal.fire({
-            icon: 'success',
-            title: 'Correcto',
-            text: 'Se ha enviado el correo para modificarlo con exito con exito'
-        })
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Esta función aun esta en desarrollo'
+        $.post('ModiCorreo', {
+                correo: correo
+        }, function(responseText) {
+                $('#cambiar').html(responseText);
         });
     }
 

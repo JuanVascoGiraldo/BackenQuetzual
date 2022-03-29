@@ -1,27 +1,33 @@
-let expresioncorreo = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
+let expresioncorreo = /^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$/;
 let expresiontextnumber = /^[a-zA-Z0-9àáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.]+$/;
 let expresioncontra = /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/;
 let expresionfecha = /^(\d{4})(\/|-)(\d{1,2})(\/|-)(\d{1,2})$/;
 let expresiononlytext = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð]+$/u;
+var socket = new WebSocket("ws://quetzual.herokuapp.com/Responder");
 
 function validarcorreo(correo) {
-    var correo = document.getElementById("correo").value;
     var validar = expresioncorreo.test(correo);
     if (!validar) {
-        alert("Ingrese un correo válido");
-    }
-    return validar
-}
-
-function validarcontrasena(contrasena) {
-    var contrasena = document.getElementById("contrasena").value;
-    var validar = expresioncontra.test(contrasena);
-    if (!validar) {
-        alert("Ingrese una contraseña válida, la contraseña debe tener al menos entre 8 y 16 caracteres, al menos un dígito, una minúscula y una mayúscula.");
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Ingrese un correo valido'
+        });
     }
     return validar;
 }
 
+function validarcontrasena(contrasena) {
+    var validar = expresioncontra.test(contrasena);
+    if (!validar) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Ingrese una contraseña valida',
+            text: 'La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula.'
+        });
+    }
+    return validar;
+}
 function validarnombre(nombre) {
     var nombre = document.getElementById("nom_usu").value;
     var validar = expresiononlytext.test(nombre);
@@ -190,6 +196,7 @@ function ResPregunta() {
     } else {
         document.getElementById('modalR').classList.add(isVisible);
         setTimeout(function() {
+            socket.send("Respondida");
             document.Rpregunta.submit();
         }, 1000);
         
