@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="../CSS/normalize.css">
     <link rel="stylesheet" href="../CSS/estilos.css">
     <link rel="icon" type="image/png" href="./img/icono.png">
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 </head>
 <body>
     <div class="alinear">

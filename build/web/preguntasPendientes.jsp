@@ -39,7 +39,7 @@
     <link rel="stylesheet" href="./CSS/preguntasRechazadas.css">
     <link rel="stylesheet" href="./CSS/preguntasRespondidas.css">
     <link rel="icon" type="image/png" href="./img/icono.png">
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 </head>
 
 <body>
@@ -105,7 +105,7 @@
         filtrar(3);
         console.log(va===3)
         
-        var socket = new WebSocket("ws://quetzual.herokuapp.com/Responder");
+        var socket = new WebSocket("wss://quetzual.herokuapp.com/Responder");
         socket.onmessage = function (event) {
                 if(va === 3){
                     setTimeout(function() {

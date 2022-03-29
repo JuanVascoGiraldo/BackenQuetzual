@@ -3,7 +3,7 @@ let expresiontextnumber = /^[a-zA-Z0-9àáâäãåąčćęèéêëėįìíîïł
 let expresioncontra = /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/;
 let expresionfecha = /^(\d{4})(\/|-)(\d{1,2})(\/|-)(\d{1,2})$/;
 let expresiononlytext = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð]+$/u;
-var socket = new WebSocket("ws://quetzual.herokuapp.com/Responder");
+var socket = new WebSocket("wss://quetzual.herokuapp.com/Responder");
 
 function validarcorreo(correo) {
     var validar = expresioncorreo.test(correo);
