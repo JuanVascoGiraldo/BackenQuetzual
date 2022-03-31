@@ -117,7 +117,9 @@
     <script src="./JS/sweetAlert.js"></script>
     <script src="./JS/funcionModal.js"></script>
     <script>
+        var socket2 = new WebSocket("wss://quetzual.herokuapp.com/Pregunta");
         function redeliminar(id){
+                    socket2.send("Eliminada"); 
                     location.href='./EliminarPre?id='+id
                 }      
     </script>

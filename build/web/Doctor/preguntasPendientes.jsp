@@ -95,6 +95,17 @@
             });
         }
         filtrar(1)
+        
+        
+        var socket1 = new WebSocket("wss://quetzual.herokuapp.com/Pregunta");
+        socket1.onmessage = function (event) {
+            var filtros = parseInt(document.getElementById("filtro").value);
+            if(filtros === 1){
+                setTimeout(function() {
+                        filtrar(1);
+                    }, 1000);
+            }
+        }
     </script>
 </body>
 

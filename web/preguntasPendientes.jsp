@@ -85,9 +85,11 @@
     <script src="./JS/validar.js"></script>
     <script src="./JS/sweetAlert.js"></script>
     <script>
+        var socket1 = new WebSocket("wss://quetzual.herokuapp.com/Pregunta");
         function redeliminar(id){
-                    location.href='./EliminarPre?id='+id
-                }
+                socket1.send("Eliminada");
+                location.href='./EliminarPre?id='+id
+        }
         function redModi(id){
             location.href='./modificarPregunta.jsp?id='+id
         }
@@ -103,15 +105,22 @@
         }
         
         filtrar(3);
-        console.log(va===3)
         
         var socket = new WebSocket("wss://quetzual.herokuapp.com/Responder");
         socket.onmessage = function (event) {
-                if(va === 3){
+            if(event.data.toString()=== "Respondida"){
+                if(va === 3||va === 1){
                     setTimeout(function() {
-                        filtrar(3);
+                        filtrar(va);
                     }, 1000);
                 }
+            }else if(event.data.toString()=== "Rechazada"){
+                if(va === 3 || va === 2){
+                    setTimeout(function() {
+                        filtrar(va);
+                    }, 1000);
+                }
+            }
         }
         
     </script>

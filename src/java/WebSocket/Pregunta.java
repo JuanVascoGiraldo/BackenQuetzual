@@ -10,8 +10,8 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-@ServerEndpoint("/Responder")
-public class Responder {
+@ServerEndpoint("/Pregunta")
+public class Pregunta {
 
     private static Set<Session> sessions = new CopyOnWriteArraySet<>();
     
@@ -49,4 +49,5 @@ public class Responder {
         System.out.println(e.getMessage());
         e.printStackTrace();
     }
+    
 }

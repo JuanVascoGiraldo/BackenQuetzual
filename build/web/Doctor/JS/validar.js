@@ -195,8 +195,8 @@ function ResPregunta() {
         return false;
     } else {
         document.getElementById('modalR').classList.add(isVisible);
+        socket.send("Respondida");
         setTimeout(function() {
-            socket.send("Respondida");
             document.Rpregunta.submit();
         }, 1000);
         
