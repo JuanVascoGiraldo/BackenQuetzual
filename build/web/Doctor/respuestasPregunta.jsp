@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.List"%>
 <%@page import="Control.GestionarPregunta"%>
 <%@page import="Control.GestionarPregunta"%>
@@ -31,6 +32,7 @@
         response.sendRedirect("preguntasDoctor.jsp");
     }
     boolean yares = false;
+    DecimalFormat formato2 = new DecimalFormat("#.##");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -94,7 +96,7 @@
             <h2><%=res.getFecha_res() %> </h2>
         </div>
         <div class="sub_header">
-            <h2><%=res.getCali_pro() %><p class="star">★</p> </h2>
+            <h2><%=formato2.format(res.getCali_pro()) %><p class="star">★</p> </h2>
         </div>
         <div class="respuesta">
             <div class="respuestas">

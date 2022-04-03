@@ -279,7 +279,6 @@ public class GestionarPregunta {
         try{
             JSONObject jo = new JSONObject();
             jo.put("Clave", clave);
-            jo.put("clasi", clasi);
             String url = "/quetzual/pregunta/Respondidas/Actuales";
             JSONObject jr = ConexionAPI.peticionPostJSONObject(url, jo);
             String status = jr.getString("status");
@@ -289,12 +288,22 @@ public class GestionarPregunta {
                 for(int i=0; i<ja.length(); i++){
                     JSONObject jso = ja.getJSONObject(i);
                     MPregunta pre = consultarPre(jso.getInt("id_pre"));
-                    pre.setDes_pre(jso.getString("des_pre"));
-                    pre.setFecha_pre(jso.getString("fecha_pre"));
-                    pre.setId_pre(jso.getInt("id_pre"));
-                    String fecha[] = jso.getString("fecha_nac").split("-");
-                    pre.setEdad_usu(calcularEdad(Integer.valueOf(fecha[0]),Integer.valueOf(fecha[1]), Integer.valueOf(fecha[2])));
-                    lista.add(pre);
+                    if(clasi == pre.getId_catgen()){
+                        pre.setDes_pre(jso.getString("des_pre"));
+                        pre.setFecha_pre(jso.getString("fecha_pre"));
+                        pre.setId_pre(jso.getInt("id_pre"));
+                        String fecha[] = jso.getString("fecha_nac").split("-");
+                        pre.setEdad_usu(calcularEdad(Integer.valueOf(fecha[0]),Integer.valueOf(fecha[1]), Integer.valueOf(fecha[2])));
+                        lista.add(pre);
+                    }else if(clasi == 0){
+                        pre.setDes_pre(jso.getString("des_pre"));
+                        pre.setFecha_pre(jso.getString("fecha_pre"));
+                        pre.setId_pre(jso.getInt("id_pre"));
+                        String fecha[] = jso.getString("fecha_nac").split("-");
+                        pre.setEdad_usu(calcularEdad(Integer.valueOf(fecha[0]),Integer.valueOf(fecha[1]), Integer.valueOf(fecha[2])));
+                        lista.add(pre);
+                    }
+                    
                 }
             }
         }catch(Exception e){
@@ -534,8 +543,7 @@ public class GestionarPregunta {
             if(status.equals("Encontradas")){
                 JSONArray ja = jr.getJSONArray("datos");
                 pre.setCantidadRes(ja.length());
-                JSONObject cat = ja.getJSONObject(0);
-                pre.setId_catgen(cat.getInt("id_cat"));
+                pre.setId_catgen(ja.getJSONObject(0).getInt("id_cat"));
             }
         }catch(Exception e){
             System.out.println(e.getMessage());

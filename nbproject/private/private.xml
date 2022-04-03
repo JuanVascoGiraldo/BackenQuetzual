@@ -3,16 +3,24 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/Doctor/preguntasPendientes.jsp</file>
+            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/Administrador/consultarHistorico.jsp</file>
             <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/modificarPregunta.jsp</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/WebSocket/Pregunta.java</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/JS/validar.js</file>
+            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/Doctor/respuestasPregunta.jsp</file>
+            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Filtro/FiltroCat.java</file>
+            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/respuestasPregunta.jsp</file>
             <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/Doctor/JS/validar.js</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/WebSocket/Responder.java</file>
+            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Control/GestionarPregunta.java</file>
+            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/Doctor/cuentaDoctor.jsp</file>
             <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/preguntasPendientes.jsp</file>
             <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Control/ConexionAPI.java</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/Doctor/rechazarPregunta.jsp</file>
             <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Filtro/Filtropre.java</file>
+            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/Doctor/preguntasPendientes.jsp</file>
+            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/WebSocket/Pregunta.java</file>
+            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Filtro/FilHistAdm.java</file>
+            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/JS/validar.js</file>
+            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/WebSocket/Responder.java</file>
+            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/Doctor/rechazarPregunta.jsp</file>
+            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Filtro/FilHist.java</file>
         </group>
     </open-files>
 </project-private>

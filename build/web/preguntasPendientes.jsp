@@ -121,6 +121,7 @@
                     }, 1000);
                 }
             }
+            console.log(event.data.toString())
         }
         
     </script>

@@ -9,6 +9,7 @@ import Modelo.MRespuesta;
 import Modelo.MUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -60,6 +61,7 @@ public class FilHist extends HttpServlet {
                             out.println("<img src=\"./img/sinhis.svg\">");
                         out.println("</div>");
                     }else{
+                        DecimalFormat formato2 = new DecimalFormat("#.##");
                         for(MPublicacion pu: publi){
                             MPregunta pre = pu.getPregunta();
                             MRespuesta res = pu.getRespuesta();
@@ -81,7 +83,7 @@ public class FilHist extends HttpServlet {
                                                out.println("Anticonceptivos");
                                             }
                                         out.println("</h2>");
-                                        out.println("<h2>"+res.getCali_pro());
+                                        out.println("<h2>"+formato2.format(res.getCali_pro()));
                                             out.println("<p class=\"star\">★</p>");
                                         out.println("</h2>");
                                     out.println("</div>");
@@ -106,7 +108,7 @@ public class FilHist extends HttpServlet {
                                 j++;
                                 out.println("<div class=\"card\">");
                                     out.println("<div class=\"mini_header2\">");
-                                        out.println("<h2><"+res.getFecha_res()+"</h2>");
+                                        out.println("<h2>"+res.getFecha_res()+"</h2>");
                                     out.println("</div>");
                                     out.println("<div class=\"pregunta2\">");
                                         out.println("<img src=\"./img/bxs-user.svg\" alt=\"\">");

@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.List"%>
 <%@page import="Control.GestionarPregunta"%>
 <%@page import="Control.GestionarPregunta"%>
@@ -94,7 +95,7 @@
                     if(pre.getId_estado() == 2){
                         totalp++;
                         totalcali += res.getCali_pro();
-                        totalp = GestionarUsuario.Calculardia(pre.getFecha_pre(), res.getFecha_res());
+                        totald = GestionarUsuario.Calculardia(pre.getFecha_pre(), res.getFecha_res());
             
             %>
             <div class="card">
@@ -203,10 +204,11 @@
                         }
                         
                         List<MUsuario> us = GestionarUsuario.puntdoc(id);
+                        DecimalFormat formato2 = new DecimalFormat("#.##");
 
                         %>
                     <h3>Tiempo Promedio de respuesta:<%=valor%> </h3>
-                    <h3>Calificación Promedio de respuestas:<%=totalca %></h3>
+                    <h3>Calificación Promedio de respuestas:<%=formato2.format(totalca) %><p class="star">★</p></h3>
                 </div>
                 <div></div>
                 <div></div>

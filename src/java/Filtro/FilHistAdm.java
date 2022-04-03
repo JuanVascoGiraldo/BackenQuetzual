@@ -14,6 +14,7 @@ import Modelo.MRespuesta;
 import Modelo.MUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -67,6 +68,7 @@ public class FilHistAdm extends HttpServlet {
                                     out.println("<img src=\"./img/sinhis.svg\">");
                                 out.println("</div>");
                             }else{
+                                DecimalFormat formato2 = new DecimalFormat("#.##");
                                 MUsuario usus = GestionarUsuario.consultarDoctor(id, usu.getClave(), usu.getToken());
                                 for(MPublicacion pu: publi){
                                     MPregunta pre = pu.getPregunta();
@@ -89,7 +91,7 @@ public class FilHistAdm extends HttpServlet {
                                                            out.println("Anticonceptivos");
                                                         }
                                                     out.println("</h2>");
-                                                    out.println("<h2>"+res.getCali_pro());
+                                                    out.println("<h2>"+formato2.format(res.getCali_pro()));
                                                         out.println("<p class=\"star\">★</p>");
                                                     out.println("</h2>");
                                                 out.println("</div>");

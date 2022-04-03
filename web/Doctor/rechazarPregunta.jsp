@@ -114,8 +114,8 @@
         </div>
     </div>
     <script>
+        var socket1 = new WebSocket("wss://quetzual.herokuapp.com/Responder");
         function conf(){
-            var socket1 = new WebSocket("wss://quetzual.herokuapp.com/Responder");
             socket1.send("Rechazada");
             document.rechazarPre.submit();
         }
