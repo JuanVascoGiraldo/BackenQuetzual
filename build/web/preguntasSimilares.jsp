@@ -108,7 +108,7 @@
         <div class="pregunta">
             <img src="./img/bxs-user.svg" alt="">
             <div class="preguntas">
-                <h3>¿<%=pres.getDes_pre() %>?</h3>
+                <h3><%=pres.getDes_pre()%></h3>
             </div>
         </div>
         <div class="respuesta">

@@ -97,7 +97,7 @@
                 <textarea name="pre" id="Mpregunta" class="area" placeholder="Escribe aquí tu pregunta"><%=pre.getDes_pre() %></textarea>
             </div>
             <div class="flex">
-                <button class="cs" data-open="modalR" onclick="redeliminar(<%=pre.getId_pre() %>)">Eliminar pregunta</button>
+                <button type="button" class="cs" data-open="modalR" onclick="redeliminar(<%=pre.getId_pre() %>)">Eliminar pregunta</button>
                 <button type="button" class="question" onclick="MPregunta()">Guardar cambios</button>
             </div>
         </form>
@@ -121,7 +121,7 @@
         function redeliminar(id){
                     socket2.send("Eliminada"); 
                     location.href='./EliminarPre?id='+id
-                }      
+            }      
     </script>
 </body>
 

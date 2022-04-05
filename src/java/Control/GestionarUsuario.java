@@ -236,14 +236,14 @@ public class GestionarUsuario {
            JSONObject jr = ConexionAPI.peticionPostJSONObjectcontoken(url, jo, token);
            String status = jr.getString("status");
            if(status.equals("Encontrados")){
-               JSONArray ja  = jr.getJSONArray("datos");
-               for(int i=0; i<ja.length(); i++){
-                   JSONObject doc = ja.getJSONObject(i);
-                   MUsuario usu = new MUsuario();
-                   usu.setNom_usu(Cifrado.decrypt(doc.getString("nom_usu")));
-                   usu.setId_usu(doc.getInt("id_usu"));
-                   docs.add(usu);
-               }
+                JSONArray ja  = jr.getJSONArray("datos");
+                for(int i=0; i<ja.length(); i++){
+                    JSONObject doc = ja.getJSONObject(i);
+                    MUsuario usu = new MUsuario();
+                    usu.setNom_usu(Cifrado.decrypt(doc.getString("nom_usu")));
+                    usu.setId_usu(doc.getInt("id_usu"));
+                    docs.add(usu);
+                }
            }
        }catch(Exception e){
             System.out.println(e.getMessage());
@@ -280,23 +280,26 @@ public class GestionarUsuario {
         ArrayList<MUsuario> docs = new ArrayList<MUsuario>();
         try{
             List<MUsuario> usua = BuscarDoctoresrank(Clave, token);
-            String url = "/quetzual/usuario/Ranking/Historico";
+            List<MUsuario> punt = BuscarPuntosrank(Clave);
             for(MUsuario u:usua){
-                JSONObject jo = new JSONObject();
-                jo.put("clave", Clave);
-                jo.put("id", u.getId_usu());
-                JSONObject ja = ConexionAPI.peticionPostJSONObject(url, jo);
-                String status = ja.getString("status");
-                MUsuario usu = new MUsuario();
-                if(status.equals("Datos")){
-                  usu.setPuntos(ja.getInt("total"));
-                  usu.setNom_usu(u.getNom_usu());
-                  docs.add(usu);
-                }else{
-                    usu.setPuntos(0);
-                    usu.setNom_usu(u.getNom_usu());
-                    docs.add(usu);
+                ArrayList<Integer> in = new ArrayList<Integer>();
+                MUsuario us = new MUsuario();
+                us.setId_usu(u.getId_usu());
+                us.setNom_usu(u.getNom_usu());
+                int pun = 0;
+                for(int j=0; j<punt.size();j++){
+                    MUsuario e= punt.get(j);
+                    if(e.getId_usu() == us.getId_usu()){
+                        pun += e.getPuntos();
+                        in.add(j);
+                    }
                 }
+                for(int j=in.size()-1; j>=0;j--){
+                    int ind = in.get(j);
+                    punt.remove(ind);
+                }
+                us.setPuntos(pun);
+                docs.add(us);
             }
         }catch(Exception e){
             System.out.println(e.getMessage());
@@ -837,6 +840,29 @@ public class GestionarUsuario {
             System.out.println(e.getMessage());
         }
         return dias;
+    }
+
+    private static List<MUsuario> BuscarPuntosrank(String Clave) {
+        List<MUsuario> punt = new ArrayList<MUsuario>();
+        try{
+            JSONObject jo = new JSONObject();
+            jo.put("clave", Clave);
+            String url = "/quetzual/usuario/Ranking/Historico/Actualizado";
+            JSONObject js = ConexionAPI.peticionPostJSONObject(url, jo);
+            String estatus = js.getString("status");
+            if(estatus.equals("Encontrados")){
+                JSONArray ja = js.getJSONArray("Datos");
+                for(int i=0;i<ja.length();i++){
+                    MUsuario usu = new MUsuario();
+                    usu.setId_usu(ja.getJSONObject(i).getInt("id_usudoc"));
+                    usu.setPuntos(ja.getJSONObject(i).getInt("cant_punt"));
+                    punt.add(usu);
+                }
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return punt;
     }
     
     
