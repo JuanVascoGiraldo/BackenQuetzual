@@ -50,20 +50,24 @@
             <img src="./img//Logo.png" alt="Logotipo oficial de Quetzual" class="logo">
             <article><b>QUETZUAL</b></article>
             <div class="menu">
-                <a href="./cuentaDoctor.jsp">
-                    <img src="./img/bx-user-circle.png" width="40" alt="Signo de pregunta" class="svg">
-                </a>
-                <a href="./preguntasPendientes.jsp">
-                    <img src="./img/bx-edit.png" alt="Imagen ">
-                </a>
-                <a href="./ranking.jsp">
-                    <img src="./img/bx-line-chart.png" alt="Signo de editar" class="svg">
-                </a>
-                <a href="../CerrarSesion">
-                    <img src="./img/salir.png" alt="Signo de pregunta" class="svg">
+                <a href="./cuentaDoctor.jsp" style="margin-right: 2%; margin-left: 2%;">
+                    <article style="font-size: 20px;">Cuenta</article>
                 </a>
                 &nbsp;
                 &nbsp;
+                <a href="./preguntasPendientes.jsp" style="margin-right: 2%; margin-left: 2%;">
+                    <article style="font-size: 20px;">Preguntas</article>
+                </a>
+                &nbsp;
+                &nbsp;
+                <a href="./ranking.jsp" style="margin-right: 2%; margin-left: 2%;">
+                    <article style="font-size: 20px;">Ranking</article>
+                </a>
+                &nbsp;
+                &nbsp;
+                <a href="../CerrarSesion" style="margin-right: 2%; margin-left: 2%;">
+                    <img src="./img/salir.png" alt="Salir" class="svg">
+                </a>
                 &nbsp;
                 &nbsp;
 

@@ -56,20 +56,24 @@
             <img src="./img//Logo.png" alt="Logotipo oficial de Quetzual" class="logo">
             <article><b>QUETZUAL</b></article>
             <div class="menu">
-                <a href="./sesionUsuario.jsp">
-                    <img src="./img/bx-home.png" alt="Imagen ">
+                <a href="./sesionUsuario.jsp" style="margin-right: 2%; margin-left: 2%;">
+                    <article style="font-size: 20px;">Inicio</article>
                 </a>
-                <a href="./cuenta.jsp">
-                    <img src="./img/bx-user-circle.png" width="40" alt="Signo de pregunta" class="svg">
+                &nbsp;
+                &nbsp;
+                <a href="./cuenta.jsp" style="margin-right: 2%; margin-left: 2%;">
+                    <article style="font-size: 20px;">Cuenta</article>
                 </a>
-                <a href="./hacerPregunta.jsp">
-                    <img src="./img/bx-edit-alt.png" alt="Signo de editar" class="svg">
+                &nbsp;
+                &nbsp;
+                <a href="./hacerPregunta.jsp" style="margin-right: 2%; margin-left: 2%;" >
+                    <article style="font-size: 20px;">Preguntar</article>
                 </a>
-                <a href="CerrarSesion">
+                &nbsp;
+                &nbsp;
+                <a href="CerrarSesion" style="margin-right: 2%; margin-left: 2%;">
                     <img src="./img/salir.png" alt="Signo de pregunta" class="svg">
                 </a>
-                &nbsp;
-                &nbsp;
                 &nbsp;
                 &nbsp;
             </div>
@@ -104,7 +108,7 @@
     </div>
     <div class="modal" id="modalR">
         <div class="card">
-            <article>
+            <article style="color:black">
                 <b>
                     Cuidado, esta acción será permanente, una vez eliminada la pregunta todos los datos no podrán recuperarse.¿Desea continuar?
                 </b>

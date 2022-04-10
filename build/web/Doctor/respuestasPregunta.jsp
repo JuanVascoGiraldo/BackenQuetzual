@@ -62,20 +62,24 @@
             <img src="./img//Logo.png" alt="Logotipo oficial de Quetzual" class="logo">
             <article><b>QUETZUAL</b></article>
             <div class="menu">
-                <a href="./inicioDoctor.jsp">
-                    <img src="./img/bx-home.png" alt="Simbolo de usuario " class="svg ">
+                <a href="./inicioDoctor.jsp" style="margin-right: 2%; margin-left: 2%;">
+                    <article style="font-size: 20px;">Inicio</article>
                 </a>
-                <a href="./cuentaDoctor.jsp">
-                    <img src="./img/bx-user-circle.png" width="40" alt="Signo de pregunta" class="svg">
+                &nbsp;
+                &nbsp;
+                <a href="./cuentaDoctor.jsp" style="margin-right: 2%; margin-left: 2%;">
+                    <article style="font-size: 20px;">Cuenta</article>
                 </a>
-                <a href="./ranking.jsp">
-                    <img src="./img/bx-line-chart.png" alt="Signo de editar" class="svg">
+                &nbsp;
+                &nbsp;
+                <a href="./ranking.jsp" style="margin-right: 2%; margin-left: 2%;">
+                    <article style="font-size: 20px;">Ranking</article>
                 </a>
-                <a href="../CerrarSesion">
+                &nbsp;
+                &nbsp;
+                <a href="../CerrarSesion" style="margin-right: 2%; margin-left: 2%;">
                     <img src="./img/salir.png" alt="Signo de pregunta" class="svg">
                 </a>
-                &nbsp;
-                &nbsp;
                 &nbsp;
                 &nbsp;
             </div>
