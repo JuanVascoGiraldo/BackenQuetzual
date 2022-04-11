@@ -104,6 +104,14 @@
             </div>
         </div>
     </div>
+    <div id="chat-circle" class="btn btn-raised" onclick="soporte()">
+        <img src="./img/bx-question-mark.svg" class="ima">
+	</div>
+    <script>
+        function soporte(){
+            location.href = "./chat/index.html"
+        }
+    </script>
     <footer class="footer ">
         Tecnologia administrativa creativa y operadora de software
     </footer>

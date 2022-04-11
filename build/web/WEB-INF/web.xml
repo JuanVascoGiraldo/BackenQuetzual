@@ -116,6 +116,10 @@
         <servlet-name>FilHistAdm</servlet-name>
         <servlet-class>Filtro.FilHistAdm</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CorreoSoporte</servlet-name>
+        <servlet-class>Servlets.CorreoSoporte</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistrarUsuario</servlet-name>
         <url-pattern>/RegistrarUsuario</url-pattern>
@@ -231,6 +235,10 @@
     <servlet-mapping>
         <servlet-name>FilHistAdm</servlet-name>
         <url-pattern>/FilHistAdm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CorreoSoporte</servlet-name>
+        <url-pattern>/CorreoSoporte</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

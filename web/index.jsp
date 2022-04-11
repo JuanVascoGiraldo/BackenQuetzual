@@ -109,7 +109,7 @@
 	</div>
     <script>
         function soporte(){
-            localion.href = "./chat/index.html"
+            location.href = "./chat/index.html"
         }
     </script>
     <footer class="footer ">

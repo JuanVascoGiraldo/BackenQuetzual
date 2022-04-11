@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600;700&display=swap');
+* {
+    font-family: 'Raleway', sans-serif;
+}
+.footer {
+    font-size: 1.25rem;
+    background-color: #9CD5FF;
+    text-align: center;
+    padding: 10px;
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+    position: fixed;
+}
+
+.alinear {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/*Responsive XDXD*/
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 40px;
+}
+
+
+.main-content {
+    text-align: center;
+    margin: 2px;
+}
+
+img {
+    width: 50%;
+}
+
+.main-text {
+    color: #ffffff;
+    font-size: 20px;
+}
+
+.form {
+    margin: none;
+    text-align: center;
+    padding: 4px;
+    border-radius: 5px;
+    box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.25);
+    font-size: 1.40rem;
+}
+
+
+a {
+    text-decoration: none;
+    color: #000000;
+    font-size: 15px;
+}
+
+a:visited {
+    color: #000000;
+}
+.Registro {
+    background-color: #AAFACE;
+    width: 40%;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #AAFACE;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: var(--black);
+    cursor: pointer;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.35s ease-in;
+    background-color: #bebabac9;
+}
+
+.modal {
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.35s ease-in;
+}
+
+.modal.is-visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+.card {
+    background-color: #363636;
+    border-radius: 5px;
+    box-shadow: 1px 2px 8px #0000008a;
+    padding: 1%;
+    width: 95%;
+    max-width: 600px;
+    margin: auto;
+    text-align: center;
+    cursor: default;
+}
+
+.sendcorreo {
+    background-color: white;
+    padding: 10px;
+    width: 90%;
+    max-width: 400px;
+    margin: 15px auto;
+    border-radius: 5px;
+    border: 1px solid #BCBCBC;
+}
+
+.area {
+    background-color: #E3E3E3;
+    width: 90%;
+    min-width: 250px;
+    max-width: 600px;
+    box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.602);
+    resize: none;
+    height: 100px;
+    margin: 10px auto;
+}
+
+.article1{
+    color: white;
+}

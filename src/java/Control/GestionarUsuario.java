@@ -865,5 +865,27 @@ public class GestionarUsuario {
         return punt;
     }
     
+    public static boolean Soporte(String correo, String fecha, String tema, String duda){
+        //correo, fecha, duda, tema
+        try{
+            JSONObject jo = new JSONObject();
+            jo.put("correo", correo);
+            jo.put("fecha", fecha);
+            jo.put("duda", duda);
+            jo.put("tema", tema);
+            String url = "/quetzual/usuario/Soporte";
+            JSONObject js = ConexionAPI.peticionPostJSONObject(url, jo);
+            String estatus = js.getString("status");
+            if(estatus.equals("Enviados")){
+                return true;
+            }else{
+                return false;
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    
     
 }
