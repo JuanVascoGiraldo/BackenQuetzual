@@ -4,6 +4,18 @@ let expresioncontra = /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/;
 let expresionfecha = /^(\d{4})(\/|-)(\d{1,2})(\/|-)(\d{1,2})$/;
 let expresiononlytext = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð]+$/u;
 var socket1 = new WebSocket("wss://quetzual.herokuapp.com/Pregunta");
+var loading = "<script>"+
+           "Swal.fire({"+
+            "title: 'Datos enviados',"+
+            "html: 'Los datos fueron enviados espere un momento',"+
+           "timer: 10000,"+
+            "timerProgressBar: true,"+
+            "didOpen: () => {"+
+              "Swal.showLoading()"+
+            "}"+
+          "})"+
+    "</script>";
+
 
 function validarcorreo(correo) {
     var validar = expresioncorreo.test(correo);
@@ -126,6 +138,8 @@ function registrarr() {
             text: 'Las contraseñas no coinciden'
         });
     } else if (validarsexo(sexo) && validarfecha(fecha) && validarnombre(nombre) && validarcorreo(email) && validarcontrasena(pass)) {
+        $('#cambiar1').html(loading);
+        
         $.post('RegistrarUsuario', {
                 nombre: nombre,
                 correo: email,
@@ -217,6 +231,7 @@ function ResPregunta() {
 function ReContra(){
     var correo = document.recuperar.email.value;
     if(validarcorreo(correo)){
+        $('#cambiar2').html(loading);
         $.post('RecuperarContra', {
                 email: correo
         }, function(responseText) {
@@ -228,6 +243,7 @@ function ReContra(){
 function ModCorreo(){
     var correo = document.modemail.correo.value;
     if(validarcorreo(correo)){
+        $('#cambiar').html(loading);
         $.post('ModiCorreo', {
                 correo: correo
         }, function(responseText) {
