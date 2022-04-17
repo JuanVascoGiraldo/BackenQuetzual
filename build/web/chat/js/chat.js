@@ -185,6 +185,7 @@ function inicialtext(){
     '<li class="input__nested-list"><span class="bot__command">Pagina</span></li>'+
     '<li class="input__nested-list"><span class="bot__command">Privacidad</span></li>'+
     '<li class="input__nested-list"><span class="bot__command">Doctores</span></li>'+
+    '<li class="input__nested-list"><span class="bot__command">Contacto</span></li>'+
   '</ul>';
 
   chatList.appendChild(response);
@@ -294,6 +295,14 @@ var possibleInput = {
     commandReset(2);
     return
     },
+    "contacto" : function(){
+        responseText("Puedes tener contacto con nosotros mediante el correo quetzual@gmail.com");
+        responseText("Salir")
+    return
+    },
+    "salir": function(){
+    return
+  },
 }
 
 var reactionInput = {
@@ -373,20 +382,3 @@ var salirInput = {
     return
   },
 }
-
-/*"best work" : function(){
-    //Redirects you to a different page after 3 secs
-    responseText("On this GitHub page you'll find everything about Navvy");
-    responseText("<a href='https://github.com/meesrutten/chatbot'>Navvy on GitHub</a>")
-    animationCounter = 1;
-    return
-  },
-  "about" : function(){
-    responseText("Things I want to learn or do:");
-    responseText("Get great at CSS & JS animation");
-    responseText("Create 3D browser experiences");
-    responseText("Learn Three.js and WebGL");
-    responseText("Combine Motion Design with Front-End");
-    animationCounter = 1;
-    return
-    }*/
