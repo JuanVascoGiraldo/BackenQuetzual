@@ -10,8 +10,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class ConexionAPI {
-    public static final String url = "https://apiquetzual.herokuapp.com";
-    //public static final String url = "http://localhost:4000";
+   public static final String url = "http://137.184.233.135:4000";
+    // public static final String url = "http://localhost:4000";
     
     public static JSONObject peticionPostJSONObject(String urll, JSONObject data)throws Exception{
         String charset = "UTF-8"; 

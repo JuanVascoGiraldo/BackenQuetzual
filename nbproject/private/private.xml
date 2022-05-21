@@ -3,10 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/chat/js/chat.js</file>
+            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/index.jsp</file>
+            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Control/GestionarPregunta.java</file>
+            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Modelo/CCategoria.java</file>
+            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Servlets/IniciarSesion.java</file>
             <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Control/ConexionAPI.java</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/src/java/Filtro/Filtropre.java</file>
-            <file>file:/C:/Users/Juanv/Desktop/QuetzualWeb/web/chat/index.html</file>
         </group>
     </open-files>
 </project-private>
