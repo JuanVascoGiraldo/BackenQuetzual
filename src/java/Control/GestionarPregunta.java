@@ -98,7 +98,7 @@ public class GestionarPregunta {
                     MPregunta pre = new MPregunta();
                     MRespuesta res = new MRespuesta();
                     pre.setDes_pre(jason.getString("des_pre"));
-                    pre.setFecha_pre(jason.getString("fecha_pre"));
+                    pre.setFecha_pre(jason.getString("Fecha_pre"));
                     res.setDes_res(jason.getString("des_res"));
                     res.setFecha_res(jason.getString("fecha_res"));
                     MPublicacion publi = new MPublicacion();
@@ -214,7 +214,7 @@ public class GestionarPregunta {
             jo.put("pregunta", pre.getDes_pre());
             jo.put("clave", clave);
             jo.put("categoria", res.getId_cat());
-            jo.put("puntos", puntos);
+            jo.put("Puntos", puntos);
             String url = "/quetzual/respuesta/Pregunta/Responder";
             JSONObject jr = ConexionAPI.peticionPostJSONObjectcontoken(url, jo, token);
             String status = jr.getString("status");
@@ -290,14 +290,14 @@ public class GestionarPregunta {
                     MPregunta pre = consultarPre(jso.getInt("id_pre"));
                     if(clasi == pre.getId_catgen()){
                         pre.setDes_pre(jso.getString("des_pre"));
-                        pre.setFecha_pre(jso.getString("fecha_pre"));
+                        pre.setFecha_pre(jso.getString("Fecha_pre"));
                         pre.setId_pre(jso.getInt("id_pre"));
                         String fecha[] = jso.getString("fecha_nac").split("-");
                         pre.setEdad_usu(calcularEdad(Integer.valueOf(fecha[0]),Integer.valueOf(fecha[1]), Integer.valueOf(fecha[2])));
                         lista.add(pre);
                     }else if(clasi == 0){
                         pre.setDes_pre(jso.getString("des_pre"));
-                        pre.setFecha_pre(jso.getString("fecha_pre"));
+                        pre.setFecha_pre(jso.getString("Fecha_pre"));
                         pre.setId_pre(jso.getInt("id_pre"));
                         String fecha[] = jso.getString("fecha_nac").split("-");
                         pre.setEdad_usu(calcularEdad(Integer.valueOf(fecha[0]),Integer.valueOf(fecha[1]), Integer.valueOf(fecha[2])));
@@ -355,7 +355,7 @@ public class GestionarPregunta {
                     pre.setId_pre(jason.getInt("id_pre"));
                     pre.setId_estado(jason.getInt("id_estado"));
                     pre.setDes_pre(jason.getString("des_pre"));
-                    pre.setFecha_pre(jason.getString("fecha_pre"));
+                    pre.setFecha_pre(jason.getString("Fecha_pre"));
                     res.setDes_res(jason.getString("des_res"));
                     res.setFecha_res(jason.getString("fecha_res"));
                     res.setId_cat(jason.getInt("id_cat"));
@@ -455,7 +455,7 @@ public class GestionarPregunta {
                     JSONObject jso= ja.getJSONObject(i);
                     MPregunta pre = consultarPre(jso.getInt("id_pre"));
                     pre.setDes_pre(jso.getString("des_pre"));
-                    pre.setFecha_pre(jso.getString("fecha_pre"));
+                    pre.setFecha_pre(jso.getString("Fecha_pre"));
                     pre.setId_pre(jso.getInt("id_pre"));
                     String fecha[] = jso.getString("fecha_nac").split("-");
                     pre.setEdad_usu(calcularEdad(Integer.valueOf(fecha[0]),Integer.valueOf(fecha[1]), Integer.valueOf(fecha[2])));
